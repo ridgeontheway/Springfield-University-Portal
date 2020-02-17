@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = {
-    entry: './src/main/front/App.js',
+    entry: './src/main/front/Components/App.js',
     devtool: 'sourcemaps',
     cache: true,
     mode: 'development',
@@ -20,6 +20,14 @@ module.exports = {
                         presets: ["@babel/preset-env", "@babel/preset-react"]
                     }
                 }]
+            },
+            {
+                test: /\.less$/,
+                loaders: ["style-loader", "css-loader", "less-loader"]
+            },
+            {
+                test: /\.css$/,
+                loaders: ["style-loader", "css-loader"]
             }
         ]
     }
