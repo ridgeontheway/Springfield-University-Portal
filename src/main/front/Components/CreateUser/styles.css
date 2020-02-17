@@ -1,0 +1,9 @@
+.createUser {
+    color: aliceblue;
+    font-size: medium;
+    text-align: center;
+}
+
+.createUser:hover {
+    text-decoration: underline;
+}

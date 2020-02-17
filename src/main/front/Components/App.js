@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import LoginScreen from '../Modules/Login'
 
-class App extends React.Component {
+class App extends Component {
     render() {
         return (
-            <h2>Hello World??</h2>
+            <LoginScreen/>
         )
     }
 }
