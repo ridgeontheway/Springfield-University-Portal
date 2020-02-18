@@ -5,7 +5,7 @@
 Before running the application, a local MySQL Database needs to be created.
 
 ### MySQL Setup
-**Step 1:** Ensure MySQL is intalled, and open a shell
+**Step 1:** Ensure MySQL is installed, and open a shell
 
 **Step 2:** Create DB
 
