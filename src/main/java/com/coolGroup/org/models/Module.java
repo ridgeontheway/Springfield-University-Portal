@@ -1,7 +1,7 @@
 package com.coolGroup.org.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -21,8 +21,8 @@ public class Module {
     private int current_number_enrolled;
     private int max_number_enrolled;
 
-    @JsonManagedReference
     @ManyToMany(mappedBy = "modules")
+    @JsonIgnore
     Set<Student> students;
 
     public Module() {}
