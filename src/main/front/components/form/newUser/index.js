@@ -7,6 +7,7 @@ import '../styles.css'
 
 export default class NewUserForm extends Component {
   async handleOnClick (event) {
+    event.preventDefault()
     const _name = event.target.elements.name.value
     const _surname = event.target.elements.surname.value
     const _email = event.target.elements.email.value
@@ -15,10 +16,9 @@ export default class NewUserForm extends Component {
     const _gender = event.target.elements.gender.value
     if (this.props.handleOnMissingData(_name, _surname, _email, _phone)) {
       try {
-        const response = await fetch('http://localhost:8080/api/students', {
+        fetch('http://localhost:8080/api/students', {
           method: 'POST',
           headers: {
-            Accept: 'application/json',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
@@ -30,9 +30,14 @@ export default class NewUserForm extends Component {
             gender: _gender,
             nationality: 'American'
           })
+        }).then(response => {
+          console.log('this is the content: ')
+          console.log(response)
+        }).catch(err => {
+          console.log('we are getting an error: ')
+          console.error(err)
         })
-        const content = await response.json()
-        console.log('this is the content= ', content)
+
       } catch (err) {
         console.error({ err })
       }

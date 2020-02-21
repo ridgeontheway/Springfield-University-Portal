@@ -45687,12 +45687,13 @@ function (_Component) {
       var _handleOnClick = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee(event) {
-        var _name, _surname, _email, _address, _phone, _gender, response, content;
+        var _name, _surname, _email, _address, _phone, _gender;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                event.preventDefault();
                 _name = event.target.elements.name.value;
                 _surname = event.target.elements.surname.value;
                 _email = event.target.elements.email.value;
@@ -45700,62 +45701,45 @@ function (_Component) {
                 _phone = event.target.elements.phone.value;
                 _gender = event.target.elements.gender.value;
 
-                if (!this.props.handleOnMissingData(_name, _surname, _email, _phone)) {
-                  _context.next = 22;
-                  break;
+                if (this.props.handleOnMissingData(_name, _surname, _email, _phone)) {
+                  try {
+                    isomorphic_fetch__WEBPACK_IMPORTED_MODULE_4___default()('http://localhost:8080/api/students', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify({
+                        name: _name,
+                        surname: _surname,
+                        email: _email,
+                        address: _address,
+                        phone_number: _phone,
+                        gender: _gender,
+                        nationality: 'American'
+                      })
+                    }).then(function (response) {
+                      console.log('this is the content: ');
+                      console.log(response);
+                    })["catch"](function (err) {
+                      console.log('we are getting an error: ');
+                      console.error(err);
+                    });
+                  } catch (err) {
+                    console.error({
+                      err: err
+                    });
+                  }
+                } else {
+                  // TODO: look at this and display some pop-up message
+                  console.log('invalid data!!!');
                 }
 
-                _context.prev = 7;
-                _context.next = 10;
-                return isomorphic_fetch__WEBPACK_IMPORTED_MODULE_4___default()('http://localhost:8080/api/students', {
-                  method: 'POST',
-                  headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({
-                    name: _name,
-                    surname: _surname,
-                    email: _email,
-                    address: _address,
-                    phone_number: _phone,
-                    gender: _gender,
-                    nationality: 'American'
-                  })
-                });
-
-              case 10:
-                response = _context.sent;
-                _context.next = 13;
-                return response.json();
-
-              case 13:
-                content = _context.sent;
-                console.log('this is the content= ', content);
-                _context.next = 20;
-                break;
-
-              case 17:
-                _context.prev = 17;
-                _context.t0 = _context["catch"](7);
-                console.error({
-                  err: _context.t0
-                });
-
-              case 20:
-                _context.next = 23;
-                break;
-
-              case 22:
-                // TODO: look at this and display some pop-up message
-                console.log('invalid data!!!');
-
-              case 23:
+              case 8:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[7, 17]]);
+        }, _callee, this);
       }));
 
       function handleOnClick(_x) {
