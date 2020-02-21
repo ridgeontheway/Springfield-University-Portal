@@ -13,8 +13,11 @@
         "SharedArrayBuffer": "readonly"
     },
     "parserOptions": {
+        "parser": "babel-eslint",
         "ecmaFeatures": {
-            "jsx": true
+            "jsx": true,
+            "modules": true,
+            "experimentalObjectRestSpread": true
         },
         "ecmaVersion": 2018,
         "sourceType": "module"
