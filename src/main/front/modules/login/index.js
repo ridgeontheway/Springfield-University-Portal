@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Screen from './Screen'
+import PropTypes from 'prop-types'
 
 export default class LoginScreen extends Component {
-  render () {
+  render() {
     return (
-      <div className='backgroundDiv'>
-        <Screen />
+      <div className="backgroundDiv">
+        <Screen handleRegisterClicked={this.props.OnRegisterClicked} />
       </div>
     )
   }
+}
+
+LoginScreen.propTypes = {
+  OnRegisterClicked: PropTypes.func.isRequired
 }

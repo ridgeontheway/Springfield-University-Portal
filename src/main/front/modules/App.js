@@ -1,18 +1,37 @@
 import React, { Component } from 'react'
-import fetch from 'isomorphic-fetch'
 
 import CreateUserScreen from './createUser'
+import LoginScreen from './login'
 
 export default class App extends Component {
-  async componentDidMount () {
-    const response = await fetch('http://localhost:8080/api/students', { method: 'GET' })
-    const body = await response.json()
-    console.log(body)
+  constructor(props) {
+    super(props)
+    this.state = {
+      userRegistered: false
+    }
+    this.userRegistrationCompleted = this.userRegistrationCompleted.bind(this)
+    this.userRegistrationUnFinished = this.userRegistrationUnFinished.bind(this)
   }
 
-  render () {
+  userRegistrationCompleted() {
+    this.setState({ userRegistered: true })
+  }
+
+  userRegistrationUnFinished() {
+    this.setState({ userRegistered: false })
+  }
+
+  render() {
     return (
-      <CreateUserScreen />
+      <div>
+        {this.state.userRegistered ? (
+          <LoginScreen OnRegisterClicked={this.userRegistrationUnFinished} />
+        ) : (
+          <CreateUserScreen
+            OnUserRegistrationComplete={this.userRegistrationCompleted}
+          />
+        )}
+      </div>
     )
   }
 }

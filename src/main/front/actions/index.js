@@ -1,26 +1,38 @@
-import axios from 'axios'
-const USER_API_BASE_URL = 'http://localhost:8080/students'
+import fetch from 'isomorphic-fetch'
+import { CREATE_USER } from './types'
 
-class ApiService {
-  fetchUsers () {
-    return axios.get(USER_API_BASE_URL)
-  }
-
-  fetchUserById (userId) {
-    return axios.get(USER_API_BASE_URL + '/' + userId)
-  }
-
-  deleteUser (userId) {
-    return axios.delete(USER_API_BASE_URL + '/' + userId)
-  }
-
-  addUser (user) {
-    return axios.post('' + USER_API_BASE_URL, user)
-  }
-
-  editUser (user) {
-    return axios.put(USER_API_BASE_URL + '/' + user.id, user)
-  }
+export const createUser = (
+  _name,
+  _surname,
+  _email,
+  _address,
+  _phone,
+  _gender,
+  _nationality
+) => async dispatch => {
+  console.log('we should be calling the action now!')
+  fetch('http://localhost:8080/api/students', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: _name,
+      surname: _surname,
+      email: _email,
+      address: _address,
+      phone_number: _phone,
+      gender: _gender,
+      nationality: 'American'
+    })
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result)
+      dispatch({ type: CREATE_USER, payload: result })
+    })
+    .catch(err => {
+      console.log('we are getting an error: ')
+      console.error(err)
+    })
 }
-
-export default new ApiService()

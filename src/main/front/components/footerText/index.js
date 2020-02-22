@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import './styles.css'
 
 export default class FooterText extends Component {
-  render () {
+  render() {
     return (
-    // TODO: issue with onClick
+      // TODO: issue with onClick
       <div>
-        <h1 className='createUser'>Create User</h1>
+        <h1 className="createUser" onClick={this.props.onClick}>
+          Create User
+        </h1>
       </div>
     )
   }
