@@ -24,8 +24,11 @@ public class StudentController {
     public @ResponseBody Student get(@PathVariable Integer id) { return worker.studentService().get(id); }
 
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:8080")
     @ResponseStatus(HttpStatus.CREATED)
-    public Student create(@RequestBody final Student student) {
+    public @ResponseBody Student create(@RequestBody final Student student) {
+        System.out.println("I have got a request!!");
+        System.out.println(student.toString());
         return worker.studentService().create(student);
     }
 
