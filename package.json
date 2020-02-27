@@ -20,13 +20,16 @@
   },
   "scripts": {
     "watch": "webpack --watch -d",
-    "pre-commit": "lint-staged"
+    "lint": "lint-staged"
   },
   "lint-staged": {
     "*.js": [
       "prettier --write",
       "git add"
     ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",
