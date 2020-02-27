@@ -23,7 +23,7 @@ export const createUser = (
       address: _address,
       phone_number: _phone,
       gender: _gender,
-      nationality: 'American'
+      nationality: _nationality
     })
   })
     .then(response => response.json())

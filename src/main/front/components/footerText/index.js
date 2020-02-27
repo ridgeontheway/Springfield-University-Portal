@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './styles.css'
 
 export default class FooterText extends Component {
@@ -12,4 +13,8 @@ export default class FooterText extends Component {
       </div>
     )
   }
+}
+
+FooterText.propTypes = {
+  onClick: PropTypes.func
 }

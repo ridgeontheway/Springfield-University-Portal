@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import Screen from './Screen'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import * as actions from '../../actions'
-import PropTypes from 'prop-types'
 
 class CreateUserScreen extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      redirect: false
+    }
     this.onFormDataSubmission = this.onFormDataSubmission.bind(this)
+    this.onRedirect = this.onRedirect.bind(this)
   }
 
   onMissingData(_name, _surname, _email, _phone, _nationality) {
@@ -34,21 +38,30 @@ class CreateUserScreen extends Component {
     )
   }
 
+  onRedirect() {
+    this.setState({ redirect: true })
+  }
+
   render() {
     return (
       <div className="backgroundDiv">
-        <Screen
-          OnMissingData={this.onMissingData}
-          OnFormDataSubmission={this.onFormDataSubmission}
-          OnUserRegistrationComplete={this.props.OnUserRegistrationComplete}
-        />
+        {this.state.redirect ? (
+          <Redirect
+            push
+            to={{
+              pathname: '/dashboard'
+            }}
+          />
+        ) : (
+          <Screen
+            OnMissingData={this.onMissingData}
+            OnFormDataSubmission={this.onFormDataSubmission}
+            OnUserRegistrationComplete={this.onRedirect}
+          />
+        )}
       </div>
     )
   }
-}
-
-CreateUserScreen.propTypes = {
-  OnUserRegistrationComplete: PropTypes.func.isRequired
 }
 
 export default connect(null, actions)(CreateUserScreen)

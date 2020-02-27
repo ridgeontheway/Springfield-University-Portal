@@ -17,7 +17,7 @@ export default class Screen extends Component {
           </div>
           <LoginForm />
           <div className="footerDiv">
-            <FooterText onClick={this.props.handleRegisterClicked} />
+            <FooterText onClick={this.props.onNewUser} />
           </div>
         </div>
       </div>
@@ -26,5 +26,5 @@ export default class Screen extends Component {
 }
 
 Screen.propTypes = {
-  handleRegisterClicked: PropTypes.func.isRequired
+  onNewUser: PropTypes.func.isRequired
 }
