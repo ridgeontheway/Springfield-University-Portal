@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { CREATE_USER } from './types'
+import { CREATE_USER, ALL_MODULES } from './types'
 
 export const createUser = (
   _name,
@@ -33,6 +33,22 @@ export const createUser = (
     })
     .catch(err => {
       console.log('we are getting an error: ')
+      console.error(err)
+    })
+}
+
+export const getAllModules = () => async dispatch => {
+  console.log('I am trying to get all the available modules now....')
+  fetch('http://localhost:8080/api/modules', {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result)
+      dispatch({ type: ALL_MODULES, payload: result })
+    })
+    .catch(err => {
+      console.log('we are getting an error')
       console.error(err)
     })
 }

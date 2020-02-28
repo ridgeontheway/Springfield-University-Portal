@@ -3,7 +3,7 @@ import Screen from './Screen'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import * as actions from '../../actions'
-
+import '../styles.css'
 class CreateUserScreen extends Component {
   constructor(props) {
     super(props)

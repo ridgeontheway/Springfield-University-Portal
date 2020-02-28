@@ -26,7 +26,7 @@ export default class Screen extends Component {
               onClick={this.props.myModulesOnClick}
             />
             <SchoolStatsCardComponent
-              text={this.props.myModulesText}
+              text={this.props.schoolStatsText}
               onClick={this.props.schoolStatsOnClick}
             />
           </div>
@@ -35,4 +35,13 @@ export default class Screen extends Component {
       </div>
     )
   }
+}
+
+Screen.propTypes = {
+  viewAvailableModulesText: PropTypes.string.isRequired,
+  availableModulesOnClick: PropTypes.func.isRequired,
+  myModulesText: PropTypes.string.isRequired,
+  myModulesOnClick: PropTypes.func.isRequired,
+  schoolStatsText: PropTypes.string.isRequired,
+  schoolStatsOnClick: PropTypes.func.isRequired
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Popup from '../../components/popUp'
+import NewUserPopup from '../../components/popUp/new-user'
 import Title from '../../components/title'
 import Description from '../../components/description'
 import NewUserForm from '../../components/form/newUser'
@@ -48,7 +48,7 @@ class Screen extends Component {
           />
           <div className="footerDiv" />
         </div>
-        <Popup
+        <NewUserPopup
           show={this.state.showUserPopUp}
           title="Welcome to Springfield University"
           student_id={this.state.userID}
