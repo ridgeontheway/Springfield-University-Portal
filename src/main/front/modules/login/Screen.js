@@ -15,7 +15,7 @@ export default class Screen extends Component {
             <Title text="University of Springfield" />
             <Description text="Staff and Student Services" />
           </div>
-          <LoginForm />
+          <LoginForm onClick={this.props.onLoginPressed} />
           <div className="footerDiv">
             <FooterText onClick={this.props.onNewUser} />
           </div>
@@ -26,5 +26,6 @@ export default class Screen extends Component {
 }
 
 Screen.propTypes = {
-  onNewUser: PropTypes.func.isRequired
+  onNewUser: PropTypes.func.isRequired,
+  onLoginPressed: PropTypes.func.isRequired
 }

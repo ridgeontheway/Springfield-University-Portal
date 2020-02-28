@@ -7,14 +7,19 @@ export default class LoginScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      redirect: false
+      redirect: false,
+      pathname: '/'
     }
-    this.onRedirect = this.onRedirect.bind(this)
+    this.onNewUser = this.onNewUser.bind(this)
+    this.onLogin = this.onLogin.bind(this)
   }
 
-  onRedirect() {
-    console.log('I am here!!!')
-    this.setState({ redirect: true })
+  onNewUser() {
+    this.setState({ redirect: true, pathname: '/new-user' })
+  }
+
+  onLogin() {
+    this.setState({ redirect: true, pathname: '/dashboard' })
   }
 
   render() {
@@ -24,11 +29,11 @@ export default class LoginScreen extends Component {
           <Redirect
             push
             to={{
-              pathname: '/new-user'
+              pathname: this.state.pathname
             }}
           />
         ) : (
-          <Screen onNewUser={this.onRedirect} />
+          <Screen onNewUser={this.onNewUser} onLoginPressed={this.onLogin} />
         )}
       </div>
     )

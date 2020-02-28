@@ -59588,10 +59588,12 @@ __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(module) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LoginForm; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap/Form */ "./node_modules/react-bootstrap/esm/Form.js");
-/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap/Button */ "./node_modules/react-bootstrap/esm/Button.js");
-/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../styles.css */ "./src/main/front/components/form/styles.css");
-/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_styles_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap/Form */ "./node_modules/react-bootstrap/esm/Form.js");
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap/Button */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../styles.css */ "./src/main/front/components/form/styles.css");
+/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_styles_css__WEBPACK_IMPORTED_MODULE_4__);
 (function () {
   var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
   enterModule && enterModule(module);
@@ -59624,6 +59626,7 @@ var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoader
 
 
 
+
 var LoginForm = /*#__PURE__*/function (_Component) {
   _inherits(LoginForm, _Component);
 
@@ -59638,19 +59641,20 @@ var LoginForm = /*#__PURE__*/function (_Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Group, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_2__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_2__["default"].Group, {
         controlId: "idLogin"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Label, null, "ID"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Control, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_2__["default"].Label, null, "ID"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_2__["default"].Control, {
         type: "text",
         placeholder: "Enter your assigned ID"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Group, {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_2__["default"].Group, {
         controlId: "passwordLogin"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Label, null, "Password"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_1__["default"].Control, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_2__["default"].Label, null, "Password"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_2__["default"].Control, {
         type: "password",
         placeholder: "Enter your password"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
         variant: "primary",
         type: "submit",
+        onClick: this.props.onClick,
         block: true
       }, "Log in")));
     }
@@ -59667,6 +59671,9 @@ var LoginForm = /*#__PURE__*/function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
+LoginForm.propTypes = {
+  onClick: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func
+};
 ;
 
 (function () {
@@ -60923,11 +60930,9 @@ __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(module) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DashboardScreen; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Screen__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Screen */ "./src/main/front/modules/dashboard/Screen.js");
-/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../styles.css */ "./src/main/front/modules/styles.css");
-/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_styles_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Screen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Screen */ "./src/main/front/modules/dashboard/Screen.js");
+/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../styles.css */ "./src/main/front/modules/styles.css");
+/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_styles_css__WEBPACK_IMPORTED_MODULE_2__);
 (function () {
   var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
   enterModule && enterModule(module);
@@ -60943,9 +60948,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -60959,22 +60964,60 @@ var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoader
 
 
 
-
 var DashboardScreen = /*#__PURE__*/function (_Component) {
   _inherits(DashboardScreen, _Component);
 
-  function DashboardScreen() {
+  function DashboardScreen(props) {
+    var _this;
+
     _classCallCheck(this, DashboardScreen);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(DashboardScreen).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(DashboardScreen).call(this, props));
+    _this.state = {
+      redirect: false,
+      pathname: '/dashboard'
+    };
+    _this.onAvailableModules = _this.onAvailableModules.bind(_assertThisInitialized(_this));
+    _this.onMyModules = _this.onMyModules.bind(_assertThisInitialized(_this));
+    _this.onSchoolStats = _this.onSchoolStats.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(DashboardScreen, [{
+    key: "onAvailableModules",
+    value: function onAvailableModules() {
+      this.setState({
+        redirect: true,
+        pathname: '/availableModules'
+      });
+    }
+  }, {
+    key: "onMyModules",
+    value: function onMyModules() {
+      this.setState({
+        redirect: true,
+        pathname: '/my-modules'
+      });
+    }
+  }, {
+    key: "onSchoolStats",
+    value: function onSchoolStats() {
+      this.setState({
+        redirect: true,
+        pathname: '/school-stats'
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "backgroundDiv"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Screen__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, this.state.redirect ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Redirect, {
+        push: true,
+        to: {
+          pathname: this.state.pathname
+        }
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Screen__WEBPACK_IMPORTED_MODULE_1__["default"], {
         viewAvailableModulesText: "View Available Modules",
         myModulesText: "My Modules",
         schoolStatsText: "View School Statistics",
@@ -61151,7 +61194,9 @@ var Screen = /*#__PURE__*/function (_Component) {
         text: "University of Springfield"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_description__WEBPACK_IMPORTED_MODULE_4__["default"], {
         text: "Staff and Student Services"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_form_login__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_form_login__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        onClick: this.props.onLoginPressed
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "footerDiv"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_footerText__WEBPACK_IMPORTED_MODULE_5__["default"], {
         onClick: this.props.onNewUser
@@ -61171,7 +61216,8 @@ var Screen = /*#__PURE__*/function (_Component) {
 
 
 Screen.propTypes = {
-  onNewUser: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired
+  onNewUser: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired,
+  onLoginPressed: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired
 };
 ;
 
@@ -61253,18 +61299,28 @@ var LoginScreen = /*#__PURE__*/function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(LoginScreen).call(this, props));
     _this.state = {
-      redirect: false
+      redirect: false,
+      pathname: '/'
     };
-    _this.onRedirect = _this.onRedirect.bind(_assertThisInitialized(_this));
+    _this.onNewUser = _this.onNewUser.bind(_assertThisInitialized(_this));
+    _this.onLogin = _this.onLogin.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(LoginScreen, [{
-    key: "onRedirect",
-    value: function onRedirect() {
-      console.log('I am here!!!');
+    key: "onNewUser",
+    value: function onNewUser() {
       this.setState({
-        redirect: true
+        redirect: true,
+        pathname: '/new-user'
+      });
+    }
+  }, {
+    key: "onLogin",
+    value: function onLogin() {
+      this.setState({
+        redirect: true,
+        pathname: '/dashboard'
       });
     }
   }, {
@@ -61275,10 +61331,11 @@ var LoginScreen = /*#__PURE__*/function (_Component) {
       }, this.state.redirect ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], {
         push: true,
         to: {
-          pathname: '/new-user'
+          pathname: this.state.pathname
         }
       }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Screen__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        onNewUser: this.onRedirect
+        onNewUser: this.onNewUser,
+        onLoginPressed: this.onLogin
       }));
     }
   }, {

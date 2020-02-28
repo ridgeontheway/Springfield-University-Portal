@@ -1,6 +1,6 @@
 {
   "name": "Springfield-University-Portal",
-  "prettier": "prettier-config-standard",
+  "prettier": "prettier-standard",
   "version": "0.1.0",
   "dependencies": {
     "axios": "^0.19.2",
