@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import CreateUserScreen from './createUser'
+import AllModulesScreen from './allModules'
 import LoginScreen from './login'
+import DashboardScreen from './dashboard'
+import MyModulesScreen from './my-modules'
 
 export default class App extends Component {
   constructor(props) {
@@ -23,15 +26,15 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.userRegistered ? (
-          <LoginScreen OnRegisterClicked={this.userRegistrationUnFinished} />
-        ) : (
-          <CreateUserScreen
-            OnUserRegistrationComplete={this.userRegistrationCompleted}
-          />
-        )}
-      </div>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={LoginScreen} />
+          <Route path="/new-user" component={CreateUserScreen} />
+          <Route path="/dashboard" component={DashboardScreen} />
+          <Route path="/all-modules" component={AllModulesScreen} />
+          <Route path="/my-modules" component={MyModulesScreen} />
+        </Switch>
+      </Router>
     )
   }
 }

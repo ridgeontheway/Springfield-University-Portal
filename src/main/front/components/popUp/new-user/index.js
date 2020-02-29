@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-export default class Popup extends Component {
+export default class NewUserPopup extends Component {
   render() {
     return (
       <Modal
