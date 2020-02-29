@@ -28,7 +28,7 @@ public class ModuleController {
     @GetMapping(path = "{id}")
     public @ResponseBody Module get(@PathVariable Integer id) {
         Module module = worker.moduleService().get(id);
-        List<Integer> students = worker.enrollmentService().getStudentsForModule(id);
+        List<Student> students = worker.enrollmentService().getStudentsForModule(id);
         module.setStudents(students);
         return module;
     }

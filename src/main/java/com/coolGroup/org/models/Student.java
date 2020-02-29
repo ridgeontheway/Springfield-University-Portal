@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -21,7 +20,7 @@ public class Student implements Serializable {
     private String gender;
     private String nationality;
     @Transient
-    private List<Integer> modules;
+    private List<Module> modules;
 
     public Student() {}
 
@@ -89,11 +88,11 @@ public class Student implements Serializable {
         this.nationality = nationality;
     }
 
-    public List<Integer> getModules() {
+    public List<Module> getModules() {
         return modules;
     }
 
-    public void setModules(List<Integer> modules) {
+    public void setModules(List<Module> modules) {
         this.modules = modules;
     }
 }

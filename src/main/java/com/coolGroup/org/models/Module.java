@@ -22,7 +22,7 @@ public class Module implements Serializable {
     private int current_number_enrolled;
     private int max_number_enrolled;
     @Transient
-    List<Integer> students;
+    List<Student> students;
 
     public Module() {}
 
@@ -67,11 +67,11 @@ public class Module implements Serializable {
         this.max_number_enrolled = max_number_enrolled;
     }
 
-    public List<Integer> getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Integer> students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 }

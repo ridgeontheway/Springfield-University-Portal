@@ -17,10 +17,15 @@ import java.util.Optional;
 @Service
 public class EnrollmentService implements IEnrollmentService {
     private EnrollmentRepository enrollmentRepository;
+    private ModuleRepository moduleRepository;
+    private StudentRepository studentRepository;
 
     @Autowired
-    public EnrollmentService(EnrollmentRepository enrollmentRepository) {
+    public EnrollmentService(EnrollmentRepository enrollmentRepository,
+                             ModuleRepository moduleRepository, StudentRepository studentRepository) {
         this.enrollmentRepository = enrollmentRepository;
+        this.moduleRepository = moduleRepository;
+        this.studentRepository = studentRepository;
     }
 
     @Override
@@ -94,13 +99,14 @@ public class EnrollmentService implements IEnrollmentService {
     }
 
     @Override
-    public List<Integer> getModulesForStudent(Integer student) {
+    public List<Module> getModulesForStudent(Integer student) {
         Optional<List<Enrollment>> enrollments = this.enrollmentRepository.findAllByStudent(student);
-        List<Integer> modules = new ArrayList<>();
+        List<Module> modules = new ArrayList<>();
 
         if (enrollments.isPresent()) {
             for (Enrollment enrollment : enrollments.get()) {
-                Integer module = enrollment.getModule();
+                Integer moduleId = enrollment.getModule();
+                Module module = this.moduleRepository.getOne(moduleId);
                 modules.add(module);
             }
         }
@@ -109,13 +115,14 @@ public class EnrollmentService implements IEnrollmentService {
     }
 
     @Override
-    public List<Integer> getStudentsForModule(Integer module) {
+    public List<Student> getStudentsForModule(Integer module) {
         Optional<List<Enrollment>> enrollments = this.enrollmentRepository.findAllByModule(module);
-        List<Integer> students = new ArrayList<>();
+        List<Student> students = new ArrayList<>();
 
         if (enrollments.isPresent()) {
             for (Enrollment enrollment : enrollments.get()) {
-                Integer student = enrollment.getStudent();
+                Integer studentId = enrollment.getStudent();
+                Student student = this.studentRepository.getOne(studentId);
                 students.add(student);
             }
         }
