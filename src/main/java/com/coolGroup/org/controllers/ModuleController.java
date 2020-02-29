@@ -1,43 +1,52 @@
 package com.coolGroup.org.controllers;
 
-import com.coolGroup.org.repositories.ModuleRepository;
+import com.coolGroup.org.models.Student;
+import com.coolGroup.org.services.IWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.coolGroup.org.models.Module;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api/modules")
 public class ModuleController {
-    private ModuleRepository moduleRepository;
+    private IWorker worker;
 
     @Autowired
-    public ModuleController(ModuleRepository moduleRepository) {
-        this.moduleRepository = moduleRepository;
+    public ModuleController(IWorker worker) {
+        this.worker = worker;
     }
 
     @GetMapping
     public @ResponseBody
     Iterable<Module> get() {
-        return moduleRepository.findAll();
+        return worker.moduleService().get();
     }
 
     @GetMapping(path = "{id}")
     public @ResponseBody Module get(@PathVariable Integer id) {
-        return moduleRepository.getOne(id);
+        Module module = worker.moduleService().get(id);
+        List<Integer> students = worker.enrollmentService().getStudentsForModule(id);
+        module.setStudents(students);
+        return module;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Module create(@RequestBody final Module module) {
-        return moduleRepository.saveAndFlush(module);
+        return worker.moduleService().create(module);
+    }
+
+    @RequestMapping(path = "multiple", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void create(@RequestBody final Module[] modules) {
+        worker.moduleService().createMultiple(modules);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public @ResponseBody Module delete(@PathVariable Integer id) {
-        Module deleted = moduleRepository.getOne(id);
-        moduleRepository.delete(deleted);
-        return deleted;
+        return worker.moduleService().delete(id);
     }
-
 }

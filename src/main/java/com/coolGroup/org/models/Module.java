@@ -1,14 +1,15 @@
 package com.coolGroup.org.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Module {
+public class Module implements Serializable {
 //    module name, the module topics, the name of the module coordinator,
 // and view module statistics (number of enrolled students, grades distributions
 // for previous editions of the module, max students).
@@ -20,10 +21,8 @@ public class Module {
     private String coordinator_name;
     private int current_number_enrolled;
     private int max_number_enrolled;
-
-    @ManyToMany(mappedBy = "modules")
-    @JsonIgnore
-    Set<Student> students;
+    @Transient
+    List<Integer> students;
 
     public Module() {}
 
@@ -64,14 +63,15 @@ public class Module {
     }
 
     public void setMax_number_enrolled(int max_number_enrolled) {
+
         this.max_number_enrolled = max_number_enrolled;
     }
 
-    public Set<Student> getStudents() {
+    public List<Integer> getStudents() {
         return students;
     }
 
-    public void setStudents(Set<Student> students) {
+    public void setStudents(List<Integer> students) {
         this.students = students;
     }
 }

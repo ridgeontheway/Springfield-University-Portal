@@ -1,15 +1,15 @@
 package com.coolGroup.org.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Student {
+public class Student implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer student_id;
@@ -20,15 +20,8 @@ public class Student {
     private String phone_number;
     private String gender;
     private String nationality;
-
-    @ManyToMany
-    @JsonBackReference
-    @JoinTable(
-        name = "modules",
-        joinColumns = @JoinColumn(name = "student_id"),
-        inverseJoinColumns = @JoinColumn(name = "module_id")
-    )
-    Set<Module> modules;
+    @Transient
+    private List<Integer> modules;
 
     public Student() {}
 
@@ -96,11 +89,11 @@ public class Student {
         this.nationality = nationality;
     }
 
-    public Set<Module> getModules() {
+    public List<Integer> getModules() {
         return modules;
     }
 
-    public void setModules(Set<Module> modules) {
+    public void setModules(List<Integer> modules) {
         this.modules = modules;
     }
 }
