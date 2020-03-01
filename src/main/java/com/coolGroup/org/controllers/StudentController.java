@@ -20,14 +20,22 @@ public class StudentController {
     }
 
     @GetMapping
-    public @ResponseBody Iterable<Student> get() { return worker.studentService().get(); }
+    public @ResponseBody Iterable<Student> get() {
+        Iterable<Student> students = worker.studentService().get();
+        for (Student student : students) {
+            List<Module> modules = worker.enrollmentService()
+                    .getModulesForStudent(student.getStudent_id());
+            student.setModules(modules);
+        }
+        return students;
+    }
 
     @GetMapping(path = "{id}")
     public @ResponseBody Student get(@PathVariable Integer id) {
         Student student = worker.studentService().get(id);
         List<Module> modules = worker.enrollmentService().getModulesForStudent(id);
-
         student.setModules(modules);
+
         return student;
     }
 

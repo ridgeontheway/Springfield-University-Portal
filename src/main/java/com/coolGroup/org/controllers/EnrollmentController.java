@@ -3,6 +3,7 @@ package com.coolGroup.org.controllers;
 import com.coolGroup.org.models.Enrollment;
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.Module;
+import com.coolGroup.org.models.dtos.StudentAndModuleDto;
 import com.coolGroup.org.services.IWorker;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,15 +17,15 @@ public class EnrollmentController {
     public EnrollmentController(IWorker worker) { this.worker = worker; }
 
     @PostMapping
-    public Enrollment enroll(@RequestBody Enrollment enrollment) {
+    public Enrollment enroll(@RequestBody StudentAndModuleDto dto) {
         return this.worker.enrollmentService()
-                .enroll(enrollment.getStudent(), enrollment.getModule());
+                .enroll(dto.getStudent(), dto.getModule());
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public Enrollment unenroll(@RequestBody Enrollment enrollment) {
+    public Enrollment unenroll(@RequestBody StudentAndModuleDto dto) {
         return this.worker.enrollmentService()
-                .unenroll(enrollment.getStudent(), enrollment.getModule());
+                .unenroll(dto.getStudent(), dto.getModule());
     }
 
     @GetMapping(path = "student/{id}")
@@ -35,5 +36,21 @@ public class EnrollmentController {
     @GetMapping(path = "module/{id}")
     public List<Student> getStudentsForModule(@PathVariable Integer id) {
         return this.worker.enrollmentService().getStudentsForModule(id);
+    }
+
+    @GetMapping(path = "enrollment")
+    public Enrollment getEnrollmentForStudentAndModule(@RequestBody StudentAndModuleDto dto) {
+        return this.worker.enrollmentService()
+                .getEnrollmentForStudentAndModule(
+                        dto.getStudent(), dto.getModule());
+    }
+
+    @RequestMapping(path = "grade", method = RequestMethod.PATCH)
+    public void assignGrade(@RequestBody Enrollment enrollment) {
+        this.worker.enrollmentService().assignGrade(
+                enrollment.getStudent(),
+                enrollment.getModule(),
+                enrollment.getGrade()
+        );
     }
 }

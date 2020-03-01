@@ -22,8 +22,6 @@ public class Module implements Serializable {
     private int current_number_enrolled;
     private int max_number_enrolled;
     @Transient
-    private boolean hasRoom;
-    @Transient
     List<Student> students;
 
     public Module() {}
@@ -74,10 +72,7 @@ public class Module implements Serializable {
     }
 
     public void setStudents(List<Student> students) {
+        this.setCurrent_number_enrolled(students.size());
         this.students = students;
-    }
-
-    public boolean hasRoom() {
-        return this.current_number_enrolled < this.max_number_enrolled;
     }
 }

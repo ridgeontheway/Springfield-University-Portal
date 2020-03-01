@@ -22,7 +22,12 @@ public class ModuleController {
     @GetMapping
     public @ResponseBody
     Iterable<Module> get() {
-        return worker.moduleService().get();
+        Iterable<Module> modules = worker.moduleService().get();
+        for (Module module : modules) {
+            List<Student> students = worker.enrollmentService().getStudentsForModule(module.getModule_id());
+            module.setStudents(students);
+        }
+        return modules;
     }
 
     @GetMapping(path = "{id}")
