@@ -2,6 +2,7 @@ package com.coolGroup.org.services;
 
 import com.coolGroup.org.models.*;
 import com.coolGroup.org.models.Module;
+import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,6 @@ public interface IEnrollmentService {
     Enrollment assignGrade(Integer student, Integer module, String grade);
     Enrollment enroll(Integer studentId, Integer moduleId);
     Enrollment unenroll(Integer studentId, Integer moduleId);
-    List<Module> getModulesForStudent(Integer student);
+    List<ModuleForStudentDto> getModulesForStudent(Integer student);
     List<Student> getStudentsForModule(Integer module);
 }

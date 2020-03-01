@@ -2,6 +2,7 @@ package com.coolGroup.org.controllers;
 
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.Module;
+import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import com.coolGroup.org.services.IWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class StudentController {
     public @ResponseBody Iterable<Student> get() {
         Iterable<Student> students = worker.studentService().get();
         for (Student student : students) {
-            List<Module> modules = worker.enrollmentService()
+            List<ModuleForStudentDto> modules = worker.enrollmentService()
                     .getModulesForStudent(student.getStudent_id());
             student.setModules(modules);
         }
@@ -33,7 +34,7 @@ public class StudentController {
     @GetMapping(path = "{id}")
     public @ResponseBody Student get(@PathVariable Integer id) {
         Student student = worker.studentService().get(id);
-        List<Module> modules = worker.enrollmentService().getModulesForStudent(id);
+        List<ModuleForStudentDto> modules = worker.enrollmentService().getModulesForStudent(id);
         student.setModules(modules);
 
         return student;

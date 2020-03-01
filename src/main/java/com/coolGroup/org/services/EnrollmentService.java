@@ -1,8 +1,10 @@
 package com.coolGroup.org.services;
 
+import com.coolGroup.org.config.Mapper;
 import com.coolGroup.org.models.Enrollment;
 import com.coolGroup.org.models.Module;
 import com.coolGroup.org.models.Student;
+import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import com.coolGroup.org.repositories.EnrollmentRepository;
 import com.coolGroup.org.repositories.StudentRepository;
 import org.springframework.beans.BeanUtils;
@@ -108,8 +110,9 @@ public class EnrollmentService implements IEnrollmentService {
     }
 
     @Override
-    public List<Module> getModulesForStudent(Integer student) {
+    public List<ModuleForStudentDto> getModulesForStudent(Integer student) {
         Optional<List<Enrollment>> enrollments = this.enrollmentRepository.findAllByStudent(student);
+        List<ModuleForStudentDto> result = new ArrayList<>();
         List<Module> modules = new ArrayList<>();
 
         if (enrollments.isPresent()) {
@@ -118,9 +121,10 @@ public class EnrollmentService implements IEnrollmentService {
                 Module module = this.moduleService.get(moduleId);
                 modules.add(module);
             }
+            result = Mapper.mapModulesForStudent(enrollments.get(), modules);
         }
-
-        return modules;
+        
+        return result;
     }
 
     @Override

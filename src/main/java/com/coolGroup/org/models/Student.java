@@ -1,5 +1,6 @@
 package com.coolGroup.org.models;
 
+import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -20,7 +21,7 @@ public class Student implements Serializable {
     private String gender;
     private String nationality;
     @Transient
-    private List<Module> modules;
+    private List<ModuleForStudentDto> modules;
 
     public Student() {}
 
@@ -88,11 +89,11 @@ public class Student implements Serializable {
         this.nationality = nationality;
     }
 
-    public List<Module> getModules() {
+    public List<ModuleForStudentDto> getModules() {
         return modules;
     }
 
-    public void setModules(List<Module> modules) {
+    public void setModules(List<ModuleForStudentDto> modules) {
         this.modules = modules;
     }
 }

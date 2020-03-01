@@ -2,7 +2,7 @@ package com.coolGroup.org.controllers;
 
 import com.coolGroup.org.models.Enrollment;
 import com.coolGroup.org.models.Student;
-import com.coolGroup.org.models.Module;
+import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import com.coolGroup.org.models.dtos.StudentAndModuleDto;
 import com.coolGroup.org.services.IWorker;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +29,7 @@ public class EnrollmentController {
     }
 
     @GetMapping(path = "student/{id}")
-    public List<Module> getModulesForStudent(@PathVariable Integer id) {
+    public List<ModuleForStudentDto> getModulesForStudent(@PathVariable Integer id) {
         return this.worker.enrollmentService().getModulesForStudent(id);
     }
 
