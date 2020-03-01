@@ -4,7 +4,6 @@ import com.coolGroup.org.models.Enrollment;
 import com.coolGroup.org.models.Module;
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.repositories.EnrollmentRepository;
-import com.coolGroup.org.repositories.ModuleRepository;
 import com.coolGroup.org.repositories.StudentRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +16,14 @@ import java.util.Optional;
 @Service
 public class EnrollmentService implements IEnrollmentService {
     private EnrollmentRepository enrollmentRepository;
-    private ModuleRepository moduleRepository;
+    private IModuleService moduleService;
     private StudentRepository studentRepository;
 
     @Autowired
     public EnrollmentService(EnrollmentRepository enrollmentRepository,
-                             ModuleRepository moduleRepository, StudentRepository studentRepository) {
+                             IModuleService moduleService, StudentRepository studentRepository) {
         this.enrollmentRepository = enrollmentRepository;
-        this.moduleRepository = moduleRepository;
+        this.moduleService = moduleService;
         this.studentRepository = studentRepository;
     }
 
@@ -83,19 +82,29 @@ public class EnrollmentService implements IEnrollmentService {
 
     @Override
     public Enrollment enroll(Integer studentId, Integer moduleId) {
-        Optional<Enrollment> enrollment = enrollmentRepository
-                .findByStudentAndModule(studentId, moduleId);
-
-        Enrollment result = enrollment.orElseGet(() -> new Enrollment(studentId, moduleId));
-        return this.enrollmentRepository.saveAndFlush(result);
+        // If null is returned, the module is full
+        Enrollment newEnrollment = null;
+        if (this.moduleService.hasRoom(moduleId)) {
+            this.moduleService.addStudent(moduleId);
+            Optional<Enrollment> enrollment = enrollmentRepository
+                    .findByStudentAndModule(studentId, moduleId);
+            Enrollment result = enrollment.orElseGet(() -> new Enrollment(studentId, moduleId));
+            newEnrollment = this.enrollmentRepository.saveAndFlush(result);
+        }
+        return newEnrollment;
     }
 
     @Override
-    public void unenroll(Integer studentId, Integer moduleId) {
+    public Enrollment unenroll(Integer studentId, Integer moduleId) {
+        // If null is returned, the student wasn't enrolled
         Optional<Enrollment> enrollment = enrollmentRepository
                 .findByStudentAndModule(studentId, moduleId);
 
-        enrollment.ifPresent(e -> this.enrollmentRepository.delete(e));
+        enrollment.ifPresent(e -> {
+            this.enrollmentRepository.delete(e);
+            this.moduleService.removeStudent(moduleId);
+        });
+        return enrollment.orElse(null);
     }
 
     @Override
@@ -106,7 +115,7 @@ public class EnrollmentService implements IEnrollmentService {
         if (enrollments.isPresent()) {
             for (Enrollment enrollment : enrollments.get()) {
                 Integer moduleId = enrollment.getModule();
-                Module module = this.moduleRepository.getOne(moduleId);
+                Module module = this.moduleService.get(moduleId);
                 modules.add(module);
             }
         }

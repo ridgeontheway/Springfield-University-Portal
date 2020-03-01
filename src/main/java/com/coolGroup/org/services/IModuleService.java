@@ -17,4 +17,10 @@ public interface IModuleService {
     void createMultiple(final Module[] modules);
 
     Module delete(Integer id);
+
+    boolean hasRoom(Integer id);
+
+    Integer addStudent(Integer id);
+
+    Integer removeStudent(Integer id);
 }

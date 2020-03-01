@@ -40,4 +40,25 @@ public class ModuleService implements IModuleService {
         moduleRepository.delete(deleted);
         return deleted;
     }
+
+    @Override
+    public boolean hasRoom(Integer id) {
+        Module module = get(id);
+        return module.getCurrent_number_enrolled()
+                < module.getMax_number_enrolled();
+    }
+
+    @Override
+    public Integer addStudent(Integer id) {
+        Module module = get(id);
+        module.setCurrent_number_enrolled(module.getCurrent_number_enrolled() + 1);
+        return module.getCurrent_number_enrolled();
+    }
+
+    @Override
+    public Integer removeStudent(Integer id) {
+        Module module = get(id);
+        module.setCurrent_number_enrolled(module.getCurrent_number_enrolled() - 1);
+        return module.getCurrent_number_enrolled();
+    }
 }

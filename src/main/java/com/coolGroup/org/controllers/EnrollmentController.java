@@ -22,8 +22,8 @@ public class EnrollmentController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public void unenroll(@RequestBody Enrollment enrollment) {
-        this.worker.enrollmentService()
+    public Enrollment unenroll(@RequestBody Enrollment enrollment) {
+        return this.worker.enrollmentService()
                 .unenroll(enrollment.getStudent(), enrollment.getModule());
     }
 

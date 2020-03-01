@@ -16,7 +16,7 @@ public interface IEnrollmentService {
     Enrollment getEnrollmentForStudentAndModule(Integer studentId, Integer moduleId);
     Enrollment assignGrade(Integer student, Integer module, String grade);
     Enrollment enroll(Integer studentId, Integer moduleId);
-    void unenroll(Integer studentId, Integer moduleId);
+    Enrollment unenroll(Integer studentId, Integer moduleId);
     List<Module> getModulesForStudent(Integer student);
     List<Student> getStudentsForModule(Integer module);
 }
