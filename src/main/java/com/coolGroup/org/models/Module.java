@@ -21,6 +21,7 @@ public class Module implements Serializable {
     private String coordinator_name;
     private int current_number_enrolled;
     private int max_number_enrolled;
+    private double cost;
     @Transient
     List<Student> students;
 
@@ -65,6 +66,14 @@ public class Module implements Serializable {
     public void setMax_number_enrolled(int max_number_enrolled) {
 
         this.max_number_enrolled = max_number_enrolled;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 
     public List<Student> getStudents() {

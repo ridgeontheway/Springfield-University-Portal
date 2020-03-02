@@ -1,7 +1,9 @@
 package com.coolGroup.org.controllers;
 
+import com.coolGroup.org.models.PaymentAccount;
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.dtos.ModuleForStudentDto;
+import com.coolGroup.org.models.dtos.PaymentAccountDto;
 import com.coolGroup.org.services.IWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,5 +53,19 @@ public class StudentController {
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public @ResponseBody Student delete(@PathVariable Integer id) {
         return worker.studentService().delete(id);
+    }
+
+    @RequestMapping(path = "payment", method = RequestMethod.PATCH)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Student addPaymentAccount(@RequestBody PaymentAccountDto paymentAccountDto) {
+        return this.worker.studentService().addPaymentAccount(paymentAccountDto);
+    }
+
+    @RequestMapping(path = "payments", method = RequestMethod.PATCH)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addPaymentAccounts(@RequestBody PaymentAccountDto[] paymentAccountsDto) {
+        for (PaymentAccountDto account : paymentAccountsDto) {
+            addPaymentAccount(account);
+        }
     }
 }

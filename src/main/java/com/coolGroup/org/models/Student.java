@@ -20,6 +20,9 @@ public class Student implements Serializable {
     private String phone_number;
     private String gender;
     private String nationality;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="account_number")
+    private PaymentAccount paymentAccount;
     @Transient
     private List<ModuleForStudentDto> modules;
 
@@ -95,5 +98,13 @@ public class Student implements Serializable {
 
     public void setModules(List<ModuleForStudentDto> modules) {
         this.modules = modules;
+    }
+
+    public PaymentAccount getPaymentAccount() {
+        return paymentAccount;
+    }    
+
+    public void setPaymentAccount(PaymentAccount paymentAccount) {
+        this.paymentAccount = paymentAccount;
     }
 }

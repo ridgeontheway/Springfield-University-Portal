@@ -58,9 +58,7 @@ public class ModuleService implements IModuleService {
     @Override
     public Integer removeStudent(Integer id) {
         Module module = get(id);
-        System.out.println(module.getCurrent_number_enrolled());
         module.setCurrent_number_enrolled(module.getCurrent_number_enrolled() - 1);
-        System.out.println(module.getCurrent_number_enrolled());
         return module.getCurrent_number_enrolled();
     }
 }

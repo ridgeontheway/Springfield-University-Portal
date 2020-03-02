@@ -19,14 +19,14 @@ import java.util.Optional;
 public class EnrollmentService implements IEnrollmentService {
     private EnrollmentRepository enrollmentRepository;
     private IModuleService moduleService;
-    private StudentRepository studentRepository;
+    private IStudentService studentService;
 
     @Autowired
     public EnrollmentService(EnrollmentRepository enrollmentRepository,
-                             IModuleService moduleService, StudentRepository studentRepository) {
+                             IModuleService moduleService, IStudentService studentService) {
         this.enrollmentRepository = enrollmentRepository;
         this.moduleService = moduleService;
-        this.studentRepository = studentRepository;
+        this.studentService = studentService;
     }
 
     @Override
@@ -84,10 +84,14 @@ public class EnrollmentService implements IEnrollmentService {
 
     @Override
     public Enrollment enroll(Integer studentId, Integer moduleId) {
-        // If null is returned, the module is full
+        // If null is returned, the module is full or the student cannot pay
         Enrollment newEnrollment = null;
-        if (this.moduleService.hasRoom(moduleId)) {
+        Student student = this.studentService.get(studentId);
+        Module module = this.moduleService.get(moduleId);
+        if (this.moduleService.hasRoom(moduleId) &&
+                this.studentService.hasSufficientFunds(student, module.getCost())) {
             this.moduleService.addStudent(moduleId);
+            this.studentService.withdraw(student, module.getCost());
             Optional<Enrollment> enrollment = enrollmentRepository
                     .findByStudentAndModule(studentId, moduleId);
             Enrollment result = enrollment.orElseGet(() -> new Enrollment(studentId, moduleId));
@@ -135,7 +139,7 @@ public class EnrollmentService implements IEnrollmentService {
         if (enrollments.isPresent()) {
             for (Enrollment enrollment : enrollments.get()) {
                 Integer studentId = enrollment.getStudent();
-                Student student = this.studentRepository.getOne(studentId);
+                Student student = this.studentService.get(studentId);
                 students.add(student);
             }
         }

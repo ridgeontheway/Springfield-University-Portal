@@ -1,9 +1,13 @@
 package com.coolGroup.org.models;
 
+import com.coolGroup.org.models.dtos.PaymentAccountDto;
+
 import javax.persistence.*;
 
 @Entity
 public class PaymentAccount {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer student;
     private String account_number;
@@ -12,11 +16,16 @@ public class PaymentAccount {
 
     public PaymentAccount() {}
 
-    public PaymentAccount(Integer id, Integer student, String account_number, double balance) {
-        this.id = id;
+    public PaymentAccount(Integer student, String account_number, double balance) {
         this.student = student;
         this.account_number = account_number;
         this.balance = balance;
+    }
+
+    public PaymentAccount(PaymentAccountDto dto) {
+        this.student = Integer.parseInt(dto.getStudent());
+        this.account_number = dto.getAccount_number();
+        this.balance = Double.parseDouble(dto.getBalance());
     }
 
     public Integer getId() {
