@@ -25,6 +25,15 @@ public class Module implements Serializable {
 
     public Module() {}
 
+    public Module(String name, String coordinator_name,
+                  int current_number_enrolled, int max_number_enrolled, double cost) {
+        this.name = name;
+        this.coordinator_name = coordinator_name;
+        this.current_number_enrolled = current_number_enrolled;
+        this.max_number_enrolled = max_number_enrolled;
+        this.cost = cost;
+    }
+
     public Integer getModule_id() {
         return module_id;
     }

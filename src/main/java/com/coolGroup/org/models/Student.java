@@ -28,6 +28,17 @@ public class Student implements Serializable {
 
     public Student() {}
 
+    public Student(String name, String surname, String email, String address,
+                   String phone_number, String gender, String nationality) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.address = address;
+        this.phone_number = phone_number;
+        this.gender = gender;
+        this.nationality = nationality;
+    }
+
     public Integer getStudent_id() {
         return student_id;
     }
