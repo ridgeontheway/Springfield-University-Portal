@@ -1,7 +1,6 @@
 package com.coolGroup.org.controllers;
 
 import com.coolGroup.org.models.Student;
-import com.coolGroup.org.models.Module;
 import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import com.coolGroup.org.services.IWorker;
 import org.springframework.beans.factory.annotation.Autowired;
