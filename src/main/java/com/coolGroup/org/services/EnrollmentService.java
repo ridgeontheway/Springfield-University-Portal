@@ -123,7 +123,7 @@ public class EnrollmentService implements IEnrollmentService {
             }
             result = Mapper.mapModulesForStudent(enrollments.get(), modules);
         }
-        
+
         return result;
     }
 
