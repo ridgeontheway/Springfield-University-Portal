@@ -33,4 +33,4 @@ build/
 ### Front-end ###
 node_modules/
 
-src/main/resources/static/built/*
+src/main/resources/static/built/
