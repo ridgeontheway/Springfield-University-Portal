@@ -1,7 +1,6 @@
 package com.coolGroup.org.services;
 
 import com.coolGroup.org.models.*;
-import com.coolGroup.org.models.Module;
 import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import org.springframework.stereotype.Service;
 
