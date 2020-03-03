@@ -9,6 +9,7 @@ public class Staff {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
+    private String gender;
 
     public Staff() { }
 
@@ -26,5 +27,13 @@ public class Staff {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }
