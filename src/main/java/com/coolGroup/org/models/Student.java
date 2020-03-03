@@ -12,7 +12,6 @@ import java.util.List;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Student extends User implements IUser {
-    private String email;
     private String address;
     private String phone_number;
     private String nationality;
