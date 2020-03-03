@@ -5,4 +5,5 @@ public interface IWorker {
     IModuleService moduleService();
     IEnrollmentService enrollmentService();
     IStaffService staffService();
+    IAnalyticsService analyticsService();
 }
