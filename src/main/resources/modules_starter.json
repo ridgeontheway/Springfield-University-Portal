@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Programming",
+    "coordinator_name": "Liliana Pasquale",
+    "current_number_enrolled": 0,
+    "max_number_enrolled": 50,
+    "cost": 100.00
+  },
+  {
+    "name": "History",
+    "coordinator_name": "Bob Dole",
+    "current_number_enrolled": 0,
+    "max_number_enrolled": 50,
+    "cost": 100.00
+  },
+  {
+    "name": "Maths",
+    "coordinator_name": "Alan Turing",
+    "current_number_enrolled": 0,
+    "max_number_enrolled": 50,
+    "cost": 100.00
+  },
+  {
+    "name": "Geography",
+    "coordinator_name": "Ferdinand Magellan",
+    "current_number_enrolled": 0,
+    "max_number_enrolled": 50,
+    "cost": 100.00
+  },
+  {
+    "name": "Biology",
+    "coordinator_name": "Bill Nye",
+    "current_number_enrolled": 0,
+    "max_number_enrolled": 50,
+    "cost": 100.00
+  }
+]
