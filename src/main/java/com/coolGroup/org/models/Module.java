@@ -1,14 +1,13 @@
 package com.coolGroup.org.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Module {
+public class Module implements Serializable {
 //    module name, the module topics, the name of the module coordinator,
 // and view module statistics (number of enrolled students, grades distributions
 // for previous editions of the module, max students).
@@ -20,12 +19,20 @@ public class Module {
     private String coordinator_name;
     private int current_number_enrolled;
     private int max_number_enrolled;
-
-    @ManyToMany(mappedBy = "modules")
-    @JsonIgnore
-    Set<Student> students;
+    private double cost;
+    @Transient
+    List<Student> students;
 
     public Module() {}
+
+    public Module(String name, String coordinator_name,
+                  int current_number_enrolled, int max_number_enrolled, double cost) {
+        this.name = name;
+        this.coordinator_name = coordinator_name;
+        this.current_number_enrolled = current_number_enrolled;
+        this.max_number_enrolled = max_number_enrolled;
+        this.cost = cost;
+    }
 
     public Integer getModule_id() {
         return module_id;
@@ -64,14 +71,24 @@ public class Module {
     }
 
     public void setMax_number_enrolled(int max_number_enrolled) {
+
         this.max_number_enrolled = max_number_enrolled;
     }
 
-    public Set<Student> getStudents() {
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(Set<Student> students) {
+    public void setStudents(List<Student> students) {
+        this.setCurrent_number_enrolled(students.size());
         this.students = students;
     }
 }

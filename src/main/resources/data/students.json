@@ -43,5 +43,32 @@
     "phone_number": "7654321",
     "gender": "Male",
     "nationality": "American"
+  },
+  {
+    "name": "Bob",
+    "surname": "Barker",
+    "email": "bbarker@su.edu",
+    "address": "Los Angeles, CA",
+    "phone_number": "4837264",
+    "gender": "Male",
+    "nationality": "American"
+  },
+  {
+    "name": "Bill",
+    "surname": "Withers",
+    "email": "bwithers@su.edu",
+    "address": "Detroit, MI",
+    "phone_number": "3849586",
+    "gender": "Male",
+    "nationality": "American"
+  },
+  {
+    "name": "Mister",
+    "surname": "Man",
+    "email": "bbark@weina.com",
+    "address": "123 Fake",
+    "phone_number": "1231684",
+    "gender": "Female",
+    "nationality": "American"
   }
 ]

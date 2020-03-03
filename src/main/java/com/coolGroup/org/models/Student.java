@@ -1,15 +1,15 @@
 package com.coolGroup.org.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Student {
+public class Student implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer student_id;
@@ -20,17 +20,24 @@ public class Student {
     private String phone_number;
     private String gender;
     private String nationality;
-
-    @ManyToMany
-    @JsonBackReference
-    @JoinTable(
-        name = "modules",
-        joinColumns = @JoinColumn(name = "student_id"),
-        inverseJoinColumns = @JoinColumn(name = "module_id")
-    )
-    Set<Module> modules;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="account_number")
+    private PaymentAccount paymentAccount;
+    @Transient
+    private List<ModuleForStudentDto> modules;
 
     public Student() {}
+
+    public Student(String name, String surname, String email, String address,
+                   String phone_number, String gender, String nationality) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.address = address;
+        this.phone_number = phone_number;
+        this.gender = gender;
+        this.nationality = nationality;
+    }
 
     public Integer getStudent_id() {
         return student_id;
@@ -96,11 +103,19 @@ public class Student {
         this.nationality = nationality;
     }
 
-    public Set<Module> getModules() {
+    public List<ModuleForStudentDto> getModules() {
         return modules;
     }
 
-    public void setModules(Set<Module> modules) {
+    public void setModules(List<ModuleForStudentDto> modules) {
         this.modules = modules;
+    }
+
+    public PaymentAccount getPaymentAccount() {
+        return paymentAccount;
+    }    
+
+    public void setPaymentAccount(PaymentAccount paymentAccount) {
+        this.paymentAccount = paymentAccount;
     }
 }
