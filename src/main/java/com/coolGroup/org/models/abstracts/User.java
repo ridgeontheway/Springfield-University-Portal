@@ -1,11 +1,9 @@
 package com.coolGroup.org.models.abstracts;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

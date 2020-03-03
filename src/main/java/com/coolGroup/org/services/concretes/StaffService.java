@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StaffService implements IStaffService {
@@ -31,7 +32,15 @@ public class StaffService implements IStaffService {
 
     @Override
     public Staff create(Staff staff) {
-        return staffRepository.saveAndFlush(staff);
+        Staff result = null;
+        Iterable<Staff> emailMatches = this.staffRepository
+                .findAll().stream()
+                .filter(s -> s.getEmail().equals(staff.getEmail()))
+                .collect(Collectors.toList());
+        if (((List<Staff>) emailMatches).isEmpty()) {
+            result = staffRepository.saveAndFlush(staff);
+        }
+        return result;
     }
 
     @Override
