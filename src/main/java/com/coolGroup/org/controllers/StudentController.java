@@ -1,6 +1,5 @@
 package com.coolGroup.org.controllers;
 
-import com.coolGroup.org.models.PaymentAccount;
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import com.coolGroup.org.models.dtos.PaymentAccountDto;
@@ -45,8 +44,6 @@ public class StudentController {
     @CrossOrigin(origins = "http://localhost:8080")
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody Student create(@RequestBody final Student student) {
-        System.out.println("I have got a request!!");
-        System.out.println(student.toString());
         return worker.studentService().create(student);
     }
 

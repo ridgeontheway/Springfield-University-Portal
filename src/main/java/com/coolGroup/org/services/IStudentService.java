@@ -5,6 +5,8 @@ import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.dtos.PaymentAccountDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface IStudentService {
     Iterable<Student> get();
@@ -26,4 +28,8 @@ public interface IStudentService {
     double withdraw(Student student, double amount);
 
     boolean hasSufficientFunds(Student student, double cost);
+
+    List<Student> getByGender(String gender);
+
+    List<Student> getByNationality(String nationality);
 }

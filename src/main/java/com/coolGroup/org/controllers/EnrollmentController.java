@@ -1,9 +1,12 @@
 package com.coolGroup.org.controllers;
 
+import com.coolGroup.org.config.PermissionUtility;
 import com.coolGroup.org.models.Enrollment;
+import com.coolGroup.org.models.Staff;
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import com.coolGroup.org.models.dtos.StudentAndModuleDto;
+import com.coolGroup.org.models.enums.Permission;
 import com.coolGroup.org.services.IWorker;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +21,22 @@ public class EnrollmentController {
 
     @PostMapping
     public Enrollment enroll(@RequestBody StudentAndModuleDto dto) {
-        return this.worker.enrollmentService()
+        Enrollment enrollment = null;
+        if (PermissionUtility.hasPermission(new Student(), Permission.ENROLL)) {
+            enrollment = this.worker.enrollmentService()
                 .enroll(dto.getStudent(), dto.getModule());
+        }
+        return enrollment;
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
     public Enrollment unenroll(@RequestBody StudentAndModuleDto dto) {
-        return this.worker.enrollmentService()
-                .unenroll(dto.getStudent(), dto.getModule());
+        Enrollment enrollment = null;
+        if (PermissionUtility.hasPermission(new Student(), Permission.UNENROLL)) {
+            enrollment = this.worker.enrollmentService()
+                    .unenroll(dto.getStudent(), dto.getModule());
+        }
+        return enrollment;
     }
 
     @GetMapping(path = "student/{id}")
@@ -46,11 +57,16 @@ public class EnrollmentController {
     }
 
     @RequestMapping(path = "grade", method = RequestMethod.PATCH)
-    public void assignGrade(@RequestBody Enrollment enrollment) {
-        this.worker.enrollmentService().assignGrade(
-                enrollment.getStudent(),
-                enrollment.getModule(),
-                enrollment.getGrade()
-        );
+    public Enrollment assignGrade(@RequestBody Enrollment enrollment) {
+        Enrollment result = null;
+        if (PermissionUtility.hasPermission(new Staff(), Permission.ASSIGN_GRADE)) {
+            this.worker.enrollmentService().assignGrade(
+                    enrollment.getStudent(),
+                    enrollment.getModule(),
+                    enrollment.getGrade()
+            );
+            result = enrollment;
+        }
+        return result;
     }
 }

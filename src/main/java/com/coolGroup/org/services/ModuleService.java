@@ -2,6 +2,7 @@ package com.coolGroup.org.services;
 
 import com.coolGroup.org.models.Module;
 import com.coolGroup.org.repositories.ModuleRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,13 @@ public class ModuleService implements IModuleService {
     @Override
     public Module get(Integer id) {
         return moduleRepository.getOne(id);
+    }
+
+    @Override
+    public Module edit(Module module) {
+        Module existingModule = this.moduleRepository.getOne(module.getModule_id());
+        BeanUtils.copyProperties(module, existingModule, "module_id");
+        return this.moduleRepository.saveAndFlush(existingModule);
     }
 
     @Override

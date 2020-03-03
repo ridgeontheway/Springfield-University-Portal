@@ -1,6 +1,9 @@
 package com.coolGroup.org.controllers;
 
+import com.coolGroup.org.config.PermissionUtility;
+import com.coolGroup.org.models.Staff;
 import com.coolGroup.org.models.Student;
+import com.coolGroup.org.models.enums.Permission;
 import com.coolGroup.org.services.IWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +38,15 @@ public class ModuleController {
         List<Student> students = worker.enrollmentService().getStudentsForModule(id);
         module.setStudents(students);
         return module;
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH)
+    public Module edit(@RequestBody final Module module) {
+        Module newModule = null;
+        if (PermissionUtility.hasPermission(new Staff(), Permission.EDIT_MODULE)) {
+            newModule = worker.moduleService().edit(module);
+        }
+        return newModule;
     }
 
     @PostMapping
