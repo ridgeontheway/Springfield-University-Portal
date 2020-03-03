@@ -12,7 +12,9 @@ public class ModuleService implements IModuleService {
     private ModuleRepository moduleRepository;
 
     @Autowired
-    public ModuleService(ModuleRepository moduleRepository) { this.moduleRepository = moduleRepository; }
+    public ModuleService(ModuleRepository moduleRepository) {
+        this.moduleRepository = moduleRepository;
+    }
 
     @Override
     public Iterable<Module> get() {

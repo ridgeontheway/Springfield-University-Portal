@@ -17,14 +17,16 @@ import java.util.List;
 public class EnrollmentController {
     private IWorker worker;
 
-    public EnrollmentController(IWorker worker) { this.worker = worker; }
+    public EnrollmentController(IWorker worker) {
+        this.worker = worker;
+    }
 
     @PostMapping
     public Enrollment enroll(@RequestBody StudentAndModuleDto dto) {
         Enrollment enrollment = null;
         if (PermissionUtility.hasPermission(new Student(), Permission.ENROLL)) {
             enrollment = this.worker.enrollmentService()
-                .enroll(dto.getStudent(), dto.getModule());
+                    .enroll(dto.getStudent(), dto.getModule());
         }
         return enrollment;
     }

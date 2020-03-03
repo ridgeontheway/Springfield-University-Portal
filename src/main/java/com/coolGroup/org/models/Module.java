@@ -1,6 +1,7 @@
 package com.coolGroup.org.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -18,7 +19,8 @@ public class Module {
     @Transient
     List<Student> students;
 
-    public Module() {}
+    public Module() {
+    }
 
     public Module(String name, String coordinator_name,
                   int current_number_enrolled, int max_number_enrolled, double cost) {

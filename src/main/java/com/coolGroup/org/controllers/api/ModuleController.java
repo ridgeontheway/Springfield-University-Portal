@@ -23,7 +23,8 @@ public class ModuleController {
     }
 
     @GetMapping
-    public @ResponseBody Iterable<Module> get() {
+    public @ResponseBody
+    Iterable<Module> get() {
         Iterable<Module> modules = worker.moduleService().get();
         for (Module module : modules) {
             List<Student> students = worker.enrollmentService().getStudentsForModule(module.getModule_id());
@@ -33,7 +34,8 @@ public class ModuleController {
     }
 
     @GetMapping(path = "{id}")
-    public @ResponseBody Module get(@PathVariable Integer id) {
+    public @ResponseBody
+    Module get(@PathVariable Integer id) {
         Module module = worker.moduleService().get(id);
         List<Student> students = worker.enrollmentService().getStudentsForModule(id);
         module.setStudents(students);
@@ -62,7 +64,8 @@ public class ModuleController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public @ResponseBody Module delete(@PathVariable Integer id) {
+    public @ResponseBody
+    Module delete(@PathVariable Integer id) {
         return worker.moduleService().delete(id);
     }
 }

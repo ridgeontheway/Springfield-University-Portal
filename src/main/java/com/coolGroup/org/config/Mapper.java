@@ -19,10 +19,10 @@ public class Mapper {
         for (Enrollment enrollment : enrollments) {
             Module module = moduleDictionary.get(enrollment.getModule());
             result.add(new ModuleForStudentDto(
-                module.getModule_id(),
-                module.getName(),
-                module.getCoordinator_name(),
-                enrollment.getGrade() != null ? enrollment.getGrade() : ""
+                    module.getModule_id(),
+                    module.getName(),
+                    module.getCoordinator_name(),
+                    enrollment.getGrade() != null ? enrollment.getGrade() : ""
             ));
         }
         return result;

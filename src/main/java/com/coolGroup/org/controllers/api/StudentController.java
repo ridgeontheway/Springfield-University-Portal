@@ -21,7 +21,8 @@ public class StudentController {
     }
 
     @GetMapping
-    public @ResponseBody Iterable<Student> get() {
+    public @ResponseBody
+    Iterable<Student> get() {
         Iterable<Student> students = worker.studentService().get();
         for (Student student : students) {
             List<ModuleForStudentDto> modules = worker.enrollmentService()
@@ -32,7 +33,8 @@ public class StudentController {
     }
 
     @GetMapping(path = "{id}")
-    public @ResponseBody Student get(@PathVariable Integer id) {
+    public @ResponseBody
+    Student get(@PathVariable Integer id) {
         Student student = worker.studentService().get(id);
         List<ModuleForStudentDto> modules = worker.enrollmentService().getModulesForStudent(id);
         student.setModules(modules);
@@ -43,15 +45,19 @@ public class StudentController {
     @PostMapping
     @CrossOrigin(origins = "http://localhost:8080")
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody Student create(@RequestBody final Student student) {
+    public @ResponseBody
+    Student create(@RequestBody final Student student) {
         return worker.studentService().create(student);
     }
 
     @RequestMapping(path = "multiple", method = RequestMethod.POST)
-    public void createMultiple(@RequestBody final Student[] students) { worker.studentService().createMultiple(students); }
+    public void createMultiple(@RequestBody final Student[] students) {
+        worker.studentService().createMultiple(students);
+    }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public @ResponseBody Student delete(@PathVariable Integer id) {
+    public @ResponseBody
+    Student delete(@PathVariable Integer id) {
         return worker.studentService().delete(id);
     }
 
