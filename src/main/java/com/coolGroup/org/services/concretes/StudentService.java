@@ -110,4 +110,14 @@ public class StudentService implements IStudentService {
         }
         return result;
     }
+
+    @Override
+    public Student getByEmail(String email) {
+        Optional<Student> student = this.studentRepository.getByEmail(email);
+        Student result = null;
+        if (student.isPresent()) {
+            result = student.get();
+        }
+        return result;
+    }
 }
