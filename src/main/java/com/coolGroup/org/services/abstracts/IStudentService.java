@@ -31,4 +31,6 @@ public interface IStudentService {
     List<Student> getByGender(String gender);
 
     List<Student> getByNationality(String nationality);
+
+    Student getByEmail(String email);
 }

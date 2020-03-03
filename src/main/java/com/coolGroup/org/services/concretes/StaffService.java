@@ -1,6 +1,7 @@
 package com.coolGroup.org.services.concretes;
 
 import com.coolGroup.org.models.Staff;
+import com.coolGroup.org.models.Student;
 import com.coolGroup.org.repositories.StaffRepository;
 import com.coolGroup.org.services.abstracts.IStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,16 @@ public class StaffService implements IStaffService {
         List<Staff> result = null;
         if (staffs.isPresent()) {
             result = staffs.get();
+        }
+        return result;
+    }
+
+    @Override
+    public Staff getByEmail(String email) {
+        Optional<Staff> staff = this.staffRepository.getByEmail(email);
+        Staff result = null;
+        if (staff.isPresent()) {
+            result = staff.get();
         }
         return result;
     }
