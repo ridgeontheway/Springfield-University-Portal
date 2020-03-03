@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../../actions'
 import Screen from './Screen'
 import '../styles.css'
-export default class MyModulesScreen extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      redirect: false,
-      pathname: '/my-modules'
-    }
+class MyModulesScreen extends Component {
+  componentDidMount() {
+    this.props.getEnrolledModules()
   }
 
   render() {
-    return <Screen />
+    return (
+      <div className="backgroundDiv">
+        <Screen />
+      </div>
+    )
   }
 }
+
+export default connect(null, actions)(MyModulesScreen)

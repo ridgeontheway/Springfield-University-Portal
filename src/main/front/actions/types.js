@@ -1,2 +1,3 @@
 export const CREATE_USER = 'CREATE_USER'
 export const ALL_MODULES = 'ALL_MODULES'
+export const ENROLLED_MODULES = 'ENROLLED_MODULES'

@@ -30,7 +30,7 @@ class Screen extends Component {
     this.setState({ showUserPopUp: show })
   }
 
-  moreInfoPressed(_name) {
+  moreInfoPressed(_name, _moduleID) {
     this.props.processCourseInfo(_name)
     this.setState({ showUserPopUp: true })
   }
@@ -38,6 +38,7 @@ class Screen extends Component {
   renderModules() {
     if (this.state.modules) {
       const data = this.state.modules
+      console.log(data)
       return (
         <div>
           {data.map((data, idx) => {
@@ -46,7 +47,9 @@ class Screen extends Component {
                 key={idx}
                 name={data.name}
                 coordinator={data.coordinator_name}
+                moduleID={data.module_id}
                 onClick={this.moreInfoPressed}
+                type="Available"
               />
             )
           })}

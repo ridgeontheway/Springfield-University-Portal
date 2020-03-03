@@ -20,7 +20,7 @@
   },
   "scripts": {
     "watch": "webpack --watch -d",
-    "lint": "lint-staged"
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.js": [

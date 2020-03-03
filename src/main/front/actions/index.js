@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { CREATE_USER, ALL_MODULES } from './types'
+import { CREATE_USER, ALL_MODULES, ENROLLED_MODULES } from './types'
 
 export const createUser = (
   _name,
@@ -52,3 +52,18 @@ export const getAllModules = () => async dispatch => {
       console.error(err)
     })
 }
+
+//TODO: this needs to be fixed when we have log-in functionality
+export const getEnrolledModules = _studentID => async dispatch => {
+  //TODO: we need a simple call here to see if the user is logged in
+  fetch('http://localhost:8080/api/enrollments/student/119', {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result)
+      dispatch({ type: ENROLLED_MODULES, result })
+    })
+}
+
+//TODO: un-enrol from modules needs to be added and dispatch ENROLLED_MODULES when done
