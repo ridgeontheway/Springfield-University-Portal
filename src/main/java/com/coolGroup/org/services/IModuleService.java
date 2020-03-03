@@ -9,6 +9,8 @@ public interface IModuleService {
 
     Module get(Integer id);
 
+    Module edit(Module module);
+
     Module create(final Module module);
 
     void createMultiple(final Module[] modules);
