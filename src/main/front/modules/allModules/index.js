@@ -10,6 +10,7 @@ class AllModulesScreen extends Component {
     this.processCourseInfo = this.processCourseInfo.bind(this)
     this.processPayment = this.processPayment.bind(this)
   }
+
   componentDidMount() {
     this.props.getAllModules()
   }
