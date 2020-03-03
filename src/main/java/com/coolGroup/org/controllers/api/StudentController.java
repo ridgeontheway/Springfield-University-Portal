@@ -1,9 +1,9 @@
-package com.coolGroup.org.controllers;
+package com.coolGroup.org.controllers.api;
 
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import com.coolGroup.org.models.dtos.PaymentAccountDto;
-import com.coolGroup.org.services.IWorker;
+import com.coolGroup.org.services.abstracts.IWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

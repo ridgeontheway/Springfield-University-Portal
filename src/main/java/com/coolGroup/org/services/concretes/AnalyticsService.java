@@ -1,7 +1,10 @@
-package com.coolGroup.org.services;
+package com.coolGroup.org.services.concretes;
 
 import com.coolGroup.org.models.Staff;
 import com.coolGroup.org.models.Student;
+import com.coolGroup.org.services.abstracts.IAnalyticsService;
+import com.coolGroup.org.services.abstracts.IStaffService;
+import com.coolGroup.org.services.abstracts.IStudentService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

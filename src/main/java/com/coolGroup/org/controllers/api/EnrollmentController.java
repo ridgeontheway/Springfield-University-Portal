@@ -1,4 +1,4 @@
-package com.coolGroup.org.controllers;
+package com.coolGroup.org.controllers.api;
 
 import com.coolGroup.org.config.PermissionUtility;
 import com.coolGroup.org.models.Enrollment;
@@ -7,7 +7,7 @@ import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import com.coolGroup.org.models.dtos.StudentAndModuleDto;
 import com.coolGroup.org.models.enums.Permission;
-import com.coolGroup.org.services.IWorker;
+import com.coolGroup.org.services.abstracts.IWorker;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
