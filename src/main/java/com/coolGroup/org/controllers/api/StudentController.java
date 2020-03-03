@@ -25,7 +25,7 @@ public class StudentController {
         Iterable<Student> students = worker.studentService().get();
         for (Student student : students) {
             List<ModuleForStudentDto> modules = worker.enrollmentService()
-                    .getModulesForStudent(student.getStudent_id());
+                    .getModulesForStudent(student.getId());
             student.setModules(modules);
         }
         return students;
