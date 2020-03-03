@@ -1,74 +1,35 @@
 package com.coolGroup.org.models;
 
+import com.coolGroup.org.models.abstracts.IUser;
+import com.coolGroup.org.models.abstracts.User;
 import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Student implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer student_id;
-    private String name;
-    private String surname;
-    private String email;
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+public class Student extends User implements IUser {
     private String address;
     private String phone_number;
-    private String gender;
     private String nationality;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="account_number")
+    @JoinColumn(name = "account_number")
     private PaymentAccount paymentAccount;
     @Transient
     private List<ModuleForStudentDto> modules;
 
-    public Student() {}
+    public Student() {
+    }
 
-    public Student(String name, String surname, String email, String address,
+    public Student(String name, String surname, String email, String password, String address,
                    String phone_number, String gender, String nationality) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
+        super(name, surname, gender, email, password);
         this.address = address;
         this.phone_number = phone_number;
-        this.gender = gender;
         this.nationality = nationality;
-    }
-
-    public Integer getStudent_id() {
-        return student_id;
-    }
-
-    public void setStudent_id(Integer student_id) {
-        this.student_id = student_id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getAddress() {
@@ -85,14 +46,6 @@ public class Student implements Serializable {
 
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getNationality() {
@@ -113,7 +66,7 @@ public class Student implements Serializable {
 
     public PaymentAccount getPaymentAccount() {
         return paymentAccount;
-    }    
+    }
 
     public void setPaymentAccount(PaymentAccount paymentAccount) {
         this.paymentAccount = paymentAccount;

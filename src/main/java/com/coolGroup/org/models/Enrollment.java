@@ -11,7 +11,8 @@ public class Enrollment {
     private Integer module;
     private String grade;
 
-    public Enrollment() {}
+    public Enrollment() {
+    }
 
     public Enrollment(Integer student, Integer module) {
         this.student = student;

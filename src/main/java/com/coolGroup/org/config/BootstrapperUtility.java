@@ -20,15 +20,15 @@ public class BootstrapperUtility {
     }
 
     private void initStudents() {
-        students.add(new Student("Julius", "Caesar", "jcaesar@su.edu",
+        students.add(new Student("Julius", "Caesar", "jcaesar@su.edu", "password123",
                 "Ancient Rome", "1234567", "Male", "Roman"));
-        students.add(new Student("Lucius", "Sulla", "lsulla@su.edu",
+        students.add(new Student("Lucius", "Sulla", "lsulla@su.edu", "password123",
                 "Ancient Rome", "2345678", "Male", "Roman"));
-        students.add(new Student("Genghis", "Khan", "gkhan@su.edu",
+        students.add(new Student("Genghis", "Khan", "gkhan@su.edu", "password123",
                 "Mongolia", "3456789", "Male", "Mongolian"));
-        students.add(new Student("Marie", "Curie", "mcurie@su.edu",
+        students.add(new Student("Marie", "Curie", "mcurie@su.edu", "password123",
                 "Poland", "4567890", "Female", "Polish"));
-        students.add(new Student("George", "Washington", "gwashington@su.edu",
+        students.add(new Student("George", "Washington", "gwashington@su.edu", "password123",
                 "The White House", "7654321", "Male", "American"));
     }
 
@@ -44,7 +44,7 @@ public class BootstrapperUtility {
         Random random = new Random();
         for (Student student : students) {
             this.worker.studentService().addPaymentAccount(new PaymentAccountDto(
-                    student.getStudent_id().toString(),
+                    student.getId().toString(),
                     String.valueOf(random.nextInt(899999) + 100000),
                     "100000"
             ));
@@ -60,7 +60,7 @@ public class BootstrapperUtility {
             int enrollmentCount = random.nextInt(modules.size() / 2);
             for (int i = 0; i <= enrollmentCount; i++) {
                 int nextModule = random.nextInt(maxModuleNumber - minModuleNumber) + minModuleNumber;
-                this.worker.enrollmentService().enroll(student.getStudent_id(), nextModule);
+                this.worker.enrollmentService().enroll(student.getId(), nextModule);
             }
         }
     }

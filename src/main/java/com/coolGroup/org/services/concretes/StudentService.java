@@ -52,8 +52,8 @@ public class StudentService implements IStudentService {
 
     @Override
     public Student saveChanges(Student student) {
-        Student existingStudent = this.studentRepository.getOne(student.getStudent_id());
-        BeanUtils.copyProperties(student, existingStudent, "student_id");
+        Student existingStudent = this.studentRepository.getOne(student.getId());
+        BeanUtils.copyProperties(student, existingStudent, "id");
         return this.studentRepository.saveAndFlush(existingStudent);
     }
 
