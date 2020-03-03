@@ -20,8 +20,7 @@ public class ModuleController {
     }
 
     @GetMapping
-    public @ResponseBody
-    Iterable<Module> get() {
+    public @ResponseBody Iterable<Module> get() {
         Iterable<Module> modules = worker.moduleService().get();
         for (Module module : modules) {
             List<Student> students = worker.enrollmentService().getStudentsForModule(module.getModule_id());

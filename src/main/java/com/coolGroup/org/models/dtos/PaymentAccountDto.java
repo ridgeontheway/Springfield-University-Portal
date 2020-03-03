@@ -5,6 +5,12 @@ public class PaymentAccountDto {
     private String account_number;
     private String balance;
 
+    public PaymentAccountDto(String student, String account_number, String balance) {
+        this.student = student;
+        this.account_number = account_number;
+        this.balance = balance;
+    }
+
     public String getStudent() {
         return student;
     }
