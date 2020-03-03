@@ -1,5 +1,6 @@
 package com.coolGroup.org.config;
 
+import com.coolGroup.org.models.Staff;
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.Module;
 import com.coolGroup.org.models.dtos.PaymentAccountDto;
@@ -11,6 +12,7 @@ import java.util.Random;
 
 public class BootstrapperUtility {
     private List<Student> students = new ArrayList<>();
+    private List<Staff> staff = new ArrayList<>();
     private List<Module> modules = new ArrayList<>();
 
     private IWorker worker;
@@ -38,6 +40,7 @@ public class BootstrapperUtility {
         modules.add(new Module("Maths", "Alan Turing", 0, 50, 100.00));
         modules.add(new Module("Geography", "Ferdinand Magellan", 0, 50, 100.00));
         modules.add(new Module("Biology", "Bill Nye", 0, 50, 100.00));
+        modules.add(new Module("Flagmaking", "Betsy Ross", 0, 50, 100.00));
     }
 
     private void initPaymentAccounts() {
@@ -67,12 +70,34 @@ public class BootstrapperUtility {
 
     private void writeStudentsAndModules() {
         initStudents();
-        for (Student student : students) {
+        for (Student student : this.students) {
             this.worker.studentService().create(student);
         }
         initModules();
-        for (Module module : modules) {
+        for (Module module : this.modules) {
             this.worker.moduleService().create(module);
+        }
+    }
+
+    private void initStaff() {
+        staff.add(new Staff("Lilliana", "Pasquale",
+                "lpasquale@su.com", "password4321", "Female"));
+        staff.add(new Staff("Alan", "Turing",
+                "aturing@su.com", "password4321", "Male"));
+        staff.add(new Staff("Bob", "dole",
+                "bdole@su.com", "password4321", "Male"));
+        staff.add(new Staff("Ferdinand", "Magellan",
+                "fmagellan@su.com", "password4321", "Male"));
+        staff.add(new Staff("Betsy", "Ross",
+                "bross@su.com", "password4321", "Female"));
+        staff.add(new Staff("Bill", "Nye",
+                "bnye@su.com", "password4321", "Male"));
+    }
+
+    private void writeStaff() {
+        initStaff();
+        for (Staff staffMember : this.staff) {
+            this.worker.staffService().create(staffMember);
         }
     }
 
@@ -80,6 +105,7 @@ public class BootstrapperUtility {
         writeStudentsAndModules();
         initPaymentAccounts();
         initEnrollments();
+        writeStaff();
 
         return "Success!";
     }
