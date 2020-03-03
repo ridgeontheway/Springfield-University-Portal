@@ -1,6 +1,7 @@
 package com.coolGroup.org.services.concretes;
 
 import com.coolGroup.org.models.PaymentAccount;
+import com.coolGroup.org.models.Staff;
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.dtos.PaymentAccountDto;
 import com.coolGroup.org.repositories.StudentRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService implements IStudentService {
@@ -33,7 +35,15 @@ public class StudentService implements IStudentService {
 
     @Override
     public Student create(Student student) {
-        return studentRepository.saveAndFlush(student);
+        Student result = null;
+        Iterable<Student> emailMatches = this.studentRepository
+                .findAll().stream()
+                .filter(s -> s.getEmail().equals(student.getEmail()))
+                .collect(Collectors.toList());
+        if (((List<Student>) emailMatches).isEmpty()) {
+            result = studentRepository.saveAndFlush(student);
+        }
+        return result;
     }
 
     @Override
