@@ -1,33 +1,47 @@
 package com.coolGroup.org.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class Worker implements IWorker {
     private IStudentService studentService;
+    private IStaffService staffService;
     private IModuleService moduleService;
     private IEnrollmentService enrollmentService;
-    private IStaffService staffService;
+    private IAnalyticsService analyticsService;
 
-    @Autowired
-    public Worker(IStudentService studentService, IModuleService moduleService,
-                  IEnrollmentService enrollmentService, IStaffService staffService) {
+    public Worker(IStudentService studentService, IStaffService staffService,
+                  IModuleService moduleService, IEnrollmentService enrollmentService,
+                  IAnalyticsService analyticsService) {
         this.studentService = studentService;
+        this.staffService = staffService;
         this.moduleService = moduleService;
         this.enrollmentService = enrollmentService;
-        this.staffService = staffService;
+        this.analyticsService = analyticsService;
     }
 
     @Override
-    public IStudentService studentService() { return this.studentService; }
+    public IStudentService studentService() {
+        return this.studentService;
+    }
 
     @Override
-    public IModuleService moduleService() { return this.moduleService; }
+    public IStaffService staffService() {
+        return this.staffService;
+    }
 
     @Override
-    public IEnrollmentService enrollmentService() { return this.enrollmentService; }
+    public IModuleService moduleService() {
+        return this.moduleService;
+    }
 
     @Override
-    public IStaffService staffService() { return this.staffService; }
+    public IEnrollmentService enrollmentService() {
+        return this.enrollmentService;
+    }
+
+    @Override
+    public IAnalyticsService analyticsService() {
+        return this.analyticsService;
+    }
 }
