@@ -13,7 +13,8 @@ import javax.persistence.UniqueConstraint;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Staff extends User implements IUser {
 
-    public Staff() { }
+    public Staff() {
+    }
 
     public Staff(String name, String surname, String email,
                  String password, String gender) {

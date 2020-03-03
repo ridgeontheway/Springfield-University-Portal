@@ -12,17 +12,17 @@ import java.util.List;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Student extends User implements IUser {
-    private String email;
     private String address;
     private String phone_number;
     private String nationality;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="account_number")
+    @JoinColumn(name = "account_number")
     private PaymentAccount paymentAccount;
     @Transient
     private List<ModuleForStudentDto> modules;
 
-    public Student() {}
+    public Student() {
+    }
 
     public Student(String name, String surname, String email, String password, String address,
                    String phone_number, String gender, String nationality) {
@@ -66,7 +66,7 @@ public class Student extends User implements IUser {
 
     public PaymentAccount getPaymentAccount() {
         return paymentAccount;
-    }    
+    }
 
     public void setPaymentAccount(PaymentAccount paymentAccount) {
         this.paymentAccount = paymentAccount;

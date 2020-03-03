@@ -8,7 +8,10 @@ import java.util.Optional;
 
 public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer> {
     Optional<Enrollment> findByStudentAndModule(Integer student, Integer module);
+
     void deleteEnrollmentById(Integer id);
+
     Optional<List<Enrollment>> findAllByStudent(Integer student);
+
     Optional<List<Enrollment>> findAllByModule(Integer module);
 }

@@ -14,7 +14,8 @@ public abstract class User {
     private String email;
     private String password;
 
-    public User() { }
+    public User() {
+    }
 
     public User(String name, String surname, String gender, String email, String password) {
         this.name = name;
