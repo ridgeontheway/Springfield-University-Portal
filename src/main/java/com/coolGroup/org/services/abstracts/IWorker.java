@@ -1,4 +1,4 @@
-package com.coolGroup.org.services;
+package com.coolGroup.org.services.abstracts;
 
 public interface IWorker {
     IStudentService studentService();

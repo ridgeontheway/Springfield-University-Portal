@@ -1,5 +1,6 @@
-package com.coolGroup.org.services;
+package com.coolGroup.org.services.concretes;
 
+import com.coolGroup.org.services.abstracts.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

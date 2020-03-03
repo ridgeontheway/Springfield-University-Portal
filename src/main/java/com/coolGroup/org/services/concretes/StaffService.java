@@ -1,7 +1,8 @@
-package com.coolGroup.org.services;
+package com.coolGroup.org.services.concretes;
 
 import com.coolGroup.org.models.Staff;
 import com.coolGroup.org.repositories.StaffRepository;
+import com.coolGroup.org.services.abstracts.IStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

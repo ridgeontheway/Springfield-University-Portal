@@ -1,7 +1,8 @@
-package com.coolGroup.org.services;
+package com.coolGroup.org.services.concretes;
 
 import com.coolGroup.org.models.Module;
 import com.coolGroup.org.repositories.ModuleRepository;
+import com.coolGroup.org.services.abstracts.IModuleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

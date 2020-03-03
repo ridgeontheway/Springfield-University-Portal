@@ -1,4 +1,4 @@
-package com.coolGroup.org.services;
+package com.coolGroup.org.services.abstracts;
 
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,8 @@
-package com.coolGroup.org.controllers;
+package com.coolGroup.org.controllers.utils;
 
 
 import com.coolGroup.org.config.BootstrapperUtility;
-import com.coolGroup.org.services.IWorker;
+import com.coolGroup.org.services.abstracts.IWorker;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

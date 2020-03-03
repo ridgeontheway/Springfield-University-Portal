@@ -1,4 +1,4 @@
-package com.coolGroup.org.services;
+package com.coolGroup.org.services.concretes;
 
 import com.coolGroup.org.config.Mapper;
 import com.coolGroup.org.models.Enrollment;
@@ -6,7 +6,9 @@ import com.coolGroup.org.models.Module;
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import com.coolGroup.org.repositories.EnrollmentRepository;
-import com.coolGroup.org.repositories.StudentRepository;
+import com.coolGroup.org.services.abstracts.IEnrollmentService;
+import com.coolGroup.org.services.abstracts.IModuleService;
+import com.coolGroup.org.services.abstracts.IStudentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

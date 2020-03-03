@@ -1,9 +1,9 @@
-package com.coolGroup.org.controllers;
+package com.coolGroup.org.controllers.api;
 
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import com.coolGroup.org.models.dtos.PaymentAccountDto;
-import com.coolGroup.org.services.IWorker;
+import com.coolGroup.org.services.abstracts.IWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ public class StudentController {
         Iterable<Student> students = worker.studentService().get();
         for (Student student : students) {
             List<ModuleForStudentDto> modules = worker.enrollmentService()
-                    .getModulesForStudent(student.getStudent_id());
+                    .getModulesForStudent(student.getId());
             student.setModules(modules);
         }
         return students;
