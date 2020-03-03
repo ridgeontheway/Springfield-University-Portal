@@ -1,44 +1,23 @@
 package com.coolGroup.org.models;
 
+import com.coolGroup.org.models.abstracts.IUser;
+import com.coolGroup.org.models.abstracts.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Staff {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private String name;
-    private String gender;
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+public class Staff extends User implements IUser {
 
-    public Staff() { }
-
-    public Integer getId() {
-        return id;
+    public Staff() {
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
+    public Staff(String name, String surname, String email,
+                 String password, String gender) {
+        super(name, surname, gender, email, password);
     }
 }

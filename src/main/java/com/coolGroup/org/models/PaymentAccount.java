@@ -14,7 +14,8 @@ public class PaymentAccount {
     private double balance;
 
 
-    public PaymentAccount() {}
+    public PaymentAccount() {
+    }
 
     public PaymentAccount(Integer student, String account_number, double balance) {
         this.student = student;

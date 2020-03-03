@@ -1,6 +1,5 @@
 package com.coolGroup.org.services.abstracts;
 
-import com.coolGroup.org.models.PaymentAccount;
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.dtos.PaymentAccountDto;
 import org.springframework.stereotype.Service;
@@ -32,4 +31,6 @@ public interface IStudentService {
     List<Student> getByGender(String gender);
 
     List<Student> getByNationality(String nationality);
+
+    Student getByEmail(String email);
 }

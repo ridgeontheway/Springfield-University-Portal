@@ -19,4 +19,5 @@ public interface IStaffService {
 
     List<Staff> getByGender(String gender);
 
+    Staff getByEmail(String email);
 }

@@ -5,6 +5,7 @@ import com.coolGroup.org.models.Student;
 import com.coolGroup.org.services.abstracts.IAnalyticsService;
 import com.coolGroup.org.services.abstracts.IStaffService;
 import com.coolGroup.org.services.abstracts.IStudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -16,6 +17,7 @@ public class AnalyticsService implements IAnalyticsService {
     private IStudentService studentService;
     private IStaffService staffService;
 
+    @Autowired
     public AnalyticsService(IStudentService studentService, IStaffService staffService) {
         this.studentService = studentService;
         this.staffService = staffService;
@@ -34,10 +36,8 @@ public class AnalyticsService implements IAnalyticsService {
         Map<String, Integer> distributions = new HashMap<>();
         List<Student> maleStudents = this.studentService.getByGender("Male");
         List<Student> femaleStudents = this.studentService.getByGender("Female");
-        List<Student> otherStudents = this.studentService.getByGender("Other");
-        distributions.put("male", maleStudents.size());
-        distributions.put("female", femaleStudents.size());
-        distributions.put("other", otherStudents.size());
+        distributions.put("male", maleStudents != null ? maleStudents.size() : 0);
+        distributions.put("female", femaleStudents != null ? femaleStudents.size() : 0);
 
         return distributions;
     }
@@ -47,10 +47,8 @@ public class AnalyticsService implements IAnalyticsService {
         Map<String, Integer> distributions = new HashMap<>();
         List<Staff> maleStaff = this.staffService.getByGender("Male");
         List<Staff> femaleStaff = this.staffService.getByGender("Female");
-        List<Staff> otherStaff = this.staffService.getByGender("Other");
-        distributions.put("male", maleStaff.size());
-        distributions.put("female", femaleStaff.size());
-        distributions.put("other", otherStaff.size());
+        distributions.put("male", maleStaff != null ? maleStaff.size() : 0);
+        distributions.put("female", femaleStaff != null ? femaleStaff.size() : 0);
 
         return distributions;
     }
