@@ -1,6 +1,5 @@
 package com.coolGroup.org.controllers;
 
-import com.coolGroup.org.models.PaymentAccount;
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.dtos.ModuleForStudentDto;
 import com.coolGroup.org.models.dtos.PaymentAccountDto;

@@ -8,10 +8,6 @@ import java.util.List;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Module implements Serializable {
-//    module name, the module topics, the name of the module coordinator,
-// and view module statistics (number of enrolled students, grades distributions
-// for previous editions of the module, max students).
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer module_id;
