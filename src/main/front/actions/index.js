@@ -1,5 +1,10 @@
 import fetch from 'isomorphic-fetch'
-import { CREATE_USER, ALL_MODULES, ENROLLED_MODULES } from './types'
+import {
+  CREATE_USER,
+  ALL_MODULES,
+  ENROLLED_MODULES,
+  NATIONALITY_ANALYTICS
+} from './types'
 
 export const createUser = (
   _name,
@@ -67,3 +72,14 @@ export const getEnrolledModules = _studentID => async dispatch => {
 }
 
 //TODO: un-enrol from modules needs to be added and dispatch ENROLLED_MODULES when done
+
+export const getNationalityAnalytics = () => async dispatch => {
+  fetch('http://localhost:8080/api/analytics/nationality', {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result)
+      dispatch({ type: NATIONALITY_ANALYTICS, result })
+    })
+}
