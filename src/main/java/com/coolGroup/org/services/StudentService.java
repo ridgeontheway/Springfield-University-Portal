@@ -8,6 +8,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 @Service
 public class StudentService implements IStudentService {
     private StudentRepository studentRepository;
@@ -85,5 +89,25 @@ public class StudentService implements IStudentService {
     @Override
     public boolean hasSufficientFunds(Student student, double cost) {
         return student.getPaymentAccount().getBalance() >= cost;
+    }
+
+    @Override
+    public List<Student> getByGender(String gender) {
+        Optional<List<Student>> students = this.studentRepository.getAllByGender(gender);
+        List<Student> result = null;
+        if (students.isPresent()) {
+            result = students.get();
+        }
+        return result;
+    }
+
+    @Override
+    public List<Student> getByNationality(String nationality) {
+        Optional<List<Student>> students = this.studentRepository.getAllByNationality(nationality);
+        List<Student> result = null;
+        if (students.isPresent()) {
+            result = students.get();
+        }
+        return result;
     }
 }

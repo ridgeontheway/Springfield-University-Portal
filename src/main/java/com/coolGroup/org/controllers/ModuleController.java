@@ -1,6 +1,7 @@
 package com.coolGroup.org.controllers;
 
 import com.coolGroup.org.config.PermissionUtility;
+import com.coolGroup.org.models.Staff;
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.enums.Permission;
 import com.coolGroup.org.services.IWorker;
@@ -42,7 +43,7 @@ public class ModuleController {
     @RequestMapping(method = RequestMethod.PATCH)
     public Module edit(@RequestBody final Module module) {
         Module newModule = null;
-        if (PermissionUtility.hasPermission("Staff", Permission.EDIT_MODULE)) {
+        if (PermissionUtility.hasPermission(new Staff(), Permission.EDIT_MODULE)) {
             newModule = worker.moduleService().edit(module);
         }
         return newModule;
