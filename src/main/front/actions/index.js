@@ -3,7 +3,8 @@ import {
   CREATE_USER,
   ALL_MODULES,
   ENROLLED_MODULES,
-  NATIONALITY_ANALYTICS
+  NATIONALITY_ANALYTICS,
+  ADD_MODULE_STATUS
 } from './types'
 
 export const createUser = (
@@ -84,10 +85,13 @@ export const getNationalityAnalytics = () => async dispatch => {
     })
 }
 
-export const editModuleDetails = (
-  _moduleID,
-  _coordinator,
-  _title
-) => async dispatch => {
-  console.error('I am waiting to call the API with the new information!')
+export const enrolInModule = _id => async dispatch => {
+  fetch('http://localhost:8080/api/modules/' + _id, {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(result => {
+      const moduleCost = result.cost
+      dispatch({ type: ADD_MODULE_STATUS, result: 'enrolled' })
+    })
 }

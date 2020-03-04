@@ -16,14 +16,20 @@ import java.util.List;
 @RequestMapping(path = "/api/enrollments")
 public class EnrollmentController {
     private IWorker worker;
+    private final PermissionUtility perms;
 
     public EnrollmentController(IWorker worker) {
         this.worker = worker;
+        this.perms = new PermissionUtility();
     }
 
+    /*
+    enrollment.getModule() == -1    --> Module is full
+    enrollment.getStudent() == -1   --> Student has insufficient funds
+     */
     @PostMapping
     public Enrollment enroll(@RequestBody StudentAndModuleDto dto) {
-        Enrollment enrollment = null;
+        Enrollment enrollment = new Enrollment();
         if (PermissionUtility.hasPermission(new Student(), Permission.ENROLL)) {
             enrollment = this.worker.enrollmentService()
                     .enroll(dto.getStudent(), dto.getModule());

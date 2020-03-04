@@ -22,9 +22,9 @@ public interface IStudentService {
 
     Student addPaymentAccount(PaymentAccountDto dto);
 
-    double deposit(Student student, double amount);
+    double depositFunds(Student student, double amount);
 
-    double withdraw(Student student, double amount);
+    double withdrawFunds(Student student, double amount);
 
     boolean hasSufficientFunds(Student student, double cost);
 

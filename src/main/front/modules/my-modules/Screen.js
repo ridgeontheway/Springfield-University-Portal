@@ -23,8 +23,9 @@ class Screen extends Component {
     this.setState({ showUserPopUp: show })
   }
 
-  moreInfoPressed(_name, _moduleID, _moduleCoordinator) {
-    this.setState({ toastText: _name, showToast: true })
+  moreInfoPressed(_name, _moduleID) {
+    const userText = 'You have un-enrolled from the module: ' + _name
+    this.setState({ toastText: userText, showToast: true })
     setTimeout(() => {
       this.setState({ showToast: false })
     }, 2000)

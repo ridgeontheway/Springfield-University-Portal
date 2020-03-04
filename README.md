@@ -38,3 +38,8 @@ Before running the application, a local MySQL Database needs to be created.
 **Step 4:** Visit the website through a web-browser
     
     http://localhost:8080/
+    
+**Step 5:** To seed the database, visit this link
+
+    http://localhost:8080/api/bootstrap
+

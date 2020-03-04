@@ -6,13 +6,13 @@ export default class ToastComponent extends Component {
       <Toast
         onClose={this.props.onClose}
         show={this.props.show}
-        onClick={this.props.onClose}>
+        onClick={this.props.onClose}
+        delay={3000}
+        autohide>
         <Toast.Header>
           <strong className="mr-auto">Registration</strong>
         </Toast.Header>
-        <Toast.Body>
-          You have un-enrolled from the module: {this.props.text}
-        </Toast.Body>
+        <Toast.Body>{this.props.text}</Toast.Body>
       </Toast>
     )
   }
