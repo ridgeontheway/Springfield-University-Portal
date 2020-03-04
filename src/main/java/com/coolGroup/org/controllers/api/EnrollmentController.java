@@ -16,11 +16,11 @@ import java.util.List;
 @RequestMapping(path = "/api/enrollments")
 public class EnrollmentController {
     private IWorker worker;
-    private final PermissionUtility perms;
+    private final PermissionUtility userPermissions;
 
-    public EnrollmentController(IWorker worker) {
+    public EnrollmentController(IWorker worker, PermissionUtility userPermissions) {
         this.worker = worker;
-        this.perms = new PermissionUtility();
+        this.userPermissions = userPermissions;
     }
 
     /*
@@ -30,7 +30,7 @@ public class EnrollmentController {
     @PostMapping
     public Enrollment enroll(@RequestBody StudentAndModuleDto dto) {
         Enrollment enrollment = new Enrollment();
-        if (PermissionUtility.hasPermission(new Student(), Permission.ENROLL)) {
+        if (userPermissions.hasPermission(Permission.ENROLL)) {
             enrollment = this.worker.enrollmentService()
                     .enroll(dto.getStudent(), dto.getModule());
         }
@@ -40,7 +40,7 @@ public class EnrollmentController {
     @RequestMapping(method = RequestMethod.DELETE)
     public Enrollment unenroll(@RequestBody StudentAndModuleDto dto) {
         Enrollment enrollment = null;
-        if (PermissionUtility.hasPermission(new Student(), Permission.UNENROLL)) {
+        if (userPermissions.hasPermission(Permission.UNENROLL)) {
             enrollment = this.worker.enrollmentService()
                     .unenroll(dto.getStudent(), dto.getModule());
         }
@@ -67,7 +67,7 @@ public class EnrollmentController {
     @RequestMapping(path = "grade", method = RequestMethod.PATCH)
     public Enrollment assignGrade(@RequestBody Enrollment enrollment) {
         Enrollment result = null;
-        if (PermissionUtility.hasPermission(new Staff(), Permission.ASSIGN_GRADE)) {
+        if (userPermissions.hasPermission(Permission.ASSIGN_GRADE)) {
             this.worker.enrollmentService().assignGrade(
                     enrollment.getStudent(),
                     enrollment.getModule(),

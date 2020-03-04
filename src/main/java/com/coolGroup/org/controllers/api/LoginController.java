@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api/Login")
+@RequestMapping(path = "/api/login")
 public class LoginController {
     private IWorker worker;
 
@@ -16,14 +16,16 @@ public class LoginController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Login user(@RequestBody Login user) {
-        return this.worker.loginService().user(user);
+    public Login loginUser(@RequestBody Login user) {
+        return this.worker.loginService().loginUser(user);
     }
-    @GetMapping
-    public @ResponseBody
-    Login get() {
 
-        return this.worker.loginService().get();
+    @GetMapping(path = "logout")
+    public void logoutUser() { this.worker.loginService().logoutUser(); }
+
+    @GetMapping
+    public Login getLoggedInUser() {
+        return this.worker.loginService().getLoggedInUser();
     }
 
 }
