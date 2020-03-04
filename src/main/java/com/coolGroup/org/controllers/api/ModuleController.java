@@ -42,11 +42,11 @@ public class ModuleController {
         return module;
     }
 
-    @RequestMapping(method = RequestMethod.PATCH)
-    public Module edit(@RequestBody final Module module) {
+    @RequestMapping(value = "{id}", method = RequestMethod.PATCH)
+    public Module update(@PathVariable Integer id, @RequestBody Module module) {
         Module newModule = null;
         if (PermissionUtility.hasPermission(new Staff(), Permission.EDIT_MODULE)) {
-            newModule = worker.moduleService().edit(module);
+            newModule = worker.moduleService().update(id, module);
         }
         return newModule;
     }
