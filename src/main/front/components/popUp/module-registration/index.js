@@ -5,10 +5,6 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
 export default class ModuleRegistrationPopup extends Component {
-  handleOnClick(event) {
-    event.preventDefault()
-    this.props.register()
-  }
   render() {
     return (
       <Modal
@@ -23,22 +19,8 @@ export default class ModuleRegistrationPopup extends Component {
         </Modal.Header>
         <Modal.Body>
           <div className="content__wrapper">
-            <Form
-              onSubmit={e => {
-                this.handleOnClick(e)
-              }}>
-              <Form.Group controlId="idLogin">
-                <Form.Label>Credit Card Number</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Please enter your payment information"
-                />
-              </Form.Group>
-
-              <Button variant="primary" type="submit" block>
-                Register
-              </Button>
-            </Form>
+            <h3>Register for {this.props.course_name}</h3>
+            <p></p>
           </div>
         </Modal.Body>
         <Modal.Footer>
@@ -51,5 +33,9 @@ export default class ModuleRegistrationPopup extends Component {
 
 ModuleRegistrationPopup.propTypes = {
   register: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  course_name: PropTypes.string.isRequired,
+  module_ID: PropTypes.string.isRequired,
+  module_price: PropTypes.number.isRequired,
+  student_funds: PropTypes.number.isRequired
 }

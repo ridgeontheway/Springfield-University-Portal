@@ -15,14 +15,15 @@ class AllModulesScreen extends Component {
     this.props.getAllModules()
   }
 
-  processCourseInfo(course_name) {
+  processCourseInfo(_courseID) {
     console.log(
       'this is the processing that I am doing with the course name...'
     )
+    this.props.enrolInModule(_courseID)
   }
 
-  processPayment() {
-    console.log('I am processing the payment now......')
+  processPayment(_courseID) {
+    // TODO here is where I will be enrolling the student
   }
 
   render() {
