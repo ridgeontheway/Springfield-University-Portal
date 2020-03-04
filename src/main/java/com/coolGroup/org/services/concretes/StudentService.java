@@ -75,7 +75,7 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public double deposit(Student student, double amount) {
+    public double depositFunds(Student student, double amount) {
         PaymentAccount account = student.getPaymentAccount();
         account.setBalance(account.getBalance() + amount);
         student.setPaymentAccount(account);
@@ -84,7 +84,7 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public double withdraw(Student student, double amount) {
+    public double withdrawFunds(Student student, double amount) {
         PaymentAccount account = student.getPaymentAccount();
         // We'll get a negative number back if invalid but we won't withdraw the money
         double difference = account.getBalance() - amount;

@@ -86,7 +86,6 @@ public class EnrollmentService implements IEnrollmentService {
 
     @Override
     public Enrollment enroll(Integer studentId, Integer moduleId) {
-        // If null is returned, the module is full or the student cannot pay
         Enrollment newEnrollment = new Enrollment();
         Student student = this.studentService.get(studentId);
         Module module = this.moduleService.get(moduleId);
@@ -101,9 +100,11 @@ public class EnrollmentService implements IEnrollmentService {
         if (this.moduleService.hasRoom(moduleId) &&
                 this.studentService.hasSufficientFunds(student, module.getCost())) {
             this.moduleService.addStudent(moduleId);
-            this.studentService.withdraw(student, module.getCost());
             Optional<Enrollment> enrollment = enrollmentRepository
                     .findByStudentAndModule(studentId, moduleId);
+            if (!enrollment.isPresent()) {
+                this.studentService.withdrawFunds(student, module.getCost());
+            }
             Enrollment result = enrollment.orElseGet(() -> new Enrollment(studentId, moduleId));
             newEnrollment = this.enrollmentRepository.saveAndFlush(result);
         }
