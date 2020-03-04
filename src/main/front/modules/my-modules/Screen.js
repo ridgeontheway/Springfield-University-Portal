@@ -24,7 +24,8 @@ class Screen extends Component {
   }
 
   moreInfoPressed(_name, _moduleID) {
-    this.setState({ toastText: _name, showToast: true })
+    const userText = 'You have un-enrolled from the module: ' + _name
+    this.setState({ toastText: userText, showToast: true })
     setTimeout(() => {
       this.setState({ showToast: false })
     }, 2000)

@@ -12,6 +12,14 @@ public interface IStudentService {
 
     Student get(Integer id);
 
+    Student getByEmail(String email);
+
+    List<Student> getByGender(String gender);
+
+    List<Student> getByNationality(String nationality);
+
+    Student update(Integer id, Student student);
+
     Student create(final Student student);
 
     void createMultiple(final Student[] students);
@@ -22,15 +30,9 @@ public interface IStudentService {
 
     Student addPaymentAccount(PaymentAccountDto dto);
 
-    double deposit(Student student, double amount);
+    double depositFunds(Student student, double amount);
 
-    double withdraw(Student student, double amount);
+    double withdrawFunds(Student student, double amount);
 
     boolean hasSufficientFunds(Student student, double cost);
-
-    List<Student> getByGender(String gender);
-
-    List<Student> getByNationality(String nationality);
-
-    Student getByEmail(String email);
 }

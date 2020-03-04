@@ -16,10 +16,12 @@ import java.util.List;
 @RequestMapping(path = "/api/modules")
 public class ModuleController {
     private IWorker worker;
+    private PermissionUtility userPermissions;
 
     @Autowired
-    public ModuleController(IWorker worker) {
+    public ModuleController(IWorker worker, PermissionUtility userPermissions) {
         this.worker = worker;
+        this.userPermissions = userPermissions;
     }
 
     @GetMapping
@@ -42,11 +44,11 @@ public class ModuleController {
         return module;
     }
 
-    @RequestMapping(method = RequestMethod.PATCH)
-    public Module edit(@RequestBody final Module module) {
+    @RequestMapping(value = "{id}", method = RequestMethod.PATCH)
+    public Module update(@PathVariable Integer id, @RequestBody Module module) {
         Module newModule = null;
-        if (PermissionUtility.hasPermission(new Staff(), Permission.EDIT_MODULE)) {
-            newModule = worker.moduleService().edit(module);
+        if (userPermissions.hasPermission(Permission.EDIT_MODULE)) {
+            newModule = worker.moduleService().update(id, module);
         }
         return newModule;
     }

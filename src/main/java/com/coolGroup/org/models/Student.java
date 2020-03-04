@@ -17,7 +17,7 @@ public class Student extends User implements IUser {
     private String nationality;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "account_number")
-    private PaymentAccount paymentAccount;
+    private PaymentAccount payment_account;
     @Transient
     private List<ModuleForStudentDto> modules;
 
@@ -64,11 +64,11 @@ public class Student extends User implements IUser {
         this.modules = modules;
     }
 
-    public PaymentAccount getPaymentAccount() {
-        return paymentAccount;
+    public PaymentAccount getPayment_account() {
+        return payment_account;
     }
 
-    public void setPaymentAccount(PaymentAccount paymentAccount) {
-        this.paymentAccount = paymentAccount;
+    public void setPayment_account(PaymentAccount payment_account) {
+        this.payment_account = payment_account;
     }
 }

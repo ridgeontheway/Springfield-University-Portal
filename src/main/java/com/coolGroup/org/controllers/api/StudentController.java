@@ -21,8 +21,7 @@ public class StudentController {
     }
 
     @GetMapping
-    public @ResponseBody
-    Iterable<Student> get() {
+    public Iterable<Student> get() {
         Iterable<Student> students = worker.studentService().get();
         for (Student student : students) {
             List<ModuleForStudentDto> modules = worker.enrollmentService()
@@ -33,8 +32,7 @@ public class StudentController {
     }
 
     @GetMapping(path = "{id}")
-    public @ResponseBody
-    Student get(@PathVariable Integer id) {
+    public Student get(@PathVariable Integer id) {
         Student student = worker.studentService().get(id);
         List<ModuleForStudentDto> modules = worker.enrollmentService().getModulesForStudent(id);
         student.setModules(modules);
@@ -42,11 +40,24 @@ public class StudentController {
         return student;
     }
 
+    @GetMapping(path = "email/{email}")
+    public Student getByEmail(@PathVariable String email) {
+        Student student = worker.studentService().getByEmail(email);
+        List<ModuleForStudentDto> modules = worker.enrollmentService().getModulesForStudent(student.getId());
+        student.setModules(modules);
+
+        return student;
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.PATCH)
+    public Student update(@PathVariable Integer id, @RequestBody Student student) {
+        return worker.studentService().update(id, student);
+    }
+
     @PostMapping
     @CrossOrigin(origins = "http://localhost:8080")
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody
-    Student create(@RequestBody final Student student) {
+    public Student create(@RequestBody final Student student) {
         return worker.studentService().create(student);
     }
 
@@ -56,8 +67,7 @@ public class StudentController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public @ResponseBody
-    Student delete(@PathVariable Integer id) {
+    public Student delete(@PathVariable Integer id) {
         return worker.studentService().delete(id);
     }
 

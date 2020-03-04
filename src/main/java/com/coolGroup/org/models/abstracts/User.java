@@ -1,11 +1,10 @@
 package com.coolGroup.org.models.abstracts;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,7 +12,9 @@ public abstract class User {
     private String name;
     private String surname;
     private String gender;
+    @NotNull
     private String email;
+    @NotNull
     private String password;
 
     public User() {
