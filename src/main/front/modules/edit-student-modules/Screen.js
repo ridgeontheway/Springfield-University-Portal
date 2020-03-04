@@ -18,6 +18,7 @@ class Screen extends Component {
       selectedModuleCoordinator: ''
     }
     this.moreInfoPressed = this.moreInfoPressed.bind(this)
+    this.sendEditedModuleInfo = this.sendEditedModuleInfo.bind(this)
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -40,6 +41,13 @@ class Screen extends Component {
       selectedModuleCoordinator: _moduleCoordinator,
       showUserPopUp: true
     })
+  }
+
+  sendEditedModuleInfo(_name, _moduleID, _moduleCoordinator) {
+    this.setState({
+      showUserPopUp: false
+    })
+    this.props.editModuleDetails(_name, _moduleID, _moduleCoordinator)
   }
 
   updateInfo() {
@@ -91,7 +99,7 @@ class Screen extends Component {
         <EditModulePopup
           show={this.state.showUserPopUp}
           title="Edit Module Information"
-          send_edited_info={this.props.editModuleDetails}
+          send_edited_info={this.sendEditedModuleInfo}
           module_title={this.state.selectedModuleName}
           coordinator={this.state.selectedModuleCoordinator}
           id={this.state.selectedModuleID}

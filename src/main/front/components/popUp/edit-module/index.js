@@ -8,9 +8,11 @@ export default class EditModulePopup extends Component {
   handleOnClick(event) {
     event.preventDefault()
     const _moduleTitle = event.target.module_title.value
+      ? event.target.module_title.value
+      : this.props.module_title
     const _moduleCoordinator = event.target.module_coordinator.value
-    console.log(_moduleTitle)
-    console.log(_moduleCoordinator)
+      ? event.target.module_coordinator.value
+      : this.props.coordinator
     this.props.send_edited_info(this.props.id, _moduleCoordinator, _moduleTitle)
   }
   render() {
@@ -48,7 +50,7 @@ export default class EditModulePopup extends Component {
               </Form.Group>
 
               <Button variant="primary" type="submit" block>
-                Register
+                Edit Module Information
               </Button>
             </Form>
           </div>

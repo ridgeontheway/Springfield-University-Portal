@@ -95,3 +95,14 @@ export const enrolInModule = _id => async dispatch => {
       dispatch({ type: ADD_MODULE_STATUS, result: 'enrolled' })
     })
 }
+
+export const editModuleDetails = (
+  _moduleID,
+  _coordinator,
+  _title
+) => async dispatch => {
+  console.log(_moduleID)
+  console.log(_coordinator)
+  console.log(_title)
+  console.error('I am waiting to call the API with the new information!')
+}
