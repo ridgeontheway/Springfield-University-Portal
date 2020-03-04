@@ -11,16 +11,18 @@ public class Worker implements IWorker {
     private IModuleService moduleService;
     private IEnrollmentService enrollmentService;
     private IAnalyticsService analyticsService;
+    private ILoginService loginService;
 
     @Autowired
     public Worker(IStudentService studentService, IStaffService staffService,
                   IModuleService moduleService, IEnrollmentService enrollmentService,
-                  IAnalyticsService analyticsService) {
+                  IAnalyticsService analyticsService, ILoginService loginService) {
         this.studentService = studentService;
         this.staffService = staffService;
         this.moduleService = moduleService;
         this.enrollmentService = enrollmentService;
         this.analyticsService = analyticsService;
+        this.loginService=loginService;
     }
 
     @Override
@@ -36,6 +38,10 @@ public class Worker implements IWorker {
     @Override
     public IModuleService moduleService() {
         return this.moduleService;
+    }
+    @Override
+    public ILoginService loginService() {
+        return this.loginService;
     }
 
     @Override
