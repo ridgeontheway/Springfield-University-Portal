@@ -4,7 +4,8 @@ import {
   ALL_MODULES,
   ENROLLED_MODULES,
   NATIONALITY_ANALYTICS,
-  ADD_MODULE_STATUS
+  ADD_MODULE_STATUS,
+  ALL_STUDENTS
 } from './types'
 
 export const createUser = (
@@ -59,10 +60,21 @@ export const getAllModules = () => async dispatch => {
     })
 }
 
+export const getAllStudents = () => async dispatch => {
+  fetch('http://localhost:8080/api/students', {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result)
+      dispatch({ type: ALL_STUDENTS, payload: result })
+    })
+}
+
 //TODO: this needs to be fixed when we have log-in functionality
 export const getEnrolledModules = _studentID => async dispatch => {
   //TODO: we need a simple call here to see if the user is logged in
-  fetch('http://localhost:8080/api/enrollments/student/119', {
+  fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
     method: 'GET'
   })
     .then(response => response.json())
@@ -93,5 +105,59 @@ export const enrolInModule = _id => async dispatch => {
     .then(result => {
       const moduleCost = result.cost
       dispatch({ type: ADD_MODULE_STATUS, result: 'enrolled' })
+    })
+}
+
+export const assignStudentGrade = (
+  _moduleID,
+  _studentID,
+  _newGrade
+) => async dispatch => {
+  fetch('http://localhost:8080/api/enrollments/grade', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      student: _studentID,
+      module: _moduleID,
+      grade: _newGrade
+    })
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result)
+
+      fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
+        method: 'GET'
+      })
+        .then(response => response.json())
+        .then(result => {
+          console.log(result)
+          dispatch({ type: ENROLLED_MODULES, result })
+        })
+    })
+}
+
+export const editModuleDetails = (
+  _moduleID,
+  _coordinator,
+  _title
+) => async dispatch => {
+  console.log(_moduleID)
+  console.log(_coordinator)
+  console.log(_title)
+  console.error('I am waiting to call the API with the new information!')
+  //TODO: hook up the API call when this is fixed
+  fetch('http://localhost:8080/api/modules', {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(result => {
+      dispatch({ type: ALL_MODULES, payload: result })
+    })
+    .catch(err => {
+      console.log('we are getting an error')
+      console.error(err)
     })
 }
