@@ -5,4 +5,5 @@
   display: -webkit-flex; /* NEW - Chrome */
   flex-direction: column;
   background-color: aliceblue;
+  overflow-y: scroll !important;
 }
