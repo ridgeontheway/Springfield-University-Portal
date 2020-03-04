@@ -27,9 +27,9 @@ public class ModuleService implements IModuleService {
     }
 
     @Override
-    public Module edit(Module module) {
-        Module existingModule = this.moduleRepository.getOne(module.getModule_id());
-        BeanUtils.copyProperties(module, existingModule, "module_id");
+    public Module edit(Integer id, Module module) {
+        Module existingModule = this.moduleRepository.getOne(id);
+        BeanUtils.copyProperties(module, existingModule, "module_id", "students");
         return this.moduleRepository.saveAndFlush(existingModule);
     }
 

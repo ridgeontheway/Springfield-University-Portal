@@ -9,7 +9,7 @@ public interface IModuleService {
 
     Module get(Integer id);
 
-    Module edit(Module module);
+    Module edit(Integer id, Module module);
 
     Module create(final Module module);
 
