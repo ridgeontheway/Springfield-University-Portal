@@ -33,6 +33,44 @@ public class StudentService implements IStudentService {
         return studentRepository.getOne(id);
     }
 
+
+    @Override
+    public List<Student> getByGender(String gender) {
+        Optional<List<Student>> students = this.studentRepository.getAllByGender(gender);
+        List<Student> result = null;
+        if (students.isPresent()) {
+            result = students.get();
+        }
+        return result;
+    }
+
+    @Override
+    public List<Student> getByNationality(String nationality) {
+        Optional<List<Student>> students = this.studentRepository.getAllByNationality(nationality);
+        List<Student> result = null;
+        if (students.isPresent()) {
+            result = students.get();
+        }
+        return result;
+    }
+
+    @Override
+    public Student getByEmail(String email) {
+        Optional<Student> student = this.studentRepository.getByEmail(email);
+        Student result = null;
+        if (student.isPresent()) {
+            result = student.get();
+        }
+        return result;
+    }
+
+    @Override
+    public Student update(Integer id, Student student) {
+        Student existingStudent = this.studentRepository.getOne(id);
+        BeanUtils.copyProperties(student, existingStudent, "id", "modules", "payment_account");
+        return this.studentRepository.saveAndFlush(existingStudent);
+    }
+
     @Override
     public Student create(Student student) {
         Student result = null;
@@ -70,27 +108,27 @@ public class StudentService implements IStudentService {
     @Override
     public Student addPaymentAccount(PaymentAccountDto dto) {
         Student student = (get(Integer.parseInt(dto.getStudent())));
-        student.setPaymentAccount(new PaymentAccount(dto));
+        student.setPayment_account(new PaymentAccount(dto));
         return this.studentRepository.saveAndFlush(student);
     }
 
     @Override
     public double depositFunds(Student student, double amount) {
-        PaymentAccount account = student.getPaymentAccount();
+        PaymentAccount account = student.getPayment_account();
         account.setBalance(account.getBalance() + amount);
-        student.setPaymentAccount(account);
+        student.setPayment_account(account);
         saveChanges(student);
-        return student.getPaymentAccount().getBalance();
+        return student.getPayment_account().getBalance();
     }
 
     @Override
     public double withdrawFunds(Student student, double amount) {
-        PaymentAccount account = student.getPaymentAccount();
+        PaymentAccount account = student.getPayment_account();
         // We'll get a negative number back if invalid but we won't withdraw the money
         double difference = account.getBalance() - amount;
         if (difference >= 0) {
             account.setBalance(difference);
-            student.setPaymentAccount(account);
+            student.setPayment_account(account);
             saveChanges(student);
         }
         return difference;
@@ -98,36 +136,6 @@ public class StudentService implements IStudentService {
 
     @Override
     public boolean hasSufficientFunds(Student student, double cost) {
-        return student.getPaymentAccount().getBalance() >= cost;
-    }
-
-    @Override
-    public List<Student> getByGender(String gender) {
-        Optional<List<Student>> students = this.studentRepository.getAllByGender(gender);
-        List<Student> result = null;
-        if (students.isPresent()) {
-            result = students.get();
-        }
-        return result;
-    }
-
-    @Override
-    public List<Student> getByNationality(String nationality) {
-        Optional<List<Student>> students = this.studentRepository.getAllByNationality(nationality);
-        List<Student> result = null;
-        if (students.isPresent()) {
-            result = students.get();
-        }
-        return result;
-    }
-
-    @Override
-    public Student getByEmail(String email) {
-        Optional<Student> student = this.studentRepository.getByEmail(email);
-        Student result = null;
-        if (student.isPresent()) {
-            result = student.get();
-        }
-        return result;
+        return student.getPayment_account().getBalance() >= cost;
     }
 }

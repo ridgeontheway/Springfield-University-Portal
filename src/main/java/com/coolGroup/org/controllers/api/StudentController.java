@@ -49,6 +49,11 @@ public class StudentController {
         return student;
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.PATCH)
+    public Student update(@PathVariable Integer id, @RequestBody Student student) {
+        return worker.studentService().update(id, student);
+    }
+
     @PostMapping
     @CrossOrigin(origins = "http://localhost:8080")
     @ResponseStatus(HttpStatus.CREATED)
