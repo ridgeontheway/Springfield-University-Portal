@@ -20,7 +20,13 @@ public class PermissionUtility {
             }};
 
     public static boolean hasPermission(Object role, Permission permission) {
-        return permissionMap.get(role.getClass().toString()).contains(permission);
+        return permissionMap
+                .get(role.getClass().getSimpleName())
+                .contains(permission);
+    }
+
+    public static String string() {
+        return permissionMap.values().toString();
     }
 
 }
