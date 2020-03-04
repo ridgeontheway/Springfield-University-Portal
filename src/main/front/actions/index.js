@@ -83,3 +83,11 @@ export const getNationalityAnalytics = () => async dispatch => {
       dispatch({ type: NATIONALITY_ANALYTICS, result })
     })
 }
+
+export const editModuleDetails = (
+  _moduleID,
+  _coordinator,
+  _title
+) => async dispatch => {
+  console.error('I am waiting to call the API with the new information!')
+}

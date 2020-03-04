@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Title from '../../components/title'
 import Description from '../../components/description'
 import ModuleCard from '../../components/card/module'
-import ModuleRegistrationPopup from '../../components/popUp/module-registration'
+import EditModulePopup from '../../components/popUp/edit-module'
 import '../styles.css'
 import './styles.css'
 class Screen extends Component {
@@ -12,7 +12,10 @@ class Screen extends Component {
     super(props)
     this.state = {
       modules: false,
-      showUserPopUp: false
+      showUserPopUp: false,
+      selectedModuleName: '',
+      selectedModuleID: 0,
+      selectedModuleCoordinator: ''
     }
     this.moreInfoPressed = this.moreInfoPressed.bind(this)
   }
@@ -31,8 +34,16 @@ class Screen extends Component {
   }
 
   moreInfoPressed(_name, _moduleID, _moduleCoordinator) {
-    this.props.processCourseInfo(_name)
-    this.setState({ showUserPopUp: true })
+    this.setState({
+      selectedModuleName: _name,
+      selectedModuleID: _moduleID,
+      selectedModuleCoordinator: _moduleCoordinator,
+      showUserPopUp: true
+    })
+  }
+
+  updateInfo() {
+    console.log('hello?')
   }
 
   renderModules() {
@@ -65,10 +76,10 @@ class Screen extends Component {
       <div className="loginDiv">
         <div className="wrapperDiv">
           <div className="titleDiv">
-            <Title text="Available Modules" />
+            <Title text="Edit Modules" />
             <Description text="University of Springfield Staff and Student Services" />
           </div>
-          <div className="content__wrapper">
+          <div className="edit-student-content__wrapper">
             {this.state.modules ? (
               this.renderModules()
             ) : (
@@ -77,10 +88,13 @@ class Screen extends Component {
           </div>
           <div className="footerDiv" />
         </div>
-        <ModuleRegistrationPopup
+        <EditModulePopup
           show={this.state.showUserPopUp}
-          title="Module Registration"
-          register={this.props.processPayment}
+          title="Edit Module Information"
+          send_edited_info={this.props.editModuleDetails}
+          module_title={this.state.selectedModuleName}
+          coordinator={this.state.selectedModuleCoordinator}
+          id={this.state.selectedModuleID}
           onHide={() => this.togglePopUp(false)}
         />
       </div>
@@ -95,8 +109,7 @@ function mapStateToProps(state) {
 }
 
 Screen.propTypes = {
-  processCourseInfo: PropTypes.func.isRequired,
-  processPayment: PropTypes.func.isRequired
+  editModuleDetails: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps)(Screen)

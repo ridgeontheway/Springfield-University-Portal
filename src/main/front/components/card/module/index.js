@@ -14,7 +14,11 @@ export default class ModuleCard extends Component {
   }
   onPress() {
     console.log('this is the props = ', this.props)
-    this.props.onClick(this.props.name, this.props.moduleID)
+    this.props.onClick(
+      this.props.name,
+      this.props.moduleID,
+      this.props.coordinator
+    )
   }
   renderAvailableOrPersonalModules() {
     if (this.props.type === 'Available') {

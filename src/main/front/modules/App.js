@@ -6,6 +6,7 @@ import LoginScreen from './login'
 import DashboardScreen from './dashboard'
 import MyModulesScreen from './my-modules'
 import AnalyticsScreen from './analytics'
+import EditStudentModulesScreen from './edit-student-modules'
 
 export default class App extends Component {
   constructor(props) {
@@ -35,6 +36,11 @@ export default class App extends Component {
           <Route path="/all-modules" component={AllModulesScreen} />
           <Route path="/my-modules" component={MyModulesScreen} />
           <Route path="/school-stats" component={AnalyticsScreen} />
+          <Route path="/admin/assign-grades" component={AnalyticsScreen} />
+          <Route
+            path="/admin/edit-modules"
+            component={EditStudentModulesScreen}
+          />
         </Switch>
       </Router>
     )

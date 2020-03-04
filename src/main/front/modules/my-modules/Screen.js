@@ -23,7 +23,7 @@ class Screen extends Component {
     this.setState({ showUserPopUp: show })
   }
 
-  moreInfoPressed(_name, _moduleID) {
+  moreInfoPressed(_name, _moduleID, _moduleCoordinator) {
     this.setState({ toastText: _name, showToast: true })
     setTimeout(() => {
       this.setState({ showToast: false })
