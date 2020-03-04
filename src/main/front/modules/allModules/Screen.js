@@ -18,6 +18,10 @@ class Screen extends Component {
     this.moreInfoPressed = this.moreInfoPressed.bind(this)
   }
 
+  componentDidMount() {
+    this.setState({ showUserPopUp: false })
+  }
+
   static getDerivedStateFromProps(props, state) {
     if (props.modules && props.modules !== state.modules && !props.payment) {
       return {
