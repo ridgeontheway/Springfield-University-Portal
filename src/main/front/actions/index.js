@@ -148,4 +148,16 @@ export const editModuleDetails = (
   console.log(_coordinator)
   console.log(_title)
   console.error('I am waiting to call the API with the new information!')
+  //TODO: hook up the API call when this is fixed
+  fetch('http://localhost:8080/api/modules', {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(result => {
+      dispatch({ type: ALL_MODULES, payload: result })
+    })
+    .catch(err => {
+      console.log('we are getting an error')
+      console.error(err)
+    })
 }
