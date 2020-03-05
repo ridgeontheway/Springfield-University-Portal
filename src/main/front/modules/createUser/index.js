@@ -14,8 +14,24 @@ class CreateUserScreen extends Component {
     this.onRedirect = this.onRedirect.bind(this)
   }
 
-  onMissingData(_name, _surname, _email, _phone, _nationality) {
-    return _name && _surname && _email && _phone && _nationality
+  onMissingData(
+    _name,
+    _surname,
+    _email,
+    _phone,
+    _nationality,
+    _password,
+    _role
+  ) {
+    return (
+      _name &&
+      _surname &&
+      _email &&
+      _phone &&
+      _nationality &&
+      _password &&
+      _role
+    )
   }
 
   onFormDataSubmission(
@@ -25,17 +41,33 @@ class CreateUserScreen extends Component {
     _address,
     _phone,
     _gender,
-    _nationality
+    _nationality,
+    _password,
+    _role
   ) {
-    this.props.createUser(
-      _name,
-      _surname,
-      _email,
-      _address,
-      _phone,
-      _gender,
-      _nationality
-    )
+    if (_role === 'Student') {
+      this.props.createUser(
+        _name,
+        _surname,
+        _email,
+        _address,
+        _phone,
+        _gender,
+        _nationality,
+        _password
+      )
+    } else {
+      this.props.createStaff(
+        _name,
+        _surname,
+        _email,
+        _address,
+        _phone,
+        _gender,
+        _nationality,
+        _password
+      )
+    }
   }
 
   onRedirect() {
@@ -49,7 +81,7 @@ class CreateUserScreen extends Component {
           <Redirect
             push
             to={{
-              pathname: '/dashboard'
+              pathname: '/'
             }}
           />
         ) : (

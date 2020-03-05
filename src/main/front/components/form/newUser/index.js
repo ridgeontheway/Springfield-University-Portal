@@ -19,17 +19,22 @@ export default class NewUserForm extends Component {
     const _name = event.target.elements.name.value
     const _surname = event.target.elements.surname.value
     const _email = event.target.elements.email.value
+    const _password = event.target.elements.password.value
     const _address = event.target.elements.address.value
     const _phone = event.target.elements.phone.value
     const _gender = event.target.elements.gender.value
     const _nationality = event.target.elements.nationality.value
+    const _role = event.target.elements.role.value
+    console.log('this is the password', _password)
     if (
       this.props.handleOnMissingData(
         _name,
         _surname,
         _email,
         _phone,
-        _nationality
+        _nationality,
+        _password,
+        _role
       )
     ) {
       this.props.handleOnDataSubmission(
@@ -39,7 +44,9 @@ export default class NewUserForm extends Component {
         _address,
         _phone,
         _gender,
-        _nationality
+        _nationality,
+        _password,
+        _role
       )
     } else {
       console.log('invalid data!!!')
@@ -66,6 +73,14 @@ export default class NewUserForm extends Component {
           <Form.Group controlId="email">
             <Form.Label>Email</Form.Label>
             <Form.Control type="email" placeholder="Enter your email" />
+          </Form.Group>
+
+          <Form.Group controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Enter your new password"
+            />
           </Form.Group>
 
           <Form.Group controlId="address">
@@ -100,7 +115,14 @@ export default class NewUserForm extends Component {
             <Form.Control as="select" ref={this.genderInput}>
               <option>Male</option>
               <option>Female</option>
-              <option>Prefer not to answer</option>
+            </Form.Control>
+          </Form.Group>
+
+          <Form.Group controlId="role">
+            <Form.Label>Role</Form.Label>
+            <Form.Control as="select" ref={this.genderInput}>
+              <option>Student</option>
+              <option>Staff</option>
             </Form.Control>
           </Form.Group>
 

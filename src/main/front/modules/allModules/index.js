@@ -8,7 +8,6 @@ class AllModulesScreen extends Component {
   constructor() {
     super()
     this.processCourseInfo = this.processCourseInfo.bind(this)
-    this.processPayment = this.processPayment.bind(this)
   }
 
   componentDidMount() {
@@ -16,23 +15,13 @@ class AllModulesScreen extends Component {
   }
 
   processCourseInfo(_courseID) {
-    console.log(
-      'this is the processing that I am doing with the course name...'
-    )
     this.props.enrolInModule(_courseID)
-  }
-
-  processPayment(_courseID) {
-    // TODO here is where I will be enrolling the student
   }
 
   render() {
     return (
       <div className="backgroundDiv">
-        <Screen
-          processCourseInfo={this.processCourseInfo}
-          processPayment={this.processPayment}
-        />
+        <Screen processCourseInfo={this.processCourseInfo} />
       </div>
     )
   }
