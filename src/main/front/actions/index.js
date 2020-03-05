@@ -143,7 +143,6 @@ export const getEnrolledModules = _studentID => async dispatch => {
     .then(response => response.json())
     .then(result => {
       const _studentID = result['id']
-
       fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
         method: 'GET'
       })
@@ -179,7 +178,6 @@ export const enrolInModule = _moduleID => async dispatch => {
     .then(response => response.json())
     .then(result => {
       const _studentID = result['id']
-      console.log(result)
       fetch('http://localhost:8080/api/enrollments', {
         method: 'POST',
         headers: {

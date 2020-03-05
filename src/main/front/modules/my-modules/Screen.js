@@ -93,7 +93,7 @@ class Screen extends Component {
               <Title text="My Modules" />
               <Description text="University of Springfield Staff and Student Services" />
             </div>
-            <div className="content__wrapper">
+            <div className="myModules__wrapper">
               {this.state.modules ? (
                 this.renderModules()
               ) : (
