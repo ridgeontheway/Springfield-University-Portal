@@ -158,7 +158,41 @@ export const getEnrolledModules = _studentID => async dispatch => {
     })
 }
 
-//TODO: un-enrol from modules needs to be added and dispatch ENROLLED_MODULES when done
+export const unenrollStudentFromModule = _moduleID => async dispatch => {
+  fetch('http://localhost:8080/api/login', {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(result => {
+      const _studentID = result['id']
+
+      fetch('http://localhost:8080/api/enrollments', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          student: _studentID,
+          module: _moduleID
+        })
+      })
+        .then(deleteResponse => deleteResponse.json())
+        .then(deleteResult => {
+          fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
+            method: 'GET'
+          })
+            .then(enrolledResponse => enrolledResponse.json())
+            .then(enrolledResult => {
+              console.log(result)
+              dispatch({ type: ENROLLED_MODULES, enrolledResult })
+            })
+        })
+    })
+    .catch(err => {
+      console.log('we are getting an error')
+      console.error(err)
+    })
+}
 
 export const getNationalityAnalytics = () => async dispatch => {
   fetch('http://localhost:8080/api/analytics/nationality', {

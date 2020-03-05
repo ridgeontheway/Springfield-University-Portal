@@ -19,11 +19,21 @@ class Screen extends Component {
   }
 
   componentDidMount() {
-    this.setState({ showUserPopUp: false })
+    this.setState({ showUserPopUp: false, modules: false })
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (props.modules && props.modules !== state.modules && !props.payment) {
+    console.log('props: ', props)
+    console.log('state: ', state)
+    if (props.modules && props.modules !== state.modules) {
+      return {
+        modules: props.modules
+      }
+    } else if (
+      props.modules &&
+      props.modules !== state.modules &&
+      !props.payment
+    ) {
       return {
         modules: props.modules
       }
