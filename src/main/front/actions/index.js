@@ -137,14 +137,25 @@ export const getAllStudents = () => async dispatch => {
 
 //TODO: this needs to be fixed when we have log-in functionality
 export const getEnrolledModules = _studentID => async dispatch => {
-  //TODO: we need a simple call here to see if the user is logged in
-  fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
+  fetch('http://localhost:8080/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
     .then(result => {
-      console.log(result)
-      dispatch({ type: ENROLLED_MODULES, result })
+      const _studentID = result['id']
+
+      fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
+        method: 'GET'
+      })
+        .then(response => response.json())
+        .then(result => {
+          console.log(result)
+          dispatch({ type: ENROLLED_MODULES, result })
+        })
+    })
+    .catch(err => {
+      console.log('we are getting an error')
+      console.error(err)
     })
 }
 
@@ -167,9 +178,8 @@ export const enrolInModule = _moduleID => async dispatch => {
   })
     .then(response => response.json())
     .then(result => {
-      //TODO: i need a student ID her
       const _studentID = result['id']
-
+      console.log(result)
       fetch('http://localhost:8080/api/enrollments', {
         method: 'POST',
         headers: {
