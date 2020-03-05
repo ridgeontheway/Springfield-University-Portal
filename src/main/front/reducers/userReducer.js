@@ -5,7 +5,9 @@ export default function userReducer(state = null, action) {
     case CREATE_USER:
       console.log('We have created the user!!')
       console.log(JSON.stringify(action.payload))
-      return action.payload.student_id || false
+      const data = action.payload
+      const returnValue = { email: data.email, password: data.password }
+      return returnValue || false
     default:
       return state
   }

@@ -15,7 +15,8 @@ export const createUser = (
   _address,
   _phone,
   _gender,
-  _nationality
+  _nationality,
+  _password
 ) => async dispatch => {
   console.log('we should be calling the action now!')
   fetch('http://localhost:8080/api/students', {
@@ -30,7 +31,45 @@ export const createUser = (
       address: _address,
       phone_number: _phone,
       gender: _gender,
-      nationality: _nationality
+      nationality: _nationality,
+      password: _password
+    })
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result)
+      dispatch({ type: CREATE_USER, payload: result })
+    })
+    .catch(err => {
+      console.log('we are getting an error: ')
+      console.error(err)
+    })
+}
+
+export const createStaff = (
+  _name,
+  _surname,
+  _email,
+  _address,
+  _phone,
+  _gender,
+  _nationality,
+  _password
+) => async dispatch => {
+  fetch('http://localhost:8080/api/staff', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: _name,
+      surname: _surname,
+      email: _email,
+      address: _address,
+      phone_number: _phone,
+      gender: _gender,
+      nationality: _nationality,
+      password: _password
     })
   })
     .then(response => response.json())
