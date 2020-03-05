@@ -1,7 +1,6 @@
 package com.coolGroup.org.services.concretes;
 
 import com.coolGroup.org.models.PaymentAccount;
-import com.coolGroup.org.models.Staff;
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.dtos.PaymentAccountDto;
 import com.coolGroup.org.repositories.StudentRepository;
@@ -12,7 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
+
+import static java.lang.Math.round;
 
 @Service
 public class StudentService implements IStudentService {
@@ -74,12 +76,21 @@ public class StudentService implements IStudentService {
     @Override
     public Student create(Student student) {
         Student result = null;
+        Random rand = new Random();
         Iterable<Student> emailMatches = this.studentRepository
                 .findAll().stream()
                 .filter(s -> s.getEmail().equals(student.getEmail()))
                 .collect(Collectors.toList());
         if (((List<Student>) emailMatches).isEmpty()) {
+            // Add a random payment account for now
             result = studentRepository.saveAndFlush(student);
+            PaymentAccount newPaymentAccount = new PaymentAccount(
+                    student.getId(),
+                    student.getSurname() + student.getName().substring(0, 1),
+                    round(rand.nextDouble() * 100000)
+            );
+            result.setPayment_account(newPaymentAccount);
+            result = studentRepository.saveAndFlush(result);
         }
         return result;
     }
