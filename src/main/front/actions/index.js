@@ -183,7 +183,6 @@ export const unenrollStudentFromModule = _moduleID => async dispatch => {
           })
             .then(enrolledResponse => enrolledResponse.json())
             .then(enrolledResult => {
-              console.log(result)
               dispatch({ type: ENROLLED_MODULES, enrolledResult })
             })
         })

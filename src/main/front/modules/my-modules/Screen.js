@@ -25,7 +25,7 @@ class Screen extends Component {
 
   moreInfoPressed(_name, _moduleID) {
     const userText = 'You have un-enrolled from the module: ' + _name
-    this.setState({ toastText: userText, showToast: true, modules: null })
+    this.setState({ toastText: userText, showToast: true, modules: [] })
     this.props.removeStudentFromModule(_moduleID)
     setTimeout(() => {
       this.setState({ showToast: false })
@@ -36,6 +36,10 @@ class Screen extends Component {
     if (props.modules) {
       return {
         modules: props.modules
+      }
+    } else if (!props.modules) {
+      return {
+        modules: []
       }
     }
     return null
@@ -98,7 +102,7 @@ class Screen extends Component {
               {this.state.modules ? (
                 this.renderModules()
               ) : (
-                <h1>Waiting.......</h1>
+                <h1>You have no modules</h1>
               )}
             </div>
             <div className="footerDiv" />
