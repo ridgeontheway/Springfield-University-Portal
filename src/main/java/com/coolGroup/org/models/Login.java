@@ -1,16 +1,21 @@
 package com.coolGroup.org.models;
 
 public class Login {
+    private int id;
     private String email;
     private String password;
     private String user_role;
 
-    public Login(String email, String password, String user_role) {
+    public Login(int id, String email, String password, String user_role) {
+        this.id = id;
         this.email = email;
         this.password = password;
         this.user_role = user_role;
     }
 
+    public int getId() {
+        return id;
+    }
     public String getEmail() {
         return email;
     }

@@ -12,6 +12,8 @@ export default class DashboardScreen extends Component {
     this.onAvailableModules = this.onAvailableModules.bind(this)
     this.onMyModules = this.onMyModules.bind(this)
     this.onSchoolStats = this.onSchoolStats.bind(this)
+    this.onEditModules = this.onEditModules.bind(this)
+    this.onAssignGrades = this.onAssignGrades.bind(this)
   }
 
   onAvailableModules() {
@@ -24,6 +26,14 @@ export default class DashboardScreen extends Component {
 
   onSchoolStats() {
     this.setState({ redirect: true, pathname: '/school-stats' })
+  }
+
+  onEditModules() {
+    this.setState({ redirect: true, pathname: '/admin/edit-modules' })
+  }
+
+  onAssignGrades() {
+    this.setState({ redirect: true, pathname: '/admin/assign-grades' })
   }
 
   render() {
@@ -44,6 +54,11 @@ export default class DashboardScreen extends Component {
             availableModulesOnClick={this.onAvailableModules}
             myModulesOnClick={this.onMyModules}
             schoolStatsOnClick={this.onSchoolStats}
+            editModulesText="Edit Student Modules"
+            editModulesOnClick={this.onEditModules}
+            assignGradesTest="Assign Grades"
+            assignGradesOnClick={this.onAssignGrades}
+            userRole="staff"
           />
         )}
       </div>
