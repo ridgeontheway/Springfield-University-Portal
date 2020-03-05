@@ -28,6 +28,7 @@ public class PermissionUtility {
                 put("staff", new ArrayList<>(
                         Arrays.asList(Permission.ASSIGN_GRADE,
                                 Permission.EDIT_MODULE)));
+                put("", new ArrayList<>());
             }};
 
     public boolean hasPermission(Permission permission) {
