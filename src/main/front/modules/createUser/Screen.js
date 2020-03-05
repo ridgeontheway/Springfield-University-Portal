@@ -11,17 +11,19 @@ class Screen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      userID: 0,
+      userEmail: 0,
+      userPassword: '',
       showUserPopUp: false
     }
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (props.user && props.user !== state.userID) {
+    if (props.user && props.user['email'] !== state.userEmail) {
       console.log('this is the props:', props.user)
       console.log('this is the state:', state.userID)
       return {
-        userID: props.user,
+        userEmail: props.user['email'],
+        userPassword: props.user['password'],
         showUserPopUp: true
       }
     }
@@ -51,7 +53,8 @@ class Screen extends Component {
         <NewUserPopup
           show={this.state.showUserPopUp}
           title="Welcome to Springfield University"
-          student_id={this.state.userID}
+          email={this.state.userEmail}
+          password={this.state.userPassword}
           onHide={() => this.togglePopUp(false)}
         />
       </div>

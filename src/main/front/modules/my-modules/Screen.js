@@ -25,16 +25,21 @@ class Screen extends Component {
 
   moreInfoPressed(_name, _moduleID) {
     const userText = 'You have un-enrolled from the module: ' + _name
-    this.setState({ toastText: userText, showToast: true })
+    this.setState({ toastText: userText, showToast: true, modules: [] })
+    this.props.removeStudentFromModule(_moduleID)
     setTimeout(() => {
       this.setState({ showToast: false })
     }, 2000)
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (props.modules && props.modules !== state.modules) {
+    if (props.modules) {
       return {
         modules: props.modules
+      }
+    } else if (!props.modules) {
+      return {
+        modules: []
       }
     }
     return null
@@ -93,11 +98,11 @@ class Screen extends Component {
               <Title text="My Modules" />
               <Description text="University of Springfield Staff and Student Services" />
             </div>
-            <div className="content__wrapper">
+            <div className="myModules__wrapper">
               {this.state.modules ? (
                 this.renderModules()
               ) : (
-                <h1>Waiting.......</h1>
+                <h1>You have no modules</h1>
               )}
             </div>
             <div className="footerDiv" />
@@ -112,6 +117,10 @@ function mapStateToProps(state) {
   return {
     modules: state.enrolledModules
   }
+}
+
+Screen.propTypes = {
+  removeStudentFromModule: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps)(Screen)
