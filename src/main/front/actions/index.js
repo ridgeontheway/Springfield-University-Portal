@@ -161,14 +161,33 @@ export const getNationalityAnalytics = () => async dispatch => {
     })
 }
 
-export const enrolInModule = _id => async dispatch => {
-  fetch('http://localhost:8080/api/modules/' + _id, {
+export const enrolInModule = _moduleID => async dispatch => {
+  fetch('http://localhost:8080/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
     .then(result => {
-      const moduleCost = result.cost
-      dispatch({ type: ADD_MODULE_STATUS, result: 'enrolled' })
+      //TODO: i need a student ID her
+      const _studentID = result['id']
+
+      fetch('http://localhost:8080/api/enrollments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          student: _studentID,
+          module: _moduleID
+        })
+      })
+        .then(enrolledResponse => enrolledResponse.json())
+        .then(enrolledResult => {
+          dispatch({ type: ADD_MODULE_STATUS, result: 'enrolled' })
+        })
+    })
+    .catch(err => {
+      console.log('we are getting an error')
+      console.error(err)
     })
 }
 

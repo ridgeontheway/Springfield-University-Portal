@@ -119,8 +119,7 @@ function mapStateToProps(state) {
 }
 
 Screen.propTypes = {
-  processCourseInfo: PropTypes.func.isRequired,
-  processPayment: PropTypes.func.isRequired
+  processCourseInfo: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps)(Screen)
