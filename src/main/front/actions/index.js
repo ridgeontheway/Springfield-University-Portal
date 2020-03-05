@@ -211,14 +211,33 @@ export const editModuleDetails = (
   console.log(_moduleID)
   console.log(_coordinator)
   console.log(_title)
-  console.error('I am waiting to call the API with the new information!')
-  //TODO: hook up the API call when this is fixed
-  fetch('http://localhost:8080/api/modules', {
+
+  fetch('http://localhost:8080/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
-    .then(result => {
-      dispatch({ type: ALL_MODULES, payload: result })
+    .then(currentUser => {
+      fetch('http://localhost:8080/api/modules/' + _moduleID, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: _title,
+          coordinator_name: _coordinator
+        })
+      })
+        .then(updateModuleResponse => updateModuleResponse.json())
+        .then(updateModuleResponseResult => {
+          console.log(updateModuleResponseResult)
+          fetch('http://localhost:8080/api/modules', {
+            method: 'GET'
+          })
+            .then(allModules => allModules.json())
+            .then(allModulesResult => {
+              dispatch({ type: ALL_MODULES, payload: allModulesResult })
+            })
+        })
     })
     .catch(err => {
       console.log('we are getting an error')
