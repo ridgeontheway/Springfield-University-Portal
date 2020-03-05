@@ -34,14 +34,14 @@ public class LoginService implements ILoginService {
         if (loggedIn.getUser_role().equals("staff")) {
             Staff staff = this.staffService.getByEmail(loggedIn.getEmail());
             if (staff.getEmail().equals(loggedIn.getEmail()) && loggedIn.getPassword().equals(staff.getPassword())) {
-                login = new Login(staff.getEmail(), "***", loggedIn.getUser_role());
+                login = new Login(staff.getId(),staff.getEmail(), "***", loggedIn.getUser_role());
             }
         }
 
         if (loggedIn.getUser_role().equals("student")) {
             Student student = this.studentService.getByEmail(loggedIn.getEmail());
             if (student.getEmail().equals(loggedIn.getEmail()) && loggedIn.getPassword().equals(student.getPassword())) {
-                login = new Login(student.getEmail(), "***", loggedIn.getUser_role());
+                login = new Login(student.getId(),student.getEmail(), "***", loggedIn.getUser_role());
             }
         }
         return login;
