@@ -81,7 +81,7 @@ class CreateUserScreen extends Component {
           <Redirect
             push
             to={{
-              pathname: '/dashboard'
+              pathname: '/'
             }}
           />
         ) : (

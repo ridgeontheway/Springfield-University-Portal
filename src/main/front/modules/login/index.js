@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import Screen from './Screen'
 import { Redirect } from 'react-router-dom'
-import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import * as actions from '../../actions'
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -12,14 +13,31 @@ export default class LoginScreen extends Component {
     }
     this.onNewUser = this.onNewUser.bind(this)
     this.onLogin = this.onLogin.bind(this)
+    this.handleOnMissingData = this.handleOnMissingData.bind(this)
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('props', props)
+    console.log('state', state)
+    if (props.newLogin && !state.redirect) {
+      return {
+        redirect: true,
+        pathname: '/dashboard'
+      }
+    }
+    return null
+  }
+
+  handleOnMissingData(_email, _password, _role) {
+    return _email && _password && _role
   }
 
   onNewUser() {
     this.setState({ redirect: true, pathname: '/new-user' })
   }
 
-  onLogin() {
-    this.setState({ redirect: true, pathname: '/dashboard' })
+  onLogin(_email, _password, _role) {
+    this.props.login(_email, _password, _role)
   }
 
   render() {
@@ -33,9 +51,21 @@ export default class LoginScreen extends Component {
             }}
           />
         ) : (
-          <Screen onNewUser={this.onNewUser} onLoginPressed={this.onLogin} />
+          <Screen
+            onNewUser={this.onNewUser}
+            onLoginPressed={this.onLogin}
+            handleOnMissingData={this.handleOnMissingData}
+          />
         )}
       </div>
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    newLogin: state.newLogin
+  }
+}
+
+export default connect(mapStateToProps, actions)(LoginScreen)

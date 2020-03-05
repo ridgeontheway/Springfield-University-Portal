@@ -5,7 +5,9 @@ import {
   ENROLLED_MODULES,
   NATIONALITY_ANALYTICS,
   ADD_MODULE_STATUS,
-  ALL_STUDENTS
+  ALL_STUDENTS,
+  NEW_USER_LOG_IN,
+  USER_LOGGED_IN
 } from './types'
 
 export const createUser = (
@@ -76,6 +78,29 @@ export const createStaff = (
     .then(result => {
       console.log(result)
       dispatch({ type: CREATE_USER, payload: result })
+    })
+    .catch(err => {
+      console.log('we are getting an error: ')
+      console.error(err)
+    })
+}
+
+export const login = (_email, _password, _role) => async dispatch => {
+  fetch('http://localhost:8080/api/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email: _email,
+      password: _password,
+      user_role: _role
+    })
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result)
+      dispatch({ type: NEW_USER_LOG_IN, payload: result })
     })
     .catch(err => {
       console.log('we are getting an error: ')
@@ -194,6 +219,21 @@ export const editModuleDetails = (
     .then(response => response.json())
     .then(result => {
       dispatch({ type: ALL_MODULES, payload: result })
+    })
+    .catch(err => {
+      console.log('we are getting an error')
+      console.error(err)
+    })
+}
+
+export const getLoggedInUser = () => async dispatch => {
+  fetch('http://localhost:8080/api/login', {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result)
+      dispatch({ type: USER_LOGGED_IN, payload: result })
     })
     .catch(err => {
       console.log('we are getting an error')
