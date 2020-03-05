@@ -76,23 +76,30 @@ public class StudentService implements IStudentService {
     @Override
     public Student create(Student student) {
         Student result = null;
-        Random rand = new Random();
         Iterable<Student> emailMatches = this.studentRepository
                 .findAll().stream()
                 .filter(s -> s.getEmail().equals(student.getEmail()))
                 .collect(Collectors.toList());
         if (((List<Student>) emailMatches).isEmpty()) {
             // Add a random payment account for now
-            result = studentRepository.saveAndFlush(student);
-            PaymentAccount newPaymentAccount = new PaymentAccount(
-                    student.getId(),
-                    student.getSurname() + student.getName().substring(0, 1),
-                    round(rand.nextDouble() * 100000)
-            );
-            result.setPayment_account(newPaymentAccount);
-            result = studentRepository.saveAndFlush(result);
+            Student withPaymentAccount = assignRandomPaymentAccount(student);
+            result = studentRepository.saveAndFlush(withPaymentAccount);
         }
         return result;
+    }
+
+    private Student assignRandomPaymentAccount(Student student) {
+        Random rand = new Random();
+
+        student = studentRepository.saveAndFlush(student);
+        PaymentAccount newPaymentAccount = new PaymentAccount(
+                student.getId(),
+                student.getSurname() + student.getName().substring(0, 1),
+                round(rand.nextDouble() * 100000)
+        );
+        student.setPayment_account(newPaymentAccount);
+
+        return student;
     }
 
     @Override
