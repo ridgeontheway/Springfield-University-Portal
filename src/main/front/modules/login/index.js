@@ -17,8 +17,6 @@ class LoginScreen extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    console.log('props', props)
-    console.log('state', state)
     if (props.newLogin && !state.redirect) {
       return {
         redirect: true,

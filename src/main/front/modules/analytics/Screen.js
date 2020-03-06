@@ -19,7 +19,6 @@ class Screen extends Component {
       props.nationalityData &&
       props.nationalityData['values'] !== state.nationalityData
     ) {
-      console.log(typeof props.nationalityData['values'])
       return {
         nationalityLabels: props.nationalityData['labels'],
         nationalityData: props.nationalityData['values']
@@ -29,7 +28,6 @@ class Screen extends Component {
   }
 
   renderNationalityChart() {
-    console.log(Array.isArray(this.state.nationalityData))
     return (
       <div className="content__wrapper">
         <div>

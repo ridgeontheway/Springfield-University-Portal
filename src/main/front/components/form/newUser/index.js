@@ -25,7 +25,6 @@ export default class NewUserForm extends Component {
     const _gender = event.target.elements.gender.value
     const _nationality = event.target.elements.nationality.value
     const _role = event.target.elements.role.value
-    console.log('this is the password', _password)
     if (
       this.props.handleOnMissingData(
         _name,
@@ -49,7 +48,7 @@ export default class NewUserForm extends Component {
         _role
       )
     } else {
-      console.log('invalid data!!!')
+      alert('Please enter all form fields correctly')
     }
   }
 

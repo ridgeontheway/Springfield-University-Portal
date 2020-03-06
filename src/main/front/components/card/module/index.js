@@ -13,7 +13,6 @@ export default class ModuleCard extends Component {
     this.onPress = this.onPress.bind(this)
   }
   onPress() {
-    console.log('this is the props = ', this.props)
     this.props.onClick(
       this.props.name,
       this.props.moduleID,

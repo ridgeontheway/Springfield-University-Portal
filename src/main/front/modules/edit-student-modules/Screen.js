@@ -50,14 +50,9 @@ class Screen extends Component {
     this.props.editModuleDetails(_name, _moduleID, _moduleCoordinator)
   }
 
-  updateInfo() {
-    console.log('hello?')
-  }
-
   renderModules() {
     if (this.state.modules) {
       const data = this.state.modules
-      console.log(data)
       return (
         <div>
           {data.map((data, idx) => {
