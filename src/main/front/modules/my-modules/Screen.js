@@ -25,21 +25,26 @@ class Screen extends Component {
 
   moreInfoPressed(_name, _moduleID) {
     const userText = 'You have un-enrolled from the module: ' + _name
-    this.setState({ toastText: userText, showToast: true, modules: [] })
+    this.setState({ toastText: userText, showToast: true })
     this.props.removeStudentFromModule(_moduleID)
     setTimeout(() => {
-      this.setState({ showToast: false })
+      this.setState({ showToast: false, toastText: '' })
     }, 2000)
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (props.modules) {
+    if (props.modules && state.modules != props.modules) {
       return {
         modules: props.modules
       }
-    } else if (!props.modules) {
+    } else if (
+      props.modules &&
+      state.toastText &&
+      (state.modules.length == 1 || state.modules.length == 0)
+    ) {
       return {
-        modules: []
+        modules: [],
+        toastText: ''
       }
     }
     return null
