@@ -16,7 +16,6 @@ class EditGradesScreen extends Component {
   }
 
   getModulesFromStudent(_studentID) {
-    console.log(_studentID)
     this.props.getEnrolledModules(_studentID)
   }
 

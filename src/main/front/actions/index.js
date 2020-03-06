@@ -20,7 +20,6 @@ export const createUser = (
   _nationality,
   _password
 ) => async dispatch => {
-  console.log('we should be calling the action now!')
   fetch('http://localhost:8080/api/students', {
     method: 'POST',
     headers: {
@@ -39,11 +38,9 @@ export const createUser = (
   })
     .then(response => response.json())
     .then(result => {
-      console.log(result)
       dispatch({ type: CREATE_USER, payload: result })
     })
     .catch(err => {
-      console.log('we are getting an error: ')
       console.error(err)
     })
 }
@@ -76,11 +73,9 @@ export const createStaff = (
   })
     .then(response => response.json())
     .then(result => {
-      console.log(result)
       dispatch({ type: CREATE_USER, payload: result })
     })
     .catch(err => {
-      console.log('we are getting an error: ')
       console.error(err)
     })
 }
@@ -99,27 +94,22 @@ export const login = (_email, _password, _role) => async dispatch => {
   })
     .then(response => response.json())
     .then(result => {
-      console.log(result)
       dispatch({ type: NEW_USER_LOG_IN, payload: result })
     })
     .catch(err => {
-      console.log('we are getting an error: ')
       console.error(err)
     })
 }
 
 export const getAllModules = () => async dispatch => {
-  console.log('I am trying to get all the available modules now....')
   fetch('http://localhost:8080/api/modules', {
     method: 'GET'
   })
     .then(response => response.json())
     .then(result => {
-      console.log(result)
       dispatch({ type: ALL_MODULES, payload: result })
     })
     .catch(err => {
-      console.log('we are getting an error')
       console.error(err)
     })
 }
@@ -130,7 +120,6 @@ export const getAllStudents = () => async dispatch => {
   })
     .then(response => response.json())
     .then(result => {
-      console.log(result)
       dispatch({ type: ALL_STUDENTS, payload: result })
     })
 }
@@ -148,12 +137,10 @@ export const getEnrolledModules = _studentID => async dispatch => {
       })
         .then(response => response.json())
         .then(result => {
-          console.log(result)
           dispatch({ type: ENROLLED_MODULES, result })
         })
     })
     .catch(err => {
-      console.log('we are getting an error')
       console.error(err)
     })
 }
@@ -188,7 +175,6 @@ export const unenrollStudentFromModule = _moduleID => async dispatch => {
         })
     })
     .catch(err => {
-      console.log('we are getting an error')
       console.error(err)
     })
 }
@@ -199,7 +185,6 @@ export const getNationalityAnalytics = () => async dispatch => {
   })
     .then(response => response.json())
     .then(result => {
-      console.log(result)
       dispatch({ type: NATIONALITY_ANALYTICS, result })
     })
 }
@@ -227,7 +212,6 @@ export const enrolInModule = _moduleID => async dispatch => {
         })
     })
     .catch(err => {
-      console.log('we are getting an error')
       console.error(err)
     })
 }
@@ -250,14 +234,11 @@ export const assignStudentGrade = (
   })
     .then(response => response.json())
     .then(result => {
-      console.log(result)
-
       fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
         method: 'GET'
       })
         .then(response => response.json())
         .then(result => {
-          console.log(result)
           dispatch({ type: ENROLLED_MODULES, result })
         })
     })
@@ -268,10 +249,6 @@ export const editModuleDetails = (
   _coordinator,
   _title
 ) => async dispatch => {
-  console.log(_moduleID)
-  console.log(_coordinator)
-  console.log(_title)
-
   fetch('http://localhost:8080/api/login', {
     method: 'GET'
   })
@@ -289,7 +266,6 @@ export const editModuleDetails = (
       })
         .then(updateModuleResponse => updateModuleResponse.json())
         .then(updateModuleResponseResult => {
-          console.log(updateModuleResponseResult)
           fetch('http://localhost:8080/api/modules', {
             method: 'GET'
           })
@@ -300,7 +276,6 @@ export const editModuleDetails = (
         })
     })
     .catch(err => {
-      console.log('we are getting an error')
       console.error(err)
     })
 }
@@ -311,11 +286,9 @@ export const getLoggedInUser = () => async dispatch => {
   })
     .then(response => response.json())
     .then(result => {
-      console.log(result)
       dispatch({ type: USER_LOGGED_IN, payload: result })
     })
     .catch(err => {
-      console.log('we are getting an error')
       console.error(err)
     })
 }

@@ -19,8 +19,6 @@ class Screen extends Component {
 
   static getDerivedStateFromProps(props, state) {
     if (props.user && props.user['email'] !== state.userEmail) {
-      console.log('this is the props:', props.user)
-      console.log('this is the state:', state.userID)
       return {
         userEmail: props.user['email'],
         userPassword: props.user['password'],
