@@ -23,8 +23,6 @@ class Screen extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    console.log('props: ', props)
-    console.log('state: ', state)
     if (props.modules && props.modules !== state.modules) {
       return {
         modules: props.modules

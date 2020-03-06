@@ -24,8 +24,6 @@ class DashboardScreen extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    console.log('props', props)
-    console.log('state', state)
     if (props.currentUser) {
       return {
         userRole: props.currentUser['user_role']
