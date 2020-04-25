@@ -6,4 +6,5 @@
   flex-direction: column;
   background-color: aliceblue;
   overflow: auto !important;
+  max-height: 40rem;
 }

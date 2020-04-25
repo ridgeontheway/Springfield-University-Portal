@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import DashboardButton from '../../components/dashboardButton'
+import ErrorRedirectButton from '../../components/errorRedirectButton'
 import Title from '../../components/title'
 import Description from '../../components/description'
 import * as actions from '../../actions'
@@ -19,7 +19,7 @@ class ErrorScreen extends Component {
               <Description text="An issue occurred with your request. Please contact an administrator" />
             </div>
             <div className="footerDiv">
-              <DashboardButton />
+              <ErrorRedirectButton />
             </div>
           </div>
         </div>
