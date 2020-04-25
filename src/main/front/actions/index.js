@@ -7,7 +7,8 @@ import {
   ADD_MODULE_STATUS,
   ALL_STUDENTS,
   NEW_USER_LOG_IN,
-  USER_LOGGED_IN
+  USER_LOGGED_IN,
+  INVALID_AUTH
 } from './types'
 
 export const createUser = (
@@ -38,7 +39,11 @@ export const createUser = (
   })
     .then(response => response.json())
     .then(result => {
-      dispatch({ type: CREATE_USER, payload: result })
+      if (result.hasOwnProperty('error')) {
+        dispatch({ type: INVALID_AUTH, payload: true })
+      } else {
+        dispatch({ type: CREATE_USER, payload: result })
+      }
     })
     .catch(err => {
       console.error(err)
@@ -73,7 +78,11 @@ export const createStaff = (
   })
     .then(response => response.json())
     .then(result => {
-      dispatch({ type: CREATE_USER, payload: result })
+      if (result.hasOwnProperty('error')) {
+        dispatch({ type: INVALID_AUTH, payload: true })
+      } else {
+        dispatch({ type: CREATE_USER, payload: result })
+      }
     })
     .catch(err => {
       console.error(err)
@@ -94,7 +103,11 @@ export const login = (_email, _password, _role) => async dispatch => {
   })
     .then(response => response.json())
     .then(result => {
-      dispatch({ type: NEW_USER_LOG_IN, payload: result })
+      if (result.hasOwnProperty('error')) {
+        dispatch({ type: INVALID_AUTH, payload: true })
+      } else {
+        dispatch({ type: NEW_USER_LOG_IN, payload: result })
+      }
     })
     .catch(err => {
       console.error(err)
@@ -107,7 +120,11 @@ export const getAllModules = () => async dispatch => {
   })
     .then(response => response.json())
     .then(result => {
-      dispatch({ type: ALL_MODULES, payload: result })
+      if (result.hasOwnProperty('error')) {
+        dispatch({ type: INVALID_AUTH, payload: true })
+      } else {
+        dispatch({ type: ALL_MODULES, payload: result })
+      }
     })
     .catch(err => {
       console.error(err)
@@ -120,7 +137,11 @@ export const getAllStudents = () => async dispatch => {
   })
     .then(response => response.json())
     .then(result => {
-      dispatch({ type: ALL_STUDENTS, payload: result })
+      if (result.hasOwnProperty('error')) {
+        dispatch({ type: INVALID_AUTH, payload: true })
+      } else {
+        dispatch({ type: ALL_STUDENTS, payload: result })
+      }
     })
 }
 
@@ -131,14 +152,22 @@ export const getEnrolledModules = _studentID => async dispatch => {
   })
     .then(response => response.json())
     .then(result => {
-      const _studentID = result['id']
-      fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
-        method: 'GET'
-      })
-        .then(response => response.json())
-        .then(result => {
-          dispatch({ type: ENROLLED_MODULES, result })
+      if (result.hasOwnProperty('error')) {
+        dispatch({ type: INVALID_AUTH, payload: true })
+      } else {
+        const _studentID = result['id']
+        fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
+          method: 'GET'
         })
+          .then(response => response.json())
+          .then(result => {
+            if (result.hasOwnProperty('error')) {
+              dispatch({ type: INVALID_AUTH, payload: true })
+            } else {
+              dispatch({ type: ENROLLED_MODULES, result })
+            }
+          })
+      }
     })
     .catch(err => {
       console.error(err)
@@ -151,28 +180,39 @@ export const unenrollStudentFromModule = _moduleID => async dispatch => {
   })
     .then(response => response.json())
     .then(result => {
-      const _studentID = result['id']
+      if (result.hasOwnProperty('error')) {
+        dispatch({ type: INVALID_AUTH, payload: true })
+      } else {
+        const _studentID = result['id']
 
-      fetch('http://localhost:8080/api/enrollments', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          student: _studentID,
-          module: _moduleID
-        })
-      })
-        .then(deleteResponse => deleteResponse.json())
-        .then(deleteResult => {
-          fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
-            method: 'GET'
+        fetch('http://localhost:8080/api/enrollments', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            student: _studentID,
+            module: _moduleID
           })
-            .then(enrolledResponse => enrolledResponse.json())
-            .then(enrolledResult => {
-              dispatch({ type: ENROLLED_MODULES, enrolledResult })
-            })
         })
+          .then(deleteResponse => deleteResponse.json())
+          .then(deleteResult => {
+            if (deleteResult.hasOwnProperty('error')) {
+              dispatch({ type: INVALID_AUTH, payload: true })
+            } else {
+              fetch(
+                'http://localhost:8080/api/enrollments/student/' + _studentID,
+                {
+                  method: 'GET'
+                }
+              )
+                .then(enrolledResponse => enrolledResponse.json())
+                .then(enrolledResult => {
+                  dispatch({ type: ENROLLED_MODULES, enrolledResult })
+                })
+            }
+          })
+      }
     })
     .catch(err => {
       console.error(err)
@@ -185,7 +225,11 @@ export const getNationalityAnalytics = () => async dispatch => {
   })
     .then(response => response.json())
     .then(result => {
-      dispatch({ type: NATIONALITY_ANALYTICS, result })
+      if (result.hasOwnProperty('error')) {
+        dispatch({ type: INVALID_AUTH, payload: true })
+      } else {
+        dispatch({ type: NATIONALITY_ANALYTICS, result })
+      }
     })
 }
 
@@ -195,21 +239,29 @@ export const enrolInModule = _moduleID => async dispatch => {
   })
     .then(response => response.json())
     .then(result => {
-      const _studentID = result['id']
-      fetch('http://localhost:8080/api/enrollments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          student: _studentID,
-          module: _moduleID
+      if (result.hasOwnProperty('error')) {
+        dispatch({ type: INVALID_AUTH, payload: true })
+      } else {
+        const _studentID = result['id']
+        fetch('http://localhost:8080/api/enrollments', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            student: _studentID,
+            module: _moduleID
+          })
         })
-      })
-        .then(enrolledResponse => enrolledResponse.json())
-        .then(enrolledResult => {
-          dispatch({ type: ADD_MODULE_STATUS, result: 'enrolled' })
-        })
+          .then(enrolledResponse => enrolledResponse.json())
+          .then(enrolledResult => {
+            if (enrolledResult.hasOwnProperty('error')) {
+              dispatch({ type: INVALID_AUTH, payload: true })
+            } else {
+              dispatch({ type: ADD_MODULE_STATUS, result: 'enrolled' })
+            }
+          })
+      }
     })
     .catch(err => {
       console.error(err)
@@ -234,13 +286,21 @@ export const assignStudentGrade = (
   })
     .then(response => response.json())
     .then(result => {
-      fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
-        method: 'GET'
-      })
-        .then(response => response.json())
-        .then(result => {
-          dispatch({ type: ENROLLED_MODULES, result })
+      if (result.hasOwnProperty('error')) {
+        dispatch({ type: INVALID_AUTH, payload: true })
+      } else {
+        fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
+          method: 'GET'
         })
+          .then(response => response.json())
+          .then(result => {
+            if (result.hasOwnProperty('error')) {
+              dispatch({ type: INVALID_AUTH, payload: true })
+            } else {
+              dispatch({ type: ENROLLED_MODULES, result })
+            }
+          })
+      }
     })
 }
 
@@ -254,26 +314,34 @@ export const editModuleDetails = (
   })
     .then(response => response.json())
     .then(currentUser => {
-      fetch('http://localhost:8080/api/modules/' + _moduleID, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: _title,
-          coordinator_name: _coordinator
-        })
-      })
-        .then(updateModuleResponse => updateModuleResponse.json())
-        .then(updateModuleResponseResult => {
-          fetch('http://localhost:8080/api/modules', {
-            method: 'GET'
+      if (currentUser.hasOwnProperty('error')) {
+        dispatch({ type: INVALID_AUTH, payload: true })
+      } else {
+        fetch('http://localhost:8080/api/modules/' + _moduleID, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: _title,
+            coordinator_name: _coordinator
           })
-            .then(allModules => allModules.json())
-            .then(allModulesResult => {
-              dispatch({ type: ALL_MODULES, payload: allModulesResult })
-            })
         })
+          .then(updateModuleResponse => updateModuleResponse.json())
+          .then(updateModuleResponseResult => {
+            if (updateModuleResponseResult.hasOwnProperty('error')) {
+              dispatch({ type: INVALID_AUTH, payload: true })
+            } else {
+              fetch('http://localhost:8080/api/modules', {
+                method: 'GET'
+              })
+                .then(allModules => allModules.json())
+                .then(allModulesResult => {
+                  dispatch({ type: ALL_MODULES, payload: allModulesResult })
+                })
+            }
+          })
+      }
     })
     .catch(err => {
       console.error(err)
@@ -286,9 +354,17 @@ export const getLoggedInUser = () => async dispatch => {
   })
     .then(response => response.json())
     .then(result => {
-      dispatch({ type: USER_LOGGED_IN, payload: result })
+      if (result.hasOwnProperty('error')) {
+        dispatch({ type: INVALID_AUTH, payload: true })
+      } else {
+        dispatch({ type: USER_LOGGED_IN, payload: result })
+      }
     })
     .catch(err => {
       console.error(err)
     })
+}
+
+export const resetError = () => async dispatch => {
+  dispatch({ type: INVALID_AUTH, payload: false })
 }

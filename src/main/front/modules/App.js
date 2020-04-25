@@ -8,6 +8,7 @@ import MyModulesScreen from './my-modules'
 import AnalyticsScreen from './analytics'
 import EditStudentModulesScreen from './edit-student-modules'
 import EditGradesScreen from './edit-grades'
+import ErrorScreen from './error'
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -37,6 +38,7 @@ export default class App extends Component {
           <Route path="/my-modules" component={MyModulesScreen} />
           <Route path="/school-stats" component={AnalyticsScreen} />
           <Route path="/admin/assign-grades" component={EditGradesScreen} />
+          <Route path="/error" component={ErrorScreen} />
           <Route
             path="/admin/edit-modules"
             component={EditStudentModulesScreen}
