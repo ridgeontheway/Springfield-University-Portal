@@ -5,6 +5,7 @@ import Title from '../../components/title'
 import Description from '../../components/description'
 import ModuleCard from '../../components/card/module'
 import ToastComponent from '../../components/toast'
+import DashboardButton from '../../components/dashboardButton'
 import '../styles.css'
 import './styles.css'
 class Screen extends Component {
@@ -110,7 +111,9 @@ class Screen extends Component {
                 <h1>You have no modules</h1>
               )}
             </div>
-            <div className="footerDiv" />
+            <div className="footerDiv">
+              <DashboardButton />
+            </div>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import Screen from './Screen'
 import * as actions from '../../actions'
 import '../styles.css'
@@ -9,6 +10,9 @@ class EditGradesScreen extends Component {
     super(props)
     this.getModulesFromStudent = this.getModulesFromStudent.bind(this)
     this.sendEditedGradeInfo = this.sendEditedGradeInfo.bind(this)
+    this.state = {
+      APIError: false
+    }
   }
 
   componentDidMount() {
@@ -23,16 +27,46 @@ class EditGradesScreen extends Component {
     this.props.assignStudentGrade(_moduleID, _studentID, _newGrade)
   }
 
-  render() {
-    return (
-      <div className="backgroundDiv">
+  static getDerivedStateFromProps(props, state) {
+    if (props.error && props.error != state.error) {
+      return {
+        APIError: props.error
+      }
+    }
+    return null
+  }
+
+  redirectStateBasedOnError() {
+    if (this.state.APIError) {
+      return (
+        <Redirect
+          push
+          to={{
+            pathname: '/error'
+          }}
+        />
+      )
+    } else {
+      return (
         <Screen
           getModulesForStudent={this.getModulesFromStudent}
           sendEditedGradeInfo={this.sendEditedGradeInfo}
         />
-      </div>
+      )
+    }
+  }
+
+  render() {
+    return (
+      <div className="backgroundDiv">{this.redirectStateBasedOnError()}</div>
     )
   }
 }
 
-export default connect(null, actions)(EditGradesScreen)
+function mapStateToProps(state) {
+  return {
+    error: state.error
+  }
+}
+
+export default connect(mapStateToProps, actions)(EditGradesScreen)
