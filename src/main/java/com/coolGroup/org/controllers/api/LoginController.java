@@ -1,10 +1,12 @@
 package com.coolGroup.org.controllers.api;
 
+import com.coolGroup.org.config.PasswordHandler;
 import com.coolGroup.org.models.Login;
 import com.coolGroup.org.services.abstracts.IUtility;
 import com.coolGroup.org.services.abstracts.IWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

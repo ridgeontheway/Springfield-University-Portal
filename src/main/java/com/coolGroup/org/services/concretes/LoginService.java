@@ -1,5 +1,6 @@
 package com.coolGroup.org.services.concretes;
 
+import com.coolGroup.org.config.PasswordHandler;
 import com.coolGroup.org.models.Login;
 import com.coolGroup.org.models.Staff;
 import com.coolGroup.org.models.Student;
@@ -7,6 +8,7 @@ import com.coolGroup.org.services.abstracts.ILoginService;
 import com.coolGroup.org.services.abstracts.IStaffService;
 import com.coolGroup.org.services.abstracts.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,12 +16,14 @@ public class LoginService implements ILoginService {
     private IStudentService studentService;
     private IStaffService staffService;
     private Login login;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public LoginService(IStudentService studentService, IStaffService staffService) {
         this.studentService = studentService;
         this.staffService = staffService;
         login = null;
+        this.passwordEncoder = PasswordHandler.passwordEncoder();
     }
 
     @Override
@@ -35,7 +39,7 @@ public class LoginService implements ILoginService {
             try {
                 Staff staff = this.staffService.getByEmail(loggedIn.getEmail());
                 if (staff.getEmail().equals(loggedIn.getEmail()) &&
-                        loggedIn.getPassword().equals(staff.getPassword())) {
+                        passwordEncoder.matches(loggedIn.getPassword(), staff.getPassword())) {
                     login = new Login(staff.getId(), staff.getEmail(),
                             "***", loggedIn.getUser_role());
                 }
@@ -48,7 +52,7 @@ public class LoginService implements ILoginService {
             try {
                 Student student = this.studentService.getByEmail(loggedIn.getEmail());
                 if (student.getEmail().equals(loggedIn.getEmail()) &&
-                        loggedIn.getPassword().equals(student.getPassword())) {
+                        passwordEncoder.matches(loggedIn.getPassword(), student.getPassword())) {
                     login = new Login(student.getId(), student.getEmail(),
                             "***", loggedIn.getUser_role());
                 }
