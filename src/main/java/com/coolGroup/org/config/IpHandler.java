@@ -9,15 +9,41 @@ import java.util.StringTokenizer;
 
 @Service
 public class IpHandler {
-    public String getClientIpAddress() {
+    private String current;
+    private int count;
+
+    public String getCurrentIp() {
+        return this.current;
+    }
+
+    public int getInvalidLoginsCount() {
+        return this.count;
+    }
+
+    // Code from: https://stackoverflow.com/questions/9767480/accessing-httpservletrequest-object-in-a-normal-java-class-from-spring
+    public void getClientIpAddress() {
         HttpServletRequest request =
                 ((ServletRequestAttributes)RequestContextHolder
                         .getRequestAttributes()).getRequest();
         String xForwardedForHeader = request.getHeader("X-Forwarded-For");
         if (xForwardedForHeader == null) {
-            return request.getRemoteAddr();
+            this.current = request.getRemoteAddr();
         } else {
-            return new StringTokenizer(xForwardedForHeader, ",").nextToken().trim();
+            this.current = new StringTokenizer(xForwardedForHeader, ",").nextToken().trim();
         }
+    }
+
+    public int trackIp() {
+        String oldIp = this.current;
+        getClientIpAddress();
+        if (!this.current.equals(oldIp)) {
+            count = 0;
+        }
+        count++;
+        return count;
+    }
+
+    public boolean isIpBlocked() {
+        return this.count > 2;
     }
 }

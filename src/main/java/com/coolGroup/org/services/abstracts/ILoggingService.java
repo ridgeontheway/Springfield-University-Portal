@@ -8,6 +8,8 @@ public interface ILoggingService {
     void loginUser();
     void loginFailed(Login login);
     void logoutUser();
+    void trackIp(String ip, int count);
+    void ipBlocked(String ip);
     void insufficientPrivileges(String action);
     void enrollment(Enrollment enrollment);
     void unenrollment(Enrollment enrollment);

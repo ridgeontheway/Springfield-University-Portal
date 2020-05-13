@@ -22,16 +22,25 @@ public class LoginController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Login loginUser(@RequestBody Login user) {
-        System.out.println(this.utility.ip().getClientIpAddress());
-        Login login = this.worker.loginService().loginUser(user);
-        System.out.println(login);
-        if (login == null || login.getId() == -1) {
-            this.worker.log().loginFailed(user);
+        Login login;
+        if (this.utility.ip().isIpBlocked()) {
+            this.worker.log().ipBlocked(this.utility.ip().getCurrentIp());
             login = null;
         }
         else {
-            this.worker.log().loginUser();
+            login = this.worker.loginService().loginUser(user);
+            if (login == null || login.getId() == -1) {
+                this.worker.log().loginFailed(user);
+                this.utility.ip().trackIp();
+                this.worker.log().trackIp(this.utility.ip().getCurrentIp(),
+                        this.utility.ip().getInvalidLoginsCount());
+                login = null;
+            }
+            else {
+                this.worker.log().loginUser();
+            }
         }
+
         return login;
     }
 

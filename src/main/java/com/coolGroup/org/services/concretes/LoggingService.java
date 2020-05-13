@@ -61,6 +61,24 @@ public class LoggingService implements ILoggingService {
     }
 
     @Override
+    public void trackIp(String ip, int count) {
+        StringBuilder message = new StringBuilder();
+        String base = "LOGGER: IP address " + ip + " has " + count + " failed logins.";
+        message.append(base);
+        if (count > 2) {
+            message.append("\nLOGGER: For security purposes, this IP will now be locked" +
+                    " from future login attempts.");
+        }
+        System.out.println(message.toString());
+    }
+
+    @Override
+    public void ipBlocked(String ip) {
+        System.out.println("LOGGER: The IP address " + ip + " has exceeded the " +
+                "allowed number of failed login attempts and is now blocked.");
+    }
+
+    @Override
     public void insufficientPrivileges(String action) {
         System.out.println("LOGGER: User has insufficient privileges to perform action: " + action);
     }

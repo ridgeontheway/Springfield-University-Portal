@@ -36,7 +36,8 @@ public class LoginService implements ILoginService {
                 Staff staff = this.staffService.getByEmail(loggedIn.getEmail());
                 if (staff.getEmail().equals(loggedIn.getEmail()) &&
                         loggedIn.getPassword().equals(staff.getPassword())) {
-                    login = new Login(staff.getId(), staff.getEmail(), "***", loggedIn.getUser_role());
+                    login = new Login(staff.getId(), staff.getEmail(),
+                            "***", loggedIn.getUser_role());
                 }
             } catch (Exception e) {
                 login = handleInavlidLogin(loggedIn);
@@ -46,8 +47,10 @@ public class LoginService implements ILoginService {
         if (loggedIn.getUser_role().equals("student")) {
             try {
                 Student student = this.studentService.getByEmail(loggedIn.getEmail());
-                if (student.getEmail().equals(loggedIn.getEmail()) && loggedIn.getPassword().equals(student.getPassword())) {
-                    login = new Login(student.getId(), student.getEmail(), "***", loggedIn.getUser_role());
+                if (student.getEmail().equals(loggedIn.getEmail()) &&
+                        loggedIn.getPassword().equals(student.getPassword())) {
+                    login = new Login(student.getId(), student.getEmail(),
+                            "***", loggedIn.getUser_role());
                 }
             } catch (Exception e) {
                 login = handleInavlidLogin(loggedIn);
