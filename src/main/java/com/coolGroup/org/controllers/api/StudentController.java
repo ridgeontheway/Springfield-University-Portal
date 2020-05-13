@@ -58,8 +58,10 @@ public class StudentController {
     @CrossOrigin(origins = "http://localhost:8080")
     @ResponseStatus(HttpStatus.CREATED)
     public Student create(@RequestBody final Student student) {
-        this.worker.log().createStudent(student);
-        return worker.studentService().create(student);
+        Student newStudent = worker.studentService().create(student);
+        System.out.println(newStudent.getId());
+        this.worker.log().createStudent(newStudent);
+        return newStudent;
     }
 
     @RequestMapping(path = "multiple", method = RequestMethod.POST)
