@@ -41,7 +41,7 @@ public class LoginService implements ILoginService {
         if (loggedIn.getUser_role().equals("student")) {
             Student student = this.studentService.getByEmail(loggedIn.getEmail());
             if (student.getEmail().equals(loggedIn.getEmail()) && loggedIn.getPassword().equals(student.getPassword())) {
-                login = new Login(student.getId() ,student.getEmail(), "***", loggedIn.getUser_role());
+                login = new Login(student.getId(), student.getEmail(), "***", loggedIn.getUser_role());
             }
         }
         return login;
