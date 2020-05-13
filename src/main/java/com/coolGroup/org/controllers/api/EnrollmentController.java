@@ -33,6 +33,10 @@ public class EnrollmentController {
         if (userPermissions.hasPermission(Permission.ENROLL)) {
             enrollment = this.worker.enrollmentService()
                     .enroll(dto.getStudent(), dto.getModule());
+            this.worker.log().enrollment(enrollment);
+        }
+        else {
+            this.worker.log().insufficientPrivileges("enroll");
         }
         return enrollment;
     }
@@ -43,6 +47,10 @@ public class EnrollmentController {
         if (userPermissions.hasPermission(Permission.UNENROLL)) {
             enrollment = this.worker.enrollmentService()
                     .unenroll(dto.getStudent(), dto.getModule());
+            this.worker.log().unenrollment(enrollment);
+        }
+        else {
+            this.worker.log().insufficientPrivileges("unenroll");
         }
         return enrollment;
     }
@@ -74,6 +82,10 @@ public class EnrollmentController {
                     enrollment.getGrade()
             );
             result = enrollment;
+            this.worker.log().assignGrade(enrollment);
+        }
+        else {
+            this.worker.log().insufficientPrivileges("assign grade");
         }
         return result;
     }

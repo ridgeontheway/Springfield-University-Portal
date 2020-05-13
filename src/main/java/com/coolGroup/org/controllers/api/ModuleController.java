@@ -49,6 +49,10 @@ public class ModuleController {
         Module newModule = null;
         if (userPermissions.hasPermission(Permission.EDIT_MODULE)) {
             newModule = worker.moduleService().update(id, module);
+            this.worker.log().updateModule(id, module);
+        }
+        else {
+            this.worker.log().insufficientPrivileges("update module");
         }
         return newModule;
     }
@@ -56,7 +60,14 @@ public class ModuleController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Module create(@RequestBody final Module module) {
-        return worker.moduleService().create(module);
+        Module result = null;
+        try {
+            result = worker.moduleService().create(module);
+        } catch (Exception e) {
+            this.worker.log().error(e);
+        }
+        this.worker.log().createModule(module);
+        return result;
     }
 
     @RequestMapping(path = "multiple", method = RequestMethod.POST)
@@ -68,6 +79,7 @@ public class ModuleController {
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public @ResponseBody
     Module delete(@PathVariable Integer id) {
+        this.worker.log().deleteModule(id);
         return worker.moduleService().delete(id);
     }
 }

@@ -7,6 +7,7 @@ import paymentReducer from './paymentReducer'
 import studentReducer from './studentReducer'
 import loginUserReducer from './loginUserReducer'
 import currentUserLoggedInReducer from './currentUserLoggedInReducer'
+import invalidAuthReducer from './invalidAuthReducer'
 export default combineReducers({
   user: userReducer,
   modules: moduleReducer,
@@ -15,5 +16,6 @@ export default combineReducers({
   payment: paymentReducer,
   students: studentReducer,
   newLogin: loginUserReducer,
-  currentUser: currentUserLoggedInReducer
+  currentUser: currentUserLoggedInReducer,
+  error: invalidAuthReducer
 })

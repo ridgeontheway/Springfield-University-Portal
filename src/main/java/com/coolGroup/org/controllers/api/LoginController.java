@@ -17,11 +17,16 @@ public class LoginController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Login loginUser(@RequestBody Login user) {
-        return this.worker.loginService().loginUser(user);
+        Login login = this.worker.loginService().loginUser(user);
+        this.worker.log().loginUser(user.getId());
+        return login;
     }
 
     @GetMapping(path = "logout")
-    public void logoutUser() { this.worker.loginService().logoutUser(); }
+    public void logoutUser() {
+        this.worker.log().logoutUser();
+        this.worker.loginService().logoutUser();
+    }
 
     @GetMapping
     public Login getLoggedInUser() {
