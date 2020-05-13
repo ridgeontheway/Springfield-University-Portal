@@ -18,7 +18,13 @@ public class LoginController {
     @ResponseStatus(HttpStatus.CREATED)
     public Login loginUser(@RequestBody Login user) {
         Login login = this.worker.loginService().loginUser(user);
-        this.worker.log().loginUser(user.getId());
+        if (login.getId() == -1) {
+            this.worker.log().loginFailed(user);
+            login = null;
+        }
+        else {
+            this.worker.log().loginUser();
+        }
         return login;
     }
 

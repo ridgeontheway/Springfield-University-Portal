@@ -1,13 +1,12 @@
 package com.coolGroup.org.services.abstracts;
 
-import com.coolGroup.org.models.Enrollment;
+import com.coolGroup.org.models.*;
 import com.coolGroup.org.models.Module;
-import com.coolGroup.org.models.Staff;
-import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.dtos.PaymentAccountDto;
 
 public interface ILoggingService {
-    void loginUser(int id);
+    void loginUser();
+    void loginFailed(Login login);
     void logoutUser();
     void insufficientPrivileges(String action);
     void enrollment(Enrollment enrollment);

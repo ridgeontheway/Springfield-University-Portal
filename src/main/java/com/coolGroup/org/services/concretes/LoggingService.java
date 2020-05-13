@@ -1,9 +1,8 @@
 package com.coolGroup.org.services.concretes;
 
-import com.coolGroup.org.models.Enrollment;
+import com.coolGroup.org.models.*;
 import com.coolGroup.org.models.Module;
-import com.coolGroup.org.models.Staff;
-import com.coolGroup.org.models.Student;
+import com.coolGroup.org.models.abstracts.User;
 import com.coolGroup.org.models.dtos.PaymentAccountDto;
 import com.coolGroup.org.repositories.ModuleRepository;
 import com.coolGroup.org.repositories.StaffRepository;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LoggingService implements ILoggingService {
-    Student current;
+    User current;
 
     private StudentRepository studentRepository;
     private ModuleRepository moduleRepository;
@@ -33,11 +32,24 @@ public class LoggingService implements ILoggingService {
 
 
     @Override
-    public void loginUser(int id) {
-        int studentId = this.loginService.getLoggedInUser().getId();
-        this.current = this.studentRepository.getOne(studentId);
+    public void loginUser() {
+        Login login = this.loginService.getLoggedInUser();
+        if (login.getUser_role().equals("student")) {
+            this.current = this.studentRepository.getOne(login.getId());
+        }
+        else {
+            this.current = this.staffRepository.getOne(login.getId());
+        }
         System.out.println("LOGGER: " + this.current.getName() + " " +
-                this.current.getSurname() + "has logged in.");
+                this.current.getSurname() + " has logged in. Role: " + login.getUser_role());
+    }
+
+    @Override
+    public void loginFailed(Login login) {
+        String message = "LOGGER: Login attempt failed. Email: " + login.getEmail() +
+                ". Role: " + login.getUser_role();
+
+        System.out.println(message);
     }
 
     @Override

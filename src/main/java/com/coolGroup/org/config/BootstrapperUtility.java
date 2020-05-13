@@ -84,7 +84,7 @@ public class BootstrapperUtility {
                 "lpasquale@su.com", "password4321", "Female"));
         staff.add(new Staff("Alan", "Turing",
                 "aturing@su.com", "password4321", "Male"));
-        staff.add(new Staff("Bob", "dole",
+        staff.add(new Staff("Bob", "Dole",
                 "bdole@su.com", "password4321", "Male"));
         staff.add(new Staff("Ferdinand", "Magellan",
                 "fmagellan@su.com", "password4321", "Male"));
