@@ -17,8 +17,8 @@ public interface ILoggingService {
     void updateModule(Integer id, Module module);
     void createModule(Module module);
     void deleteModule(int moduleId);
-    void createStaff(Staff staff);
-    void deleteStaff(int staffId);
+    void createStaff(String email);
+    void deleteStaff(Staff staff);
     void createStudent(String email);
     void updateStudent(int studentId, Student student);
     void deleteStudent(Student student);

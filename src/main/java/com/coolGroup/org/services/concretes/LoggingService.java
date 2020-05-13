@@ -187,14 +187,13 @@ public class LoggingService implements ILoggingService {
     }
 
     @Override
-    public void createStaff(Staff staff) {
-        System.out.println("LOGGER: Staff member created: " + staff.getName());
+    public void createStaff(String email) {
+        System.out.println("LOGGER: Staff member created with login: " + email);
     }
 
     @Override
-    public void deleteStaff(int staffId) {
-        Staff staff = this.staffRepository.getOne(staffId);
-        System.out.println("LOGGER: Staff member deleted: " + staff.getName());
+    public void deleteStaff(Staff staff) {
+        System.out.println("LOGGER: Staff member deleted: " + staff.getId());
     }
 
     @Override
