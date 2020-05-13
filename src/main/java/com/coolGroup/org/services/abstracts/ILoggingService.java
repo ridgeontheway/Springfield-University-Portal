@@ -19,9 +19,9 @@ public interface ILoggingService {
     void deleteModule(int moduleId);
     void createStaff(Staff staff);
     void deleteStaff(int staffId);
-    void createStudent(Student student);
+    void createStudent(String email);
     void updateStudent(int studentId, Student student);
-    void deleteStudent(int studentId);
+    void deleteStudent(Student student);
     void addPaymentAccount(PaymentAccountDto account);
     void error(Exception e);
 }

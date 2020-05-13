@@ -198,9 +198,8 @@ public class LoggingService implements ILoggingService {
     }
 
     @Override
-    public void createStudent(Student student) {
-        System.out.println("LOGGER: Student created: " + student.getName() +
-                " " + this.current.getSurname());
+    public void createStudent(String email) {
+        System.out.println("LOGGER: Student created with login: " + email);
     }
 
     @Override
@@ -256,11 +255,8 @@ public class LoggingService implements ILoggingService {
     }
 
     @Override
-    public void deleteStudent(int studentId) {
-        Student student = this.studentRepository.getOne(studentId);
-        String message = "LOGGER: Student #" + studentId + ": " +
-                student.getName() + " " +
-                this.current.getSurname() + " has been deleted.";
+    public void deleteStudent(Student student) {
+        String message = "LOGGER: Student #" + student.getId() + " has been deleted.";
         System.out.println(message);
     }
 
