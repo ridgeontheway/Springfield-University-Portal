@@ -1,5 +1,6 @@
 package com.coolGroup.org.services.concretes;
 
+import com.coolGroup.org.config.PasswordHandler;
 import com.coolGroup.org.models.PaymentAccount;
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.models.dtos.PaymentAccountDto;
@@ -7,6 +8,7 @@ import com.coolGroup.org.repositories.StudentRepository;
 import com.coolGroup.org.services.abstracts.IStudentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,10 +21,12 @@ import static java.lang.Math.round;
 @Service
 public class StudentService implements IStudentService {
     private StudentRepository studentRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
+        this.passwordEncoder = PasswordHandler.passwordEncoder();
     }
 
     @Override
@@ -34,7 +38,6 @@ public class StudentService implements IStudentService {
     public Student get(Integer id) {
         return studentRepository.getOne(id);
     }
-
 
     @Override
     public List<Student> getByGender(String gender) {
@@ -81,6 +84,7 @@ public class StudentService implements IStudentService {
                 .filter(s -> s.getEmail().equals(student.getEmail()))
                 .collect(Collectors.toList());
         if (((List<Student>) emailMatches).isEmpty()) {
+            student.setPassword(this.passwordEncoder.encode(student.getPassword()));
             // Add a random payment account for now
             Student withPaymentAccount = assignRandomPaymentAccount(student);
             result = studentRepository.saveAndFlush(withPaymentAccount);
