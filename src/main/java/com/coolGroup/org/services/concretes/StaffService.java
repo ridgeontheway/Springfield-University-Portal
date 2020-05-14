@@ -1,10 +1,12 @@
 package com.coolGroup.org.services.concretes;
 
+import com.coolGroup.org.config.PasswordHandler;
 import com.coolGroup.org.models.Staff;
 import com.coolGroup.org.models.Student;
 import com.coolGroup.org.repositories.StaffRepository;
 import com.coolGroup.org.services.abstracts.IStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +16,12 @@ import java.util.stream.Collectors;
 @Service
 public class StaffService implements IStaffService {
     private StaffRepository staffRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public StaffService(StaffRepository staffRepository) {
         this.staffRepository = staffRepository;
+        this.passwordEncoder = PasswordHandler.passwordEncoder();
     }
 
     @Override
@@ -38,6 +42,7 @@ public class StaffService implements IStaffService {
                 .filter(s -> s.getEmail().equals(staff.getEmail()))
                 .collect(Collectors.toList());
         if (((List<Staff>) emailMatches).isEmpty()) {
+            staff.setPassword(this.passwordEncoder.encode(staff.getPassword()));
             result = staffRepository.saveAndFlush(staff);
         }
         return result;
