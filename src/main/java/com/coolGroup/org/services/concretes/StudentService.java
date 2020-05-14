@@ -85,7 +85,6 @@ public class StudentService implements IStudentService {
                 .collect(Collectors.toList());
         if (((List<Student>) emailMatches).isEmpty()) {
             student.setPassword(this.passwordEncoder.encode(student.getPassword()));
-            // Add a random payment account for now
             Student withPaymentAccount = assignRandomPaymentAccount(student);
             result = studentRepository.saveAndFlush(withPaymentAccount);
         }
