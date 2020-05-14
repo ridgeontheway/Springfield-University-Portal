@@ -32,7 +32,7 @@ public class StaffController {
     }
 
     @PostMapping
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "https://localhost:8443")
     @ResponseStatus(HttpStatus.CREATED)
     public Staff create(@RequestBody final Staff staff) {
         Staff newStaff = worker.staffService().create(staff);
