@@ -26,8 +26,8 @@ public class AnalyticsService implements IAnalyticsService {
     @Override
     public Map<String, Map<String, Integer>> getGenderDistributions() {
         Map<String, Map<String, Integer>> distributions = new HashMap<>();
-        distributions.put("students", getStudentGenderDistributions());
-        distributions.put("staff", getStaffGenderDistributions());
+            distributions.put("students", getStudentGenderDistributions());
+            distributions.put("staff", getStaffGenderDistributions());
         return distributions;
     }
 

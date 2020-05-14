@@ -32,19 +32,38 @@ public class LoginService implements ILoginService {
         login = null;
         loggedIn.setUser_role(loggedIn.getUser_role().toLowerCase());
         if (loggedIn.getUser_role().equals("staff")) {
-            Staff staff = this.staffService.getByEmail(loggedIn.getEmail());
-            if (staff.getEmail().equals(loggedIn.getEmail()) && loggedIn.getPassword().equals(staff.getPassword())) {
-                login = new Login(staff.getId(), staff.getEmail(), "***", loggedIn.getUser_role());
+            try {
+                Staff staff = this.staffService.getByEmail(loggedIn.getEmail());
+                if (staff.getEmail().equals(loggedIn.getEmail()) &&
+                        loggedIn.getPassword().equals(staff.getPassword())) {
+                    login = new Login(staff.getId(), staff.getEmail(), "***", loggedIn.getUser_role());
+                }
+            } catch (Exception e) {
+                login = handleInavlidLogin(loggedIn);
             }
         }
 
         if (loggedIn.getUser_role().equals("student")) {
-            Student student = this.studentService.getByEmail(loggedIn.getEmail());
-            if (student.getEmail().equals(loggedIn.getEmail()) && loggedIn.getPassword().equals(student.getPassword())) {
-                login = new Login(student.getId() ,student.getEmail(), "***", loggedIn.getUser_role());
+            try {
+                Student student = this.studentService.getByEmail(loggedIn.getEmail());
+                if (student.getEmail().equals(loggedIn.getEmail()) && loggedIn.getPassword().equals(student.getPassword())) {
+                    login = new Login(student.getId(), student.getEmail(), "***", loggedIn.getUser_role());
+                }
+            } catch (Exception e) {
+                login = handleInavlidLogin(loggedIn);
             }
+
         }
         return login;
+    }
+
+    private Login handleInavlidLogin(Login loggedIn) {
+        return new Login(
+                -1,
+                loggedIn.getEmail(),
+                loggedIn.getPassword(),
+                loggedIn.getUser_role()
+        );
     }
 
     @Override
