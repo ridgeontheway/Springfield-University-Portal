@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Pie } from 'react-chartjs-2'
 import Title from '../../components/title'
 import Description from '../../components/description'
+import DashboardButton from '../../components/dashboardButton'
 import './styles.css'
 
 class Screen extends Component {
@@ -60,7 +61,9 @@ class Screen extends Component {
               <h1>Waiting.......</h1>
             )}
           </div>
-          <div className="footerDiv" />
+          <div className="footerDiv">
+            <DashboardButton />
+          </div>
         </div>
       </div>
     )
