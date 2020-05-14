@@ -21,7 +21,7 @@ export const createUser = (
   _nationality,
   _password
 ) => async dispatch => {
-  fetch('http://localhost:8080/api/students', {
+  fetch('http://localhost:8443/api/students', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ export const createStaff = (
   _nationality,
   _password
 ) => async dispatch => {
-  fetch('http://localhost:8080/api/staff', {
+  fetch('http://localhost:8443/api/staff', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -90,7 +90,7 @@ export const createStaff = (
 }
 
 export const login = (_email, _password, _role) => async dispatch => {
-  fetch('http://localhost:8080/api/login', {
+  fetch('http://localhost:8443/api/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -115,7 +115,7 @@ export const login = (_email, _password, _role) => async dispatch => {
 }
 
 export const getAllModules = () => async dispatch => {
-  fetch('http://localhost:8080/api/modules', {
+  fetch('http://localhost:8443/api/modules', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -132,7 +132,7 @@ export const getAllModules = () => async dispatch => {
 }
 
 export const getAllStudents = () => async dispatch => {
-  fetch('http://localhost:8080/api/students', {
+  fetch('http://localhost:8443/api/students', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -147,7 +147,7 @@ export const getAllStudents = () => async dispatch => {
 
 //TODO: this needs to be fixed when we have log-in functionality
 export const getEnrolledModules = _studentID => async dispatch => {
-  fetch('http://localhost:8080/api/login', {
+  fetch('http://localhost:8443/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -156,7 +156,7 @@ export const getEnrolledModules = _studentID => async dispatch => {
         dispatch({ type: INVALID_AUTH, payload: true })
       } else {
         const _studentID = result['id']
-        fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
+        fetch('http://localhost:8443/api/enrollments/student/' + _studentID, {
           method: 'GET'
         })
           .then(response => response.json())
@@ -175,7 +175,7 @@ export const getEnrolledModules = _studentID => async dispatch => {
 }
 
 export const unenrollStudentFromModule = _moduleID => async dispatch => {
-  fetch('http://localhost:8080/api/login', {
+  fetch('http://localhost:8443/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -185,7 +185,7 @@ export const unenrollStudentFromModule = _moduleID => async dispatch => {
       } else {
         const _studentID = result['id']
 
-        fetch('http://localhost:8080/api/enrollments', {
+        fetch('http://localhost:8443/api/enrollments', {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json'
@@ -201,7 +201,7 @@ export const unenrollStudentFromModule = _moduleID => async dispatch => {
               dispatch({ type: INVALID_AUTH, payload: true })
             } else {
               fetch(
-                'http://localhost:8080/api/enrollments/student/' + _studentID,
+                'http://localhost:8443/api/enrollments/student/' + _studentID,
                 {
                   method: 'GET'
                 }
@@ -220,7 +220,7 @@ export const unenrollStudentFromModule = _moduleID => async dispatch => {
 }
 
 export const getNationalityAnalytics = () => async dispatch => {
-  fetch('http://localhost:8080/api/analytics/nationality', {
+  fetch('http://localhost:8443/api/analytics/nationality', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -234,7 +234,7 @@ export const getNationalityAnalytics = () => async dispatch => {
 }
 
 export const enrolInModule = _moduleID => async dispatch => {
-  fetch('http://localhost:8080/api/login', {
+  fetch('http://localhost:8443/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -243,7 +243,7 @@ export const enrolInModule = _moduleID => async dispatch => {
         dispatch({ type: INVALID_AUTH, payload: true })
       } else {
         const _studentID = result['id']
-        fetch('http://localhost:8080/api/enrollments', {
+        fetch('http://localhost:8443/api/enrollments', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -273,7 +273,7 @@ export const assignStudentGrade = (
   _studentID,
   _newGrade
 ) => async dispatch => {
-  fetch('http://localhost:8080/api/enrollments/grade', {
+  fetch('http://localhost:8443/api/enrollments/grade', {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
@@ -289,7 +289,7 @@ export const assignStudentGrade = (
       if (result.hasOwnProperty('error')) {
         dispatch({ type: INVALID_AUTH, payload: true })
       } else {
-        fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
+        fetch('http://localhost:8443/api/enrollments/student/' + _studentID, {
           method: 'GET'
         })
           .then(response => response.json())
@@ -309,7 +309,7 @@ export const editModuleDetails = (
   _coordinator,
   _title
 ) => async dispatch => {
-  fetch('http://localhost:8080/api/login', {
+  fetch('http://localhost:8443/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -317,7 +317,7 @@ export const editModuleDetails = (
       if (currentUser.hasOwnProperty('error')) {
         dispatch({ type: INVALID_AUTH, payload: true })
       } else {
-        fetch('http://localhost:8080/api/modules/' + _moduleID, {
+        fetch('http://localhost:8443/api/modules/' + _moduleID, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json'
@@ -332,7 +332,7 @@ export const editModuleDetails = (
             if (updateModuleResponseResult.hasOwnProperty('error')) {
               dispatch({ type: INVALID_AUTH, payload: true })
             } else {
-              fetch('http://localhost:8080/api/modules', {
+              fetch('http://localhost:8443/api/modules', {
                 method: 'GET'
               })
                 .then(allModules => allModules.json())
@@ -349,7 +349,7 @@ export const editModuleDetails = (
 }
 
 export const getLoggedInUser = () => async dispatch => {
-  fetch('http://localhost:8080/api/login', {
+  fetch('http://localhost:8443/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
