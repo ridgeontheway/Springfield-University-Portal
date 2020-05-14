@@ -19,7 +19,6 @@ export default class NewUserPopup extends Component {
           <div className="content__wrapper">
             <h3>Please take note of your log-in information for later use</h3>
             <p>Email: {this.props.email}</p>
-            <p>Password: {this.props.password}</p>
           </div>
         </Modal.Body>
         <Modal.Footer>
