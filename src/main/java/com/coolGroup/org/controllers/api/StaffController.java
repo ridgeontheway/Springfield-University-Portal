@@ -36,7 +36,7 @@ public class StaffController {
     @ResponseStatus(HttpStatus.CREATED)
     public Staff create(@RequestBody final Staff staff) {
         Staff newStaff = worker.staffService().create(staff);
-        this.worker.log().createStaff(newStaff);
+        this.worker.log().createStaff(newStaff.getEmail());
         return newStaff;
     }
 
@@ -47,7 +47,8 @@ public class StaffController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public Staff delete(@PathVariable Integer id) {
-        this.worker.log().deleteStaff(id);
-        return worker.staffService().delete(id);
+        Staff deleted = worker.staffService().delete(id);
+        this.worker.log().deleteStaff(deleted);
+        return deleted;
     }
 }
