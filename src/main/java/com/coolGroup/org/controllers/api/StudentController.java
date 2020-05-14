@@ -59,7 +59,6 @@ public class StudentController {
     @ResponseStatus(HttpStatus.CREATED)
     public Student create(@RequestBody final Student student) {
         Student newStudent = worker.studentService().create(student);
-        System.out.println(newStudent.getId());
         this.worker.log().createStudent(newStudent);
         return newStudent;
     }
