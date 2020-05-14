@@ -1,10 +1,10 @@
 package com.coolGroup.org.config;
 
-import com.coolGroup.org.models.Staff;
-import com.coolGroup.org.models.Student;
+import com.coolGroup.org.models.*;
 import com.coolGroup.org.models.Module;
 import com.coolGroup.org.models.dtos.PaymentAccountDto;
 import com.coolGroup.org.services.abstracts.IWorker;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +84,7 @@ public class BootstrapperUtility {
                 "lpasquale@su.com", "password4321", "Female"));
         staff.add(new Staff("Alan", "Turing",
                 "aturing@su.com", "password4321", "Male"));
-        staff.add(new Staff("Bob", "dole",
+        staff.add(new Staff("Bob", "Dole",
                 "bdole@su.com", "password4321", "Male"));
         staff.add(new Staff("Ferdinand", "Magellan",
                 "fmagellan@su.com", "password4321", "Male"));

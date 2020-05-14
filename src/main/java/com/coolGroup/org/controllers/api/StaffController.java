@@ -35,8 +35,9 @@ public class StaffController {
     @CrossOrigin(origins = "http://localhost:8080")
     @ResponseStatus(HttpStatus.CREATED)
     public Staff create(@RequestBody final Staff staff) {
-        this.worker.log().createStaff(staff);
-        return worker.staffService().create(staff);
+        Staff newStaff = worker.staffService().create(staff);
+        this.worker.log().createStaff(newStaff.getEmail());
+        return newStaff;
     }
 
     @RequestMapping(path = "multiple", method = RequestMethod.POST)
@@ -46,7 +47,8 @@ public class StaffController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public Staff delete(@PathVariable Integer id) {
-        this.worker.log().deleteStaff(id);
-        return worker.staffService().delete(id);
+        Staff deleted = worker.staffService().delete(id);
+        this.worker.log().deleteStaff(deleted);
+        return deleted;
     }
 }

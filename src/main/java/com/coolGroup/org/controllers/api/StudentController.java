@@ -58,8 +58,9 @@ public class StudentController {
     @CrossOrigin(origins = "http://localhost:8080")
     @ResponseStatus(HttpStatus.CREATED)
     public Student create(@RequestBody final Student student) {
-        this.worker.log().createStudent(student);
-        return worker.studentService().create(student);
+        Student newStudent = worker.studentService().create(student);
+        this.worker.log().createStudent(student.getEmail());
+        return newStudent;
     }
 
     @RequestMapping(path = "multiple", method = RequestMethod.POST)
@@ -69,8 +70,9 @@ public class StudentController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public Student delete(@PathVariable Integer id) {
-        this.worker.log().deleteStudent(id);
-        return worker.studentService().delete(id);
+        Student deleted = worker.studentService().delete(id);
+        this.worker.log().deleteStudent(deleted);
+        return deleted;
     }
 
     @RequestMapping(path = "payment", method = RequestMethod.PATCH)
