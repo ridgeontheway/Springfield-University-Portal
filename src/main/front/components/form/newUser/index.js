@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
+import ReactPasswordStrength from 'react-password-strength'
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 import PropTypes from 'prop-types'
@@ -9,33 +10,63 @@ export default class NewUserForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      formSubmission: false
+      formSubmission: false,
+      validPassword: ''
+    }
+    this.passwordStrength = this.passwordStrength.bind(this)
+  }
+
+  // Checks if email is in the correct format
+  validateEmail(emailEntered) {
+    var emailRE = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return emailRE.test(emailEntered)
+  }
+
+  passwordStrength(passwordInfo) {
+    const passwordScore = passwordInfo['score']
+    const isValid = passwordInfo['isValid']
+    const password = passwordInfo['password']
+    if (passwordScore >= 3 && isValid) {
+      this.setState({ validPassword: password })
     }
   }
 
-  async handleOnClick(event) {
+  handleOnClick(event) {
     event.preventDefault()
-    this.setState({ formSubmission: true })
     const _name = event.target.elements.name.value
     const _surname = event.target.elements.surname.value
     const _email = event.target.elements.email.value
-    const _password = event.target.elements.password.value
+    const _password = this.state.validPassword
     const _address = event.target.elements.address.value
     const _phone = event.target.elements.phone.value
     const _gender = event.target.elements.gender.value
     const _nationality = event.target.elements.nationality.value
     const _role = event.target.elements.role.value
+    var validForm = true
     if (
-      this.props.handleOnMissingData(
+      !this.props.handleOnMissingData(
         _name,
         _surname,
         _email,
         _phone,
         _nationality,
-        _password,
+        _address,
         _role
       )
     ) {
+      validForm = false
+      alert('Please enter all form fields correctly')
+    }
+    if (!this.validateEmail(_email)) {
+      validForm = false
+      alert('Please enter a valid email')
+    }
+    if (!_password) {
+      validForm = false
+      alert('Please enter a strong password')
+    }
+    if (validForm) {
+      this.setState({ formSubmission: true })
       this.props.handleOnDataSubmission(
         _name,
         _surname,
@@ -47,42 +78,47 @@ export default class NewUserForm extends Component {
         _password,
         _role
       )
-    } else {
-      alert('Please enter all form fields correctly')
     }
   }
 
   render() {
+    const inputProps = {
+      placeholder: 'Try a password...',
+      autoFocus: true,
+      className: 'another-input-prop-class-name'
+    }
     return (
       <div className="container">
         <Form
           onSubmit={e => {
             this.handleOnClick(e)
           }}>
-          <Form.Group controlId="name">
+          <Form.Group controlId="name" className="formPadding">
             <Form.Label>Name</Form.Label>
             <Form.Control type="text" placeholder="Enter your given name" />
           </Form.Group>
 
-          <Form.Group controlId="surname">
+          <Form.Group controlId="surname" className="formPadding">
             <Form.Label>Surname</Form.Label>
             <Form.Control type="text" placeholder="Enter your given surname" />
           </Form.Group>
 
-          <Form.Group controlId="email">
+          <Form.Group controlId="email" className="formPadding">
             <Form.Label>Email</Form.Label>
             <Form.Control type="email" placeholder="Enter your email" />
           </Form.Group>
 
-          <Form.Group controlId="password">
+          <Form.Group controlId="password" className="formPadding">
             <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Enter your new password"
+            <ReactPasswordStrength
+              minLength={5}
+              minScore={2}
+              changeCallback={this.passwordStrength}
+              inputProps={{ ...inputProps, id: 'inputPassword1' }}
             />
           </Form.Group>
 
-          <Form.Group controlId="address">
+          <Form.Group controlId="address" className="formPadding">
             <Form.Label>Address</Form.Label>
             <Form.Control
               type="text"
@@ -91,7 +127,7 @@ export default class NewUserForm extends Component {
             />
           </Form.Group>
 
-          <Form.Group controlId="phone">
+          <Form.Group controlId="phone" className="formPadding">
             <Form.Label>Phone Number</Form.Label>
             <Form.Control
               type="text"
@@ -100,7 +136,7 @@ export default class NewUserForm extends Component {
             />
           </Form.Group>
 
-          <Form.Group controlId="nationality">
+          <Form.Group controlId="nationality" className="formPadding">
             <Form.Label>Nationality</Form.Label>
             <Form.Control
               type="text"
@@ -109,7 +145,7 @@ export default class NewUserForm extends Component {
             />
           </Form.Group>
 
-          <Form.Group controlId="gender">
+          <Form.Group controlId="gender" className="formPadding">
             <Form.Label>Gender</Form.Label>
             <Form.Control as="select" ref={this.genderInput}>
               <option>Male</option>
@@ -117,7 +153,7 @@ export default class NewUserForm extends Component {
             </Form.Control>
           </Form.Group>
 
-          <Form.Group controlId="role">
+          <Form.Group controlId="role" className="formPadding">
             <Form.Label>Role</Form.Label>
             <Form.Control as="select" ref={this.genderInput}>
               <option>Student</option>

@@ -9,3 +9,7 @@
   padding-bottom: 1%;
   overflow-y: scroll !important;
 }
+
+.formPadding {
+  width: 30vw;
+}
