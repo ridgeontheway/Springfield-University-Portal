@@ -50,6 +50,7 @@ public class StudentController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH)
     public Student update(@PathVariable Integer id, @RequestBody Student student) {
+        this.worker.log().updateStudent(id, student);
         return worker.studentService().update(id, student);
     }
 
@@ -57,7 +58,10 @@ public class StudentController {
     @CrossOrigin(origins = "http://localhost:8080")
     @ResponseStatus(HttpStatus.CREATED)
     public Student create(@RequestBody final Student student) {
-        return worker.studentService().create(student);
+        Student newStudent = worker.studentService().create(student);
+        System.out.println(newStudent.getId());
+        this.worker.log().createStudent(newStudent);
+        return newStudent;
     }
 
     @RequestMapping(path = "multiple", method = RequestMethod.POST)
@@ -67,12 +71,14 @@ public class StudentController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public Student delete(@PathVariable Integer id) {
+        this.worker.log().deleteStudent(id);
         return worker.studentService().delete(id);
     }
 
     @RequestMapping(path = "payment", method = RequestMethod.PATCH)
     @ResponseStatus(HttpStatus.CREATED)
     public Student addPaymentAccount(@RequestBody PaymentAccountDto paymentAccountDto) {
+        this.worker.log().addPaymentAccount(paymentAccountDto);
         return this.worker.studentService().addPaymentAccount(paymentAccountDto);
     }
 
