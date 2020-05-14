@@ -10,7 +10,8 @@ export default class NewUserForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      formSubmission: false
+      formSubmission: false,
+      validPassword: ''
     }
     this.passwordStrength = this.passwordStrength.bind(this)
   }
@@ -21,29 +22,27 @@ export default class NewUserForm extends Component {
     return emailRE.test(emailEntered)
   }
 
-  passwordStrength(score, password, isValid) {
-    console.log(score)
-    console.log(password)
-    console.log(isValid)
-  }
-
-  validateFormInputs(_password, _email) {
-    if (!this.validateEmail(_email)) {
+  passwordStrength(passwordInfo) {
+    const passwordScore = passwordInfo['score']
+    const isValid = passwordInfo['isValid']
+    const password = passwordInfo['password']
+    if (passwordScore >= 3 && isValid) {
+      this.setState({ validPassword: password })
     }
   }
 
   handleOnClick(event) {
     event.preventDefault()
-    this.setState({ formSubmission: true })
     const _name = event.target.elements.name.value
     const _surname = event.target.elements.surname.value
     const _email = event.target.elements.email.value
-    const _password = event.target.elements.password.value
+    const _password = this.state.validPassword
     const _address = event.target.elements.address.value
     const _phone = event.target.elements.phone.value
     const _gender = event.target.elements.gender.value
     const _nationality = event.target.elements.nationality.value
     const _role = event.target.elements.role.value
+    var validForm = true
     if (
       !this.props.handleOnMissingData(
         _name,
@@ -51,13 +50,35 @@ export default class NewUserForm extends Component {
         _email,
         _phone,
         _nationality,
-        _password,
+        _address,
         _role
       )
     ) {
+      validForm = false
       alert('Please enter all form fields correctly')
     }
-    this.validateFormInputs(_password, _email)
+    if (!this.validateEmail(_email)) {
+      validForm = false
+      alert('Please enter a valid email')
+    }
+    if (!_password) {
+      validForm = false
+      alert('Please enter a strong password')
+    }
+    if (validForm) {
+      this.setState({ formSubmission: true })
+      this.props.handleOnDataSubmission(
+        _name,
+        _surname,
+        _email,
+        _address,
+        _phone,
+        _gender,
+        _nationality,
+        _password,
+        _role
+      )
+    }
   }
 
   render() {
