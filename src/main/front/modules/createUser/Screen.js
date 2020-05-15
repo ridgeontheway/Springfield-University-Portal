@@ -52,7 +52,6 @@ class Screen extends Component {
           show={this.state.showUserPopUp}
           title="Welcome to Springfield University"
           email={this.state.userEmail}
-          password={this.state.userPassword}
           onHide={() => this.togglePopUp(false)}
         />
       </div>

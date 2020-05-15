@@ -55,7 +55,7 @@ public class StudentController {
     }
 
     @PostMapping
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "https://localhost:8443")
     @ResponseStatus(HttpStatus.CREATED)
     public Student create(@RequestBody final Student student) {
         Student newStudent = worker.studentService().create(student);
