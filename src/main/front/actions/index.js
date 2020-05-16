@@ -233,6 +233,56 @@ export const getNationalityAnalytics = () => async dispatch => {
     })
 }
 
+export const getStaffModules = () => async dispatch => {
+  fetch('http://localhost:8080/api/login', {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(result => {
+      if (result.hasOwnProperty('error')) {
+        dispatch({ type: INVALID_AUTH, payload: true })
+      } else {
+        const staffID = result['id']
+        fetch('http://localhost:8080/api/staff', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(staffResponse => staffResponse.json())
+          .then(staffResult => {
+            console.log('these are all the staff in the system = ', staffResult)
+            var name, surname
+            for (var i = 0; i < staffResult.length; i++) {
+              const current_entry = staffResult[i]
+              if (current_entry['id'] == staffID) {
+                name = current_entry['name']
+                surname = current_entry['surname']
+                break
+              }
+            }
+            fetch('http://localhost:8080/api/modules', {
+              method: 'GET'
+            })
+              .then(moduleResponse => moduleResponse.json())
+              .then(moduleResult => {
+                var userModules = []
+                for (var i = 0; i < moduleResult.length; i++) {
+                  const current_module = moduleResult[i]
+                  if (
+                    current_module['coordinator_name'].includes(name) &&
+                    current_module['coordinator_name'].includes(surname)
+                  ) {
+                    userModules.push(current_module)
+                  }
+                }
+                dispatch({ type: ALL_MODULES, payload: userModules })
+              })
+          })
+      }
+    })
+}
+
 export const enrolInModule = _moduleID => async dispatch => {
   fetch('http://localhost:8080/api/login', {
     method: 'GET'
