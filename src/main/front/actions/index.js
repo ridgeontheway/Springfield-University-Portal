@@ -8,7 +8,8 @@ import {
   ALL_STUDENTS,
   NEW_USER_LOG_IN,
   USER_LOGGED_IN,
-  INVALID_AUTH
+  INVALID_AUTH,
+  LOGGED_IN_USER_INFO
 } from './types'
 
 export const createUser = (
@@ -255,7 +256,7 @@ export const getStaffModules = () => async dispatch => {
             var name, surname
             for (var i = 0; i < staffResult.length; i++) {
               const current_entry = staffResult[i]
-              if (current_entry['id'] == staffID) {
+              if (current_entry['id'] === staffID) {
                 name = current_entry['name']
                 surname = current_entry['surname']
                 break
@@ -417,4 +418,42 @@ export const getLoggedInUser = () => async dispatch => {
 
 export const resetError = () => async dispatch => {
   dispatch({ type: INVALID_AUTH, payload: false })
+}
+
+export const getLoggedInStudentInfo = () => async dispatch => {
+  fetch('http://localhost:8080/api/login', {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(result => {
+      var loggedInUserID
+      if (result.hasOwnProperty('error')) {
+        dispatch({ type: INVALID_AUTH, payload: true })
+      } else {
+        loggedInUserID = result['id']
+      }
+      fetch('http://localhost:8080/api/students', {
+        method: 'GET'
+      })
+        .then(studentResponse => studentResponse.json())
+        .then(studentResult => {
+          if (studentResult.hasOwnProperty('error')) {
+            dispatch({ type: INVALID_AUTH, payload: true })
+          } else {
+            for (var i = 0; i < studentResult.length; i++) {
+              const current_student = studentResult[i]
+              if (current_student['id'] === loggedInUserID) {
+                dispatch({
+                  type: LOGGED_IN_USER_INFO,
+                  payload: current_student
+                })
+                break
+              }
+            }
+          }
+        })
+    })
+    .catch(err => {
+      console.error(err)
+    })
 }

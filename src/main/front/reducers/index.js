@@ -8,6 +8,7 @@ import studentReducer from './studentReducer'
 import loginUserReducer from './loginUserReducer'
 import currentUserLoggedInReducer from './currentUserLoggedInReducer'
 import invalidAuthReducer from './invalidAuthReducer'
+import userLoggedInInfoReducer from './userLoggedInInfoReducer'
 export default combineReducers({
   user: userReducer,
   modules: moduleReducer,
@@ -17,5 +18,6 @@ export default combineReducers({
   students: studentReducer,
   newLogin: loginUserReducer,
   currentUser: currentUserLoggedInReducer,
-  error: invalidAuthReducer
+  error: invalidAuthReducer,
+  userInfo: userLoggedInInfoReducer
 })

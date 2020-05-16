@@ -6,16 +6,15 @@ import * as actions from '../../actions'
 import '../styles.css'
 
 // just going to call the api endpoint for gender, then the
-class AnalyticsScreen extends Component {
+class MyInfoScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      genderData: null,
       APIError: false
     }
   }
   componentDidMount() {
-    this.props.getNationalityAnalytics()
+    this.props.getLoggedInStudentInfo()
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -54,4 +53,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, actions)(AnalyticsScreen)
+export default connect(mapStateToProps, actions)(MyInfoScreen)
