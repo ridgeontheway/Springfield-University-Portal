@@ -306,8 +306,11 @@ export const enrolInModule = _moduleID => async dispatch => {
         })
           .then(enrolledResponse => enrolledResponse.json())
           .then(enrolledResult => {
+            const enrollmentStatus = enrolledResult['student']
             if (enrolledResult.hasOwnProperty('error')) {
               dispatch({ type: INVALID_AUTH, payload: true })
+            } else if (enrollmentStatus === -1) {
+              dispatch({ type: ADD_MODULE_STATUS, result: 'invalidFees' })
             } else {
               dispatch({ type: ADD_MODULE_STATUS, result: 'enrolled' })
             }
@@ -418,6 +421,10 @@ export const getLoggedInUser = () => async dispatch => {
 
 export const resetError = () => async dispatch => {
   dispatch({ type: INVALID_AUTH, payload: false })
+}
+
+export const resetEnrolment = () => async dispatch => {
+  dispatch({ type: ADD_MODULE_STATUS, payload: false })
 }
 
 export const getLoggedInStudentInfo = () => async dispatch => {
