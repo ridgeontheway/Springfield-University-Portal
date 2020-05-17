@@ -196,7 +196,6 @@ export const unenrollStudentFromModule = _moduleID => async dispatch => {
         dispatch({ type: INVALID_AUTH, payload: true })
       } else {
         const _studentID = result['id']
-
         fetch('http://localhost:' + PORT_NUMBER + '/api/enrollments', {
           method: 'DELETE',
           headers: {
