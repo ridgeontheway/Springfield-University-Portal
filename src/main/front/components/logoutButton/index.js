@@ -8,7 +8,7 @@ import './styles.css'
 
 export default class LogoutButton extends Component {
   render() {
-    const redirectURL = 'http://localhost:' + PORT_NUMBER
+    const redirectURL = 'https://localhost:' + PORT_NUMBER
     return (
       <a href={redirectURL}>
         <Button variant="primary" type="submit" className="info-button__theme">
