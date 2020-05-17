@@ -6,6 +6,7 @@ import SchoolStatsCardComponent from '../../components/card/school-stats'
 import EditModulesCardComponent from '../../components/card/edit-modules'
 import AssignGradeCardComponent from '../../components/card/assign-grades'
 import MyInfoCardComponent from '../../components/card/my-info'
+import LogoutButton from '../../components/logoutButton'
 import Title from '../../components/title'
 import Description from '../../components/description'
 import '../styles.css'
@@ -58,7 +59,9 @@ export default class Screen extends Component {
             <Description text="Staff and Student Services" />
           </div>
           <div>{this.renderContentBasedOnRole()}</div>
-          <div className="footerDiv" />
+          <div className="footerDiv">
+            <LogoutButton />
+          </div>
         </div>
       </div>
     )
