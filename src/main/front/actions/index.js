@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import { PORT_NUMBER } from '../constants/api-calls'
 import {
   CREATE_USER,
   ALL_MODULES,
@@ -22,7 +23,7 @@ export const createUser = (
   _nationality,
   _password
 ) => async dispatch => {
-  fetch('http://localhost:8080/api/students', {
+  fetch('http://localhost:' + PORT_NUMBER + '/api/students', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -61,7 +62,7 @@ export const createStaff = (
   _nationality,
   _password
 ) => async dispatch => {
-  fetch('http://localhost:8080/api/staff', {
+  fetch('http://localhost:' + PORT_NUMBER + '/api/staff', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -91,7 +92,7 @@ export const createStaff = (
 }
 
 export const login = (_email, _password, _role) => async dispatch => {
-  fetch('http://localhost:8080/api/login', {
+  fetch('http://localhost:' + PORT_NUMBER + '/api/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -116,7 +117,7 @@ export const login = (_email, _password, _role) => async dispatch => {
 }
 
 export const getAllModules = () => async dispatch => {
-  fetch('http://localhost:8080/api/modules', {
+  fetch('http://localhost:' + PORT_NUMBER + '/api/modules', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -128,12 +129,12 @@ export const getAllModules = () => async dispatch => {
       }
     })
     .catch(err => {
-      console.error(err)
+      dispatch({ type: INVALID_AUTH, payload: true })
     })
 }
 
 export const getAllStudents = () => async dispatch => {
-  fetch('http://localhost:8080/api/students', {
+  fetch('http://localhost:' + PORT_NUMBER + '/api/students', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -144,11 +145,14 @@ export const getAllStudents = () => async dispatch => {
         dispatch({ type: ALL_STUDENTS, payload: result })
       }
     })
+    .catch(err => {
+      dispatch({ type: INVALID_AUTH, payload: true })
+    })
 }
 
 //TODO: this needs to be fixed when we have log-in functionality
 export const getEnrolledModules = _studentID => async dispatch => {
-  fetch('http://localhost:8080/api/login', {
+  fetch('http://localhost:' + PORT_NUMBER + '/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -157,9 +161,15 @@ export const getEnrolledModules = _studentID => async dispatch => {
         dispatch({ type: INVALID_AUTH, payload: true })
       } else {
         const _studentID = result['id']
-        fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
-          method: 'GET'
-        })
+        fetch(
+          'http://localhost:' +
+            PORT_NUMBER +
+            '/api/enrollments/student/' +
+            _studentID,
+          {
+            method: 'GET'
+          }
+        )
           .then(response => response.json())
           .then(result => {
             if (result.hasOwnProperty('error')) {
@@ -171,12 +181,12 @@ export const getEnrolledModules = _studentID => async dispatch => {
       }
     })
     .catch(err => {
-      console.error(err)
+      dispatch({ type: INVALID_AUTH, payload: true })
     })
 }
 
 export const unenrollStudentFromModule = _moduleID => async dispatch => {
-  fetch('http://localhost:8080/api/login', {
+  fetch('http://localhost:' + PORT_NUMBER + '/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -186,7 +196,7 @@ export const unenrollStudentFromModule = _moduleID => async dispatch => {
       } else {
         const _studentID = result['id']
 
-        fetch('http://localhost:8080/api/enrollments', {
+        fetch('http://localhost:' + PORT_NUMBER + '/api/enrollments', {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json'
@@ -202,7 +212,10 @@ export const unenrollStudentFromModule = _moduleID => async dispatch => {
               dispatch({ type: INVALID_AUTH, payload: true })
             } else {
               fetch(
-                'http://localhost:8080/api/enrollments/student/' + _studentID,
+                'http://localhost:' +
+                  PORT_NUMBER +
+                  '/api/enrollments/student/' +
+                  _studentID,
                 {
                   method: 'GET'
                 }
@@ -216,12 +229,12 @@ export const unenrollStudentFromModule = _moduleID => async dispatch => {
       }
     })
     .catch(err => {
-      console.error(err)
+      dispatch({ type: INVALID_AUTH, payload: true })
     })
 }
 
 export const getNationalityAnalytics = () => async dispatch => {
-  fetch('http://localhost:8080/api/analytics/nationality', {
+  fetch('http://localhost:' + PORT_NUMBER + '/api/analytics/nationality', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -232,10 +245,13 @@ export const getNationalityAnalytics = () => async dispatch => {
         dispatch({ type: NATIONALITY_ANALYTICS, result })
       }
     })
+    .catch(err => {
+      dispatch({ type: INVALID_AUTH, payload: true })
+    })
 }
 
 export const getStaffModules = () => async dispatch => {
-  fetch('http://localhost:8080/api/login', {
+  fetch('http://localhost:' + PORT_NUMBER + '/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -244,7 +260,7 @@ export const getStaffModules = () => async dispatch => {
         dispatch({ type: INVALID_AUTH, payload: true })
       } else {
         const staffID = result['id']
-        fetch('http://localhost:8080/api/staff', {
+        fetch('http://localhost:' + PORT_NUMBER + '/api/staff', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -262,7 +278,7 @@ export const getStaffModules = () => async dispatch => {
                 break
               }
             }
-            fetch('http://localhost:8080/api/modules', {
+            fetch('http://localhost:' + PORT_NUMBER + '/api/modules', {
               method: 'GET'
             })
               .then(moduleResponse => moduleResponse.json())
@@ -282,10 +298,13 @@ export const getStaffModules = () => async dispatch => {
           })
       }
     })
+    .catch(err => {
+      dispatch({ type: INVALID_AUTH, payload: true })
+    })
 }
 
 export const enrolInModule = _moduleID => async dispatch => {
-  fetch('http://localhost:8080/api/login', {
+  fetch('http://localhost:' + PORT_NUMBER + '/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -294,7 +313,7 @@ export const enrolInModule = _moduleID => async dispatch => {
         dispatch({ type: INVALID_AUTH, payload: true })
       } else {
         const _studentID = result['id']
-        fetch('http://localhost:8080/api/enrollments', {
+        fetch('http://localhost:' + PORT_NUMBER + '/api/enrollments', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -318,7 +337,7 @@ export const enrolInModule = _moduleID => async dispatch => {
       }
     })
     .catch(err => {
-      console.error(err)
+      dispatch({ type: INVALID_AUTH, payload: true })
     })
 }
 
@@ -327,7 +346,7 @@ export const assignStudentGrade = (
   _studentID,
   _newGrade
 ) => async dispatch => {
-  fetch('http://localhost:8080/api/enrollments/grade', {
+  fetch('http://localhost:' + PORT_NUMBER + '/api/enrollments/grade', {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
@@ -343,9 +362,15 @@ export const assignStudentGrade = (
       if (result.hasOwnProperty('error')) {
         dispatch({ type: INVALID_AUTH, payload: true })
       } else {
-        fetch('http://localhost:8080/api/enrollments/student/' + _studentID, {
-          method: 'GET'
-        })
+        fetch(
+          'http://localhost:' +
+            PORT_NUMBER +
+            '/api/enrollments/student/' +
+            _studentID,
+          {
+            method: 'GET'
+          }
+        )
           .then(response => response.json())
           .then(result => {
             if (result.hasOwnProperty('error')) {
@@ -356,6 +381,9 @@ export const assignStudentGrade = (
           })
       }
     })
+    .catch(err => {
+      dispatch({ type: INVALID_AUTH, payload: true })
+    })
 }
 
 export const editModuleDetails = (
@@ -363,7 +391,7 @@ export const editModuleDetails = (
   _coordinator,
   _title
 ) => async dispatch => {
-  fetch('http://localhost:8080/api/login', {
+  fetch('http://localhost:' + PORT_NUMBER + '/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -371,7 +399,7 @@ export const editModuleDetails = (
       if (currentUser.hasOwnProperty('error')) {
         dispatch({ type: INVALID_AUTH, payload: true })
       } else {
-        fetch('http://localhost:8080/api/modules/' + _moduleID, {
+        fetch('http://localhost:' + PORT_NUMBER + '/api/modules/' + _moduleID, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json'
@@ -386,7 +414,7 @@ export const editModuleDetails = (
             if (updateModuleResponseResult.hasOwnProperty('error')) {
               dispatch({ type: INVALID_AUTH, payload: true })
             } else {
-              fetch('http://localhost:8080/api/modules', {
+              fetch('http://localhost:' + PORT_NUMBER + '/api/modules', {
                 method: 'GET'
               })
                 .then(allModules => allModules.json())
@@ -398,12 +426,12 @@ export const editModuleDetails = (
       }
     })
     .catch(err => {
-      console.error(err)
+      dispatch({ type: INVALID_AUTH, payload: true })
     })
 }
 
 export const getLoggedInUser = () => async dispatch => {
-  fetch('http://localhost:8080/api/login', {
+  fetch('http://localhost:' + PORT_NUMBER + '/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -415,7 +443,7 @@ export const getLoggedInUser = () => async dispatch => {
       }
     })
     .catch(err => {
-      console.error(err)
+      dispatch({ type: INVALID_AUTH, payload: true })
     })
 }
 
@@ -428,7 +456,7 @@ export const resetEnrolment = () => async dispatch => {
 }
 
 export const getLoggedInStudentInfo = () => async dispatch => {
-  fetch('http://localhost:8080/api/login', {
+  fetch('http://localhost:' + PORT_NUMBER + '/api/login', {
     method: 'GET'
   })
     .then(response => response.json())
@@ -439,7 +467,7 @@ export const getLoggedInStudentInfo = () => async dispatch => {
       } else {
         loggedInUserID = result['id']
       }
-      fetch('http://localhost:8080/api/students', {
+      fetch('http://localhost:' + PORT_NUMBER + '/api/students', {
         method: 'GET'
       })
         .then(studentResponse => studentResponse.json())
@@ -461,6 +489,6 @@ export const getLoggedInStudentInfo = () => async dispatch => {
         })
     })
     .catch(err => {
-      console.error(err)
+      dispatch({ type: INVALID_AUTH, payload: true })
     })
 }
