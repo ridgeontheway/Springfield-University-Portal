@@ -10,7 +10,8 @@ import {
   NEW_USER_LOG_IN,
   USER_LOGGED_IN,
   INVALID_AUTH,
-  LOGGED_IN_USER_INFO
+  LOGGED_IN_USER_INFO,
+  INVALID_LOG_IN
 } from './types'
 
 export const createUser = (
@@ -112,7 +113,7 @@ export const login = (_email, _password, _role) => async dispatch => {
       }
     })
     .catch(err => {
-      console.error(err)
+      dispatch({ type: INVALID_LOG_IN, payload: true })
     })
 }
 
@@ -455,6 +456,9 @@ export const resetEnrolment = () => async dispatch => {
   dispatch({ type: ADD_MODULE_STATUS, payload: false })
 }
 
+export const resetLoginError = () => async dispatch => {
+  dispatch({ type: INVALID_LOG_IN, payload: false })
+}
 export const getLoggedInStudentInfo = () => async dispatch => {
   fetch('http://localhost:' + PORT_NUMBER + '/api/login', {
     method: 'GET'
