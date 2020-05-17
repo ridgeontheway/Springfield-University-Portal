@@ -17,6 +17,7 @@ class DashboardScreen extends Component {
     this.onSchoolStats = this.onSchoolStats.bind(this)
     this.onEditModules = this.onEditModules.bind(this)
     this.onAssignGrades = this.onAssignGrades.bind(this)
+    this.onMyInfo = this.onMyInfo.bind(this)
   }
 
   componentDidMount() {
@@ -52,6 +53,10 @@ class DashboardScreen extends Component {
     this.setState({ redirect: true, pathname: '/admin/assign-grades' })
   }
 
+  onMyInfo() {
+    this.setState({ redirect: true, pathname: '/my-info' })
+  }
+
   renderComponentsBasedOnState() {
     if (this.state.redirect) {
       return (
@@ -76,6 +81,8 @@ class DashboardScreen extends Component {
           assignGradesTest="Assign Grades"
           assignGradesOnClick={this.onAssignGrades}
           userRole={this.state.userRole}
+          myInfoText="My Account Information"
+          myInfoOnClick={this.onMyInfo}
         />
       )
     } else {

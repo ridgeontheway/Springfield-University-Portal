@@ -6,6 +6,7 @@ import Description from '../../components/description'
 import ModuleCard from '../../components/card/module'
 import ToastComponent from '../../components/toast'
 import DashboardButton from '../../components/dashboardButton'
+import * as actions from '../../actions'
 import '../styles.css'
 import './styles.css'
 class Screen extends Component {
@@ -37,9 +38,17 @@ class Screen extends Component {
         modules: props.modules
       }
     } else if (props.payment) {
-      return {
-        showUserPopUp: true,
-        toastText: props.payment
+      props.resetEnrolment()
+      if (props.payment === 'enrolled') {
+        return {
+          showUserPopUp: true,
+          toastText: props.payment
+        }
+      } else {
+        return {
+          showUserPopUp: true,
+          toastText: 'You have insufficient funds to enrol in this module'
+        }
       }
     }
     return null
@@ -133,4 +142,4 @@ Screen.propTypes = {
   processCourseInfo: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps)(Screen)
+export default connect(mapStateToProps, actions)(Screen)

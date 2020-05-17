@@ -20,7 +20,7 @@ class EditStudentModulesScreen extends Component {
   }
 
   componentDidMount() {
-    this.props.getAllModules()
+    this.props.getStaffModules()
   }
 
   static getDerivedStateFromProps(props, state) {
